@@ -47,7 +47,8 @@ Ce ne sont pas des fork directs car j'ai du ajouter/modifier 1 ou 2 méthodes da
 
 API Put.io & Betaseries
 -----------------------
-Pour fonctionner, le module a besoin d'un accès **API** **Put.io** et **Betaseries**.
+Pour fonctionner, le module a besoin d'un accès **API** **Put.io**.  
+Si vous avez un accès API **Betaseries**, vous pouvez également l'utiliser pour la recherche de sous-titres.  
 Les indications sont données dans le module d'installation.
 
 Trafic
@@ -72,9 +73,9 @@ TODO
 ----
 J'avais commencé à améliorer la partie Sous-titres pour que le module télécharge et dézip lui-même les sous-titres sur le serveur, puis lance le téléchargement sur la Freebox.  
 Cette partie est pour le moment commentée, il faut donc vous débrouiller pour envoyer les sous-titres sur le serveur.  
-Le téléchargement renommait le sous-titre de la façon suivante "[nom_serie] - [saison]x[episode] - [titre_episode].srt", le but étant de pouvoir faire de même pour la vidéo liée, histoire d'avoir tout de prêt sur la Freebox.
+Le téléchargement renommait le sous-titre de la façon suivante `[nom_serie] - [saison]x[episode] - [titre_episode].srt`, le but étant de pouvoir faire de même pour la vidéo liée, histoire d'avoir tout de prêt sur la Freebox.
 
-- Rendre le module Betaseries optionnel
+- ~~Rendre le module Betaseries optionnel~~
 - Lancer les recherches de Sous-titres Betaseries en manuel
 - Téléchargement automatique (temporaire) des sous-titres sur le serveur puis sur la Freebox
 - Nommage automatique des vidéos de séries comme les sous-titres
