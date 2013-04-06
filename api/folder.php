@@ -31,14 +31,14 @@
         }
     }
 
-    if (!($betaseries_id = $bs->getURL(strtolower($itemlist['parent']['name'])))) {
-        $betaseries_id = null;
-    }
 
     if (isset($_apifolder_html)) {
         echo $resultHTML;
     }
     else {
+        if (!isset($bs) || !($betaseries_id = $bs->getURL(strtolower($itemlist['parent']['name'])))) {
+            $betaseries_id = null;
+        }
         echo json_encode(array(
             'totalResults' => count($filesnames),
             'files' => $filesnames,

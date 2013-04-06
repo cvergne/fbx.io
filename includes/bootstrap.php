@@ -53,24 +53,24 @@
         define('PUTIO_OAUTHTOKEN', $_SESSION['putio_oauth_access_token']);
     }
 
-    // BETASERIES
-        /* const:
-            BETASERIES_APIKEY: clé api
-            BETASERIES_USER: utilisateur betaseries
-            BETASERIES_PASSWORD: mot de passe betaseries
-        */
-    define('BETASERIES_URL', 'http://api.betaseries.com');
-
     // DL FOLDER
     define('APP_DL_FOLDER', APP_ROOT.'temp/dl/');
 
     // Required libs
     require_once(APP_ROOT . 'includes/functions.php');
     require_once(APP_ROOT . 'includes/lib_freebox/Mafreebox.php');
-    require_once(APP_ROOT . 'includes/betaseries.php');
 
-    // BetaSeries init
-    $bs = new BetaSeries_Client(BETASERIES_URL, BETASERIES_APIKEY, BetaSeries_Client::JSON, BetaSeries_Client::LANGUAGE_VF);
+    // BETASERIES
+        /* const:
+            BETASERIES_APIKEY: clé api
+            BETASERIES_USER: utilisateur betaseries
+            BETASERIES_PASSWORD: mot de passe betaseries
+        */
+    if (defined('BETASERIES_APIKEY')) {
+        define('BETASERIES_URL', 'http://api.betaseries.com');
+        require_once(APP_ROOT . 'includes/betaseries.php');
+        $bs = new BetaSeries_Client(BETASERIES_URL, BETASERIES_APIKEY, BetaSeries_Client::JSON, BetaSeries_Client::LANGUAGE_VF);
+    }
     // Freebox init
     $fbx = new Mafreebox('http://' . FREEBOX_IP . '/', FREEBOX_USER, FREEBOX_PASSWORD);
 }

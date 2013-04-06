@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-span-6">
                 <div class="page-header">
-                    <h2>Téléchargements</h2>
+                    <h2>Téléchargements <small>— Freebox</small></h2>
                 </div>
                 <div class="page-content">
                     <div id="downloads">
@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-span-6">
                 <div class="page-header">
-                    <h2>Stockage <small>Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
+                    <h2>Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
                 </div>
                 <div class="page-content">
                     <div id="disks">
@@ -130,10 +130,12 @@
                 </div>
             </div>
             <div class="col-span-6">
-                <div class="page-header">
-                    <h2>Sous-titres</h2>
-                </div>
-                <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul></div>
+                <?php if (isset($bs)) { ?>
+                    <div class="page-header">
+                        <h2>Sous-titres <small>— Betaseries</small></h2>
+                    </div>
+                    <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul></div>
+                <?php } ?>
             </div>
         </div>
     </div>

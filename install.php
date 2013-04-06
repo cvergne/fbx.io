@@ -68,9 +68,6 @@
 
                 // API KEY
                 $preconfiguration['betaseries']['apikey'] = trim($_POST['betaseries']['apikey']);
-                if (empty($preconfiguration['betaseries']['apikey'])) {
-                    $errors['form_betaseries_apikey'] = "Indiquez votre clé API";
-                }
 
                 // USER
                 $preconfiguration['betaseries']['user'] = trim($_POST['betaseries']['user']);
@@ -238,6 +235,7 @@
                         <hr />
 
                         <h2>Betaseries</h2>
+                        <p class="intro">Ces champs sont à remplir uniquement si vous souhaitez utiliser la recherche de sous-titres et le nommage automatique des vidéos.</p>
 
                         <!-- betaseries:APIKEY -->
                         <div class="control-group">
@@ -248,7 +246,7 @@
                                 API Key
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_apikey" type="text" name="betaseries[apikey]" value="" />
+                                <input id="form_betaseries_apikey" type="text" name="betaseries[apikey]" value="" placeholder="facultatif" />
                             </div>
                         </div>
 
@@ -262,7 +260,7 @@
                                 Utilisateur
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_user" type="text" name="betaseries[user]" value="" placeholder="Facultatif" />
+                                <input id="form_betaseries_user" type="text" name="betaseries[user]" value="" placeholder="facultatif" />
                             </div>
                         </div>
 
@@ -272,7 +270,7 @@
                                 Mot de passe
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_password" type="password" name="betaseries[password]" value="" placeholder="Facultatif" />
+                                <input id="form_betaseries_password" type="password" name="betaseries[password]" value="" placeholder="facultatif" />
                             </div>
                         </div>
 
