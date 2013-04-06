@@ -17,11 +17,11 @@ Fonctionnalités
 ---------------
 Actuellement, le module permet :
 
-* De lancer le téléchargement d'un fichier distant (*en url http*) sur la **Freebox**, et d'en choisir le nom
+* De lancer le téléchargement d'un fichier distant ( *en url http* ) sur la **Freebox**, et d'en choisir le nom
 * De parcourir le compte **Put.io**, et de lancer un téléchargement vers la **Freebox**
 * De voir les téléchargements en cours et terminés, et leur état d'avancement en temps réel
 * De rechercher les sous-titres sur **Betaseries** d'un fichier **Put.io**, si celui-ci est dans un dossier portant le nom de la série
-* D'afficher la liste des périphériques de stockages connectés au **Freebox Server** (*y compris le disque interne*), et l'espace utilisé/disponible
+* D'afficher la liste des périphériques de stockages connectés au **Freebox Server** ( *y compris le disque interne* ), et l'espace utilisé/disponible
 
 Avertissement
 -----------------------
@@ -34,7 +34,7 @@ Ce module n'est pas sous license particulière, mais si vous forkez le projet po
 Configuration requise
 ---------------------
 Rien de compliqué : **Apache** et **PHP**.  
-Actuellement, le script a été testé sur une plate-forme **Linux** (*PHP 5.2.17*) et a été développée sous environnement **Mac** (*PHP 5.3.14*), et fonctionne très bien sur les deux.
+Actuellement, le script a été testé sur une plate-forme **Linux** ( *PHP 5.2.17* ) et a été développée sous environnement **Mac** ( *PHP 5.3.14* ), et fonctionne très bien sur les deux.
 
 Clients PHP
 -----------
