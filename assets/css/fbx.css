@@ -1,0 +1,71 @@
+body {
+    padding: 0 10px;
+}
+
+div.page-header {
+    padding: 0 5px;
+    margin-bottom: 10px;
+    background-color: #F0F0F0;
+    border-color: #CCC;
+}
+
+div.page-header + .page-content {
+    padding: 0 10px;
+}
+
+h2, h3, h4 {
+    margin: 0;
+    font-size: 2rem;
+}
+    h2 small {
+        font-size: 50%;
+    }
+
+.opacified {
+    opacity: 0.5;
+}
+
+.opacified + small {
+    font-size: 70%;
+}
+
+/*==========  SETUP  ==========*/
+body.setup {
+    color: #666;
+    font-size: 13px;
+}
+
+.setup h1 {
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.setup h2 {
+    padding: 5px;
+    margin: 10px 0;
+    background-color: #EEE;
+    color: #777;
+    font-size: inherit;
+    line-height: inherit;
+    border-bottom: 1px solid #777;
+}
+
+.setup .form-horizontal .control-label {
+    font-size: 13px;
+}
+    .setup .controls .help-block {
+        margin: 3px 0;
+        line-height: 110%;
+    }
+    .setup .controls .help-exclam {
+        color: #b94a48;
+    }
+
+    .setup .controls hr {
+        margin: -8px 0 10px 0;
+    }
+
+    .setup .remote_addr {
+        cursor: pointer;
+    }
