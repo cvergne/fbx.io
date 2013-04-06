@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule \.(ini)$ - [F,NC]
+    RewriteRule cookie\.(txt)$ - [F,NC]
+</IfModule>

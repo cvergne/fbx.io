@@ -1,6 +1,9 @@
 # Ignore configuration files
 *.ini
 
+# Ignore CURL Cookie file
+cookie.txt
+
 # Ignore subtitles downloads
 temp/dl/*
 
