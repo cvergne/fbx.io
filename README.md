@@ -74,8 +74,8 @@ J'avais commencé à améliorer la partie Sous-titres pour que le module téléc
 Cette partie est pour le moment commentée, il faut donc vous débrouiller pour envoyer les sous-titres sur le serveur.  
 Le téléchargement renommait le sous-titre de la façon suivante "[nom_serie] - [saison]x[episode] - [titre_episode].srt", le but étant de pouvoir faire de même pour la vidéo liée, histoire d'avoir tout de prêt sur la Freebox.
 
-- [ ] Rendre le module Betaseries optionnel
-- [ ] Lancer les recherches de Sous-titres Betaseries en manuel
-- [ ] Téléchargement automatique (temporaire) des sous-titres sur le serveur puis sur la Freebox
-- [ ] Nommage automatique des vidéos de séries comme les sous-titres
-- [ ] Script type "CRON" gérant les nouveaux téléchargements automatiquement
+- Rendre le module Betaseries optionnel
+- Lancer les recherches de Sous-titres Betaseries en manuel
+- Téléchargement automatique (temporaire) des sous-titres sur le serveur puis sur la Freebox
+- Nommage automatique des vidéos de séries comme les sous-titres
+- Script type "CRON" gérant les nouveaux téléchargements automatiquement
