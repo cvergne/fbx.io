@@ -36,7 +36,7 @@
         echo $resultHTML;
     }
     else {
-        if (!isset($bs) || !($betaseries_id = $bs->getURL(strtolower($itemlist['parent']['name'])))) {
+        if (!isset($bs) || (empty($itemlist['parent']['parent_id']) && $itemlist['parent']['parent_id'] !== 0) || !($betaseries_id = $bs->getURL(strtolower($itemlist['parent']['name'])))) {
             $betaseries_id = null;
         }
         echo json_encode(array(
