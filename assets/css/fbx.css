@@ -2,11 +2,65 @@ body {
     padding: 0 10px;
 }
 
+.glyphicon::before {
+    vertical-align: -10%;
+}
+
+/*==========  Navbar  ==========*/
+.navbar-brand,
+.navbar .nav > li > a {
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+    .settings, .settings:focus {
+        cursor: pointer;
+        outline: 0;
+        box-shadow: none;
+    }
+
+/*==========  Modal  ==========*/
+.modal-header {
+    padding: 4px 12px;
+
+    border-radius: 6px 6px 0 0;
+    background-color: #F9F9F9;
+}
+.modal-body {
+    padding: 15px 20px 0;
+}
+    .modal-body h6 {
+        display: inline-block;
+        margin: 5px 0 3px;
+        padding: 0px 5px;
+        background-color: #EEE;
+    }
+    .modal-body label {
+        color: #777;
+        font-weight: normal;
+        font-size: 80%;
+        margin: 0 7px;
+        cursor: pointer;
+    }
+        .modal-body label input {
+
+        }
+.modal-footer {
+    padding: 8px;
+}
+
+
+
+/*==========  Misc  ==========*/
+
+body > .container {
+}
+
 div.page-header {
     padding: 0 5px;
     margin-bottom: 10px;
     background-color: #F0F0F0;
     border-color: #CCC;
+    margin-top: 20px;
 }
 
 div.page-header + .page-content {
@@ -28,6 +82,37 @@ h2, h3, h4 {
 .opacified + small {
     font-size: 70%;
 }
+
+.manual_sub_search {
+    margin: -20px 0;
+    text-align: center;
+    color: #DDD;
+    display: none;
+    visibility: hidden;
+}
+.manual_sub_search.on { display: block; visibility: visible; }
+
+/*==========  DOWNLOADS  ==========*/
+.dl .remove {
+    color: #b94a48;
+    margin: -2px 0 0 5px;
+    padding: 3px 5px 0 4px;
+    border-radius: 2px;
+}
+.dl .remove:hover {
+    background-color: #b94a48;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.dl .remove.finished {
+    color: #5cb85c;
+}
+.dl .remove.finished:hover {
+    background-color: #5cb85c;
+    color: #FFF;
+}
+
 
 /*==========  SETUP  ==========*/
 body.setup {
@@ -64,6 +149,13 @@ body.setup {
     .setup .controls .help-block {
         margin: 3px 0;
         line-height: 110%;
+    }
+    .setup label.checkbox {
+        font-weight: normal;
+    }
+    .setup label .help-block {
+        font-weight: normal;
+        font-style: italic;
     }
     .setup .controls .help-exclam {
         color: #b94a48;

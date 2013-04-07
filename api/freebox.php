@@ -42,7 +42,7 @@ if (isset($_POST['downloads'])) {
 
             // Write
             $result .= '<div class="dl">
-                        <p><span class="label">' . $dl['name'] . '</span> <a href="#" class="remove pull-right" data-type="' . $dl['type'] . '" data-id="' . $dl['id'] . '"><i class="glyphicon glyphicon-trash"></i></a> <small class="muted pull-right">' . $speed . '</small></p>
+                        <p><span class="label">' . $dl['name'] . '</span> <a href="#" class="remove pull-right" data-type="' . $dl['type'] . '" data-id="' . $dl['id'] . '"><i class="glyphicon glyphicon-trash"></i></a> <small class="text-muted pull-right">' . $speed . '</small></p>
                         <div class="progress progress-striped active">
                             <div class="progress-bar' . $progressBarClass . '" style="width: ' . $current . '"><strong>' . $current . '</strong> <small class="opacified">( ' . convertFileSize($transferred) . ' Mo / ' . convertFileSize($total) . ' Mo )</small></div>
                         </div>
@@ -53,7 +53,7 @@ if (isset($_POST['downloads'])) {
                 $result .= '<hr />';
             }
             $result .= '<div class="dl">
-                        <p><span class="label">' . $dl['name'] . '</span> <a href="#" class="remove pull-right" data-type="' . $dl['type'] . '" data-id="' . $dl['id'] . '"><i class="glyphicon glyphicon-trash"></i></a></p>
+                        <p><span class="label">' . $dl['name'] . '</span> <a href="#" class="remove finished pull-right" data-type="' . $dl['type'] . '" data-id="' . $dl['id'] . '"><i class="glyphicon glyphicon-ok"></i></a></p>
                         <div class="progress progress-striped">
                             <div class="progress-bar progress-bar-success" style="width: 100%">Terminé</div>
                         </div>
@@ -68,9 +68,19 @@ if (isset($_POST['downloads'])) {
     ));
 }
 else if (isset($_POST['removeDownload'], $_POST['type'], $_POST['id'])) {
-    $fbx_resp = $fbx->download->remove($_POST['type'], $_POST['id']);
+    try {
+        $fbx_resp = $fbx->download->remove($_POST['type'], $_POST['id']);
+    }
+    catch(Exception $e) {
+        $fbx_resp = json_encode(array('error' => $e->getMessage()));
+    }
 
-    print_r($fbx_resp);
+    if (is_array($fbx_resp)) {
+        echo json_encode($fbx_resp);
+    }
+    else {
+        echo $fbx_resp;
+    }
 }
 else {
     if (isset($_POST['real_url']) && !empty($_POST['real_url'])) {

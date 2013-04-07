@@ -1,4 +1,9 @@
 <?php
+    function class_autoloader($classname) {
+        require_once(APP_ROOT.'includes/'.strtolower($classname).'.php');
+    }
+    spl_autoload_register('class_autoloader');
+
     function printr($n) {
         echo '<pre>';
         print_r($n);
