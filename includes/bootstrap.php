@@ -58,7 +58,6 @@
 
     // Required libs
     require_once(APP_ROOT . 'includes/functions.php');
-    require_once(APP_ROOT . 'includes/lib_freebox/Mafreebox.php');
 
     // BETASERIES
         /* const:
@@ -68,7 +67,6 @@
         */
     if (defined('BETASERIES_APIKEY')) {
         define('BETASERIES_URL', 'http://api.betaseries.com');
-        require_once(APP_ROOT . 'includes/betaseries.php');
         $bs = new BetaSeries_Client(BETASERIES_URL, BETASERIES_APIKEY, BetaSeries_Client::JSON, BetaSeries_Client::LANGUAGE_VF);
     }
     // Freebox init

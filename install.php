@@ -78,6 +78,14 @@
                     $preconfiguration['betaseries']['password'] = base64_encode($preconfiguration['betaseries']['password']);
                 }
 
+            // SETTINGS
+            $preconfiguration['settings'] = array();
+                if (isset($_POST['settings'])) {
+                    foreach ($_POST['settings'] as $key => $val) {
+                        $preconfiguration['settings'][$key] = $val;
+                    }
+                }
+
 
             // CREATE CONF
             if (count($errors) == 0) {
@@ -144,7 +152,7 @@
                             <div class="controls">
                                 <input id="form_freebox_user" type="text" name="freebox[user]" value="freebox" />
                                 <p class="help-block">
-                                    <small>Normalement inchangeable, mais au cas où</small>
+                                    <small class="text-muted">Normalement inchangeable, mais au cas où</small>
                                 </p>
                             </div>
                         </div>
@@ -157,7 +165,7 @@
                             <div class="controls">
                                 <input id="form_freebox_password" type="password" name="freebox[password]" value="" />
                                 <p class="help-block">
-                                    <small>Celui que vous avez défini pour accéder à la console <a href="http://mafreebox.freebox.fr/" target="_blank">http://mafreebox.freebox.fr</a></small>
+                                    <small class="text-muted">Celui que vous avez défini pour accéder à la console <a href="http://mafreebox.freebox.fr/" target="_blank">http://mafreebox.freebox.fr</a></small>
                                 </p>
                             </div>
                         </div>
@@ -184,7 +192,7 @@
                             <div class="controls">
                                 <input id="form_putio_password" type="password" name="putio[password]" value="" />
                                 <p class="help-block">
-                                    <small>Le nom d'utilisateur et le mot de passe sont utilisés pour que la Freebox puisse accéder aux téléchargements, celle-ci ne gérant pas pour le moment les téléchargements en https.</small>
+                                    <small class="text-muted">Le nom d'utilisateur et le mot de passe sont utilisés pour que la Freebox puisse accéder aux téléchargements, celle-ci ne gérant pas pour le moment les téléchargements en https.</small>
                                 </p>
                             </div>
                         </div>
@@ -227,7 +235,7 @@
                             <div class="controls">
                                 <input id="form_putio_oauthtoken" type="text" name="putio[oauthtoken]" value="" placeholder="Facultatif" />
                                 <p class="help-block">
-                                    <small>Vous évite de devoir vous reconnecter à chaque fois.</small>
+                                    <small class="text-muted">Vous évite de devoir vous reconnecter à chaque fois.</small>
                                 </p>
                             </div>
                         </div>
@@ -254,7 +262,7 @@
                         <div class="control-group">
                             <div class="controls">
                                 <hr/>
-                                <p class="help-block"><small>Les fonctions liées à votre compte ne sont pour le moment pas actives, ces informations sont donc pour le moment facultatives mais peuvent servir dans le futur</small></p>
+                                <p class="help-block"><small class="text-muted">Les fonctions liées à votre compte ne sont pour le moment pas actives, ces informations sont donc pour le moment facultatives mais peuvent servir dans le futur</small></p>
                             </div>
                             <label class="control-label" for="form_betaseries_user">
                                 Utilisateur
@@ -272,6 +280,22 @@
                             <div class="controls">
                                 <input id="form_betaseries_password" type="password" name="betaseries[password]" value="" placeholder="facultatif" />
                             </div>
+                        </div>
+
+                        <hr />
+
+                        <h2>Paramètres</h2>
+
+                        <div class="control-group">
+                            <label class="control-label">Sous-titres</label>
+                            <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" value="1" name="settings[subtitles_autosearch]" />
+                                Activer la recherche automatique de sous-titres
+                                <p class="help-block">
+                                    <small class="text-muted">Vous devez remplir les paramètres concernant Betaseries pour utiliser cette option</small>
+                                </p>
+                            </label>
                         </div>
 
                         <hr />
