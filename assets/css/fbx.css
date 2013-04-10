@@ -84,7 +84,7 @@ h2, h3, h4 {
 }
 
 .manual_sub_search {
-    margin: -20px 0;
+    margin: 10px 10px 0;
     text-align: center;
     color: #DDD;
     display: none;
@@ -168,3 +168,38 @@ body.setup {
     .setup .remote_addr {
         cursor: pointer;
     }
+
+/*==========  Max width 767px  ==========*/
+@media (max-width: 767px) {
+    .navbar-brand {
+        display: inline-block;
+    }
+    .navbar .nav {
+        margin: 0;
+    }
+        .navbar .nav > li {
+            display: inline-block;
+        }
+    h2 small {
+        display: block;
+        margin: -3px 0 5px;
+        line-height: 120%;
+        display: none;
+        visibility: hidden;
+    }
+    .control-group:first-of-type {
+        margin-bottom: 15px;
+    }
+
+    #files_list span {
+   -moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        word-wrap: break-word;
+        max-width: 85%;
+        vertical-align: middle;
+        margin-left: 3%;
+    }
+}
+
