@@ -1,6 +1,6 @@
-put.freebox.io
-==============
->Module de gestion de téléchargement Put.io &lt;> Freebox
+fbx.io
+======
+>Module de gestion de téléchargement Put.io &gt; Freebox
 
 À la base, ce module a été conçu dans un but personnel afin de pouvoir lancer le téléchargement d'un fichier présent sur **Put.io** dans la **Seedbox HTTP** de la **Freebox**.
 
