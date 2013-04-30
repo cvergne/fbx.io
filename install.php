@@ -132,7 +132,7 @@
                                 Adresse IP
                             </label>
                             <div class="controls">
-                                <input id="form_freebox_ip" type="text" name="freebox[ip]" value="" placeholder="Adresse IP distante de votre Freebox" />
+                                <input id="form_freebox_ip" type="text" name="freebox[ip]" value="" placeholder="Adresse IP distante de votre Freebox" autocorrect="off" autocapitalize="off" />
                                 <?php if ($_SERVER['REMOTE_ADDR'] != '127.0.0.1') { ?>
                                 <p class="help-block">
                                     <small><i class="glyphicon glyphicon-question-sign"></i> Cliquez sur <a class="remote_addr"><?php echo $_SERVER['REMOTE_ADDR']; ?></a> si vous êtes actuellement sur votre Freebox.</small>
@@ -150,7 +150,7 @@
                                 Utilisateur
                             </label>
                             <div class="controls">
-                                <input id="form_freebox_user" type="text" name="freebox[user]" value="freebox" />
+                                <input id="form_freebox_user" type="text" name="freebox[user]" value="freebox" autocapitalize="off" />
                                 <p class="help-block">
                                     <small class="text-muted">Normalement inchangeable, mais au cas où</small>
                                 </p>
@@ -163,7 +163,7 @@
                                 Mot de passe
                             </label>
                             <div class="controls">
-                                <input id="form_freebox_password" type="password" name="freebox[password]" value="" />
+                                <input id="form_freebox_password" type="password" name="freebox[password]" value="" autocorrect="off" autocapitalize="off" />
                                 <p class="help-block">
                                     <small class="text-muted">Celui que vous avez défini pour accéder à la console <a href="http://mafreebox.freebox.fr/" target="_blank">http://mafreebox.freebox.fr</a></small>
                                 </p>
@@ -180,7 +180,7 @@
                                 Utilisateur
                             </label>
                             <div class="controls">
-                                <input id="form_putio_user" type="text" name="putio[user]" value="" />
+                                <input id="form_putio_user" type="text" name="putio[user]" value="" autocapitalize="off" />
                             </div>
                         </div>
 
@@ -213,7 +213,7 @@
                                 Client ID
                             </label>
                             <div class="controls">
-                                <input id="form_putio_clientid" type="text" name="putio[appclientid]" value="" />
+                                <input id="form_putio_clientid" type="text" name="putio[appclientid]" value="" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 
@@ -223,7 +223,7 @@
                                 Application Secret
                             </label>
                             <div class="controls">
-                                <input id="form_putio_appsecret" type="text" name="putio[appsecret]" value="" />
+                                <input id="form_putio_appsecret" type="text" name="putio[appsecret]" value="" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 
@@ -233,7 +233,7 @@
                                 Oauth Token
                             </label>
                             <div class="controls">
-                                <input id="form_putio_oauthtoken" type="text" name="putio[oauthtoken]" value="" placeholder="Facultatif" />
+                                <input id="form_putio_oauthtoken" type="text" name="putio[oauthtoken]" value="" placeholder="Facultatif" autocorrect="off" autocapitalize="off" />
                                 <p class="help-block">
                                     <small class="text-muted">Vous évite de devoir vous reconnecter à chaque fois.</small>
                                 </p>
@@ -254,7 +254,7 @@
                                 API Key
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_apikey" type="text" name="betaseries[apikey]" value="" placeholder="facultatif" />
+                                <input id="form_betaseries_apikey" type="text" name="betaseries[apikey]" value="" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 
@@ -268,7 +268,7 @@
                                 Utilisateur
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_user" type="text" name="betaseries[user]" value="" placeholder="facultatif" />
+                                <input id="form_betaseries_user" type="text" name="betaseries[user]" value="" placeholder="facultatif" autocapitalize="off" />
                             </div>
                         </div>
 
@@ -278,7 +278,7 @@
                                 Mot de passe
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_password" type="password" name="betaseries[password]" value="" placeholder="facultatif" />
+                                <input id="form_betaseries_password" type="password" name="betaseries[password]" value="" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 

@@ -56,7 +56,7 @@
                                     URL
                                 </label>
                                 <div class="controls">
-                                    <input type="text" name="url" placeholder="Url de téléchargement" />
+                                    <input type="text" name="url" placeholder="Url de téléchargement" autocorrect="off" autocapitalize="off" />
                                 </div>
                             </div>
                             <div class="control-group">
@@ -64,7 +64,7 @@
                                     Nom du fichier
                                 </label>
                                 <div class="controls">
-                                    <input type="text" name="file" placeholder="exemple: Movie.mkv" />
+                                    <input type="text" name="file" placeholder="exemple: Movie.mkv" autocorrect="off" autocapitalize="off" />
                                 </div>
                             </div>
                             <div class="form-actions">
