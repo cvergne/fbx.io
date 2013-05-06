@@ -18,7 +18,12 @@ var app = {
         // Get current downloads
         app.getDownloads();
 
+        // Get files in Download folder
+        app.getFbxFiles();
+
         // Events
+        doc.on('click', '#target-freebox-fs a[data-path]', app.removeFbxFile);
+
         doc.on('click', 'a[data-type]', function(ev) {
             ev.preventDefault();
             var anchor = $(this);
@@ -59,6 +64,26 @@ var app = {
         });
 
         $('a.hasTooltip').tooltip();
+    },
+    getFbxFiles: function() {
+        $('#target-freebox-fs').load('./api.php?bridge=freebox_files');
+    },
+    removeFbxFile: function() {
+        if (confirm('Supprimer DÉFINITIVEMENT ce fichier ? (action irréversible)')) {
+            var anchor = $(this);
+            $.ajax({
+                method: 'post',
+                url: './api.php?bridge=freebox_files',
+                data: {
+                    'rm': true,
+                    'path': anchor.data('path')
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $('#target-freebox-fs').html(data);
+                }
+            });
+        }
     },
     getFiles: function(type, data, target) {
         $.ajax({
@@ -120,6 +145,9 @@ var app = {
                 }
             }
         });
+    },
+    removeAllDownloads: function() {
+        $.each($('#downloads a.finished[data-id]'), app.removeDownload);
     },
     removeDownload: function() {
         var anchor = $(this);

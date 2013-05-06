@@ -113,6 +113,46 @@ h2, h3, h4 {
     color: #FFF;
 }
 
+/*==========  FILES  ==========*/
+.table-fs thead{
+    font-size: 90%
+}
+.table-fs tbody{
+    font-size: 85%;
+}
+    .table-fs .table-fs-mimetype{
+        color: #BBB;
+        font-size: 80%;
+    }
+    .table-fs .table-fs-size {
+        font-size: 90%;
+        font-weight: bold;
+        color: #888;
+    }
+    .table-fs .table-fs-remove {
+        padding-left: 0;
+        padding-right: 0;
+    }
+        .table-fs .table-fs-remove a {
+            cursor: pointer;
+            display: block;
+            font-weight: bold;
+            font-size: 17px;
+            vertical-align: top;
+            color: #D9534F;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 17px;
+        }
+        .table-fs .table-fs-remove a:hover,
+        .table-fs .table-fs-remove a:focus,
+        .table-fs .table-fs-remove a:active {
+            text-decoration: none;
+            background-color: #D9534F;
+            color: #FFF;
+        }
+
 
 /*==========  SETUP  ==========*/
 body.setup {

@@ -44,19 +44,37 @@
     }
 
     function convertFileSize($bytes, $to='mo') {
-        switch($to)
-        {
-            case 'ko':
-                    return round(($bytes / 1024), 2);
-                break;
+        if ($to) {
+            switch($to)
+            {
+                case 'ko':
+                        return round(($bytes / 1024), 2);
+                    break;
 
-            case 'mo':
-                    return round(($bytes / 1024)/1024, 2);
-                break;
+                case 'mo':
+                        return round(($bytes / 1024)/1024, 2);
+                    break;
 
-            case 'go':
-                    return round(($bytes / 1024)/1024/1024, 2);
-                break;
+                case 'go':
+                        return round(($bytes / 1024)/1024/1024, 2);
+                    break;
+            }
+        }
+        else {
+            $fs = round(($bytes / 1024), 2);
+            $unit = 'ko';
+            if ($fs >= 1024) {
+                $fs = round(($bytes / 1024) / 1024, 2);
+                $unit = 'mo';
+                if ($fs >= 1024) {
+                    $fs = round(($bytes / 1024) / 1024 / 1024, 2);
+                    $unit = 'go';
+                }
+            }
+            return array(
+                'size' => $fs,
+                'unit' => $unit
+            );
         }
     }
 
