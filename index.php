@@ -111,7 +111,7 @@
                                         }
 
 
-                                    if ($size_calc > 0) {
+                                    if ($used_hdd_display > 0) {
                                         echo '<div class="disk">';
                                             echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part['label'] . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
                                             echo '<div class="progress"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
@@ -156,6 +156,16 @@
                     </div>
                     <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul></div>
                 <?php } ?>
+            </div>
+            <div class="col-span-6">
+                <?php
+                    $dl_folder = $fbx->download->config_get();
+                    $dl_folder = utf8_decode($dl_folder['download_dir']);
+                ?>
+                <div class="page-header">
+                    <h2>Freebox NAS <small>— <?php echo $dl_folder; ?></small></h2>
+                </div>
+                <div id="target-freebox-fs"></div>
             </div>
         </div>
     </div>

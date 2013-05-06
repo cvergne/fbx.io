@@ -22,18 +22,19 @@ Actuellement, le module permet :
 * De voir les téléchargements en cours et terminés, et leur état d'avancement en temps réel
 * De rechercher les sous-titres sur **Betaseries** d'un fichier **Put.io**, si celui-ci est dans un dossier portant le nom de la série
 * D'afficher la liste des périphériques de stockages connectés au **Freebox Server** ( *y compris le disque interne* ), et l'espace utilisé/disponible
+* D'afficher la liste des fichiers/dossiers présents dans le dossier de Téléchargement (et de les supprimer)
 
 Avertissement
 -----------------------
-Ce module est expérimental, vous l'utilisez donc de votre plein gré en sachant qu'il peut ne pas fonctionner à 100%.  
-Celui-ci stocke votre configuration sur votre serveur, dans un fichier.  
+Ce module est expérimental, vous l'utilisez donc de votre plein gré en sachant qu'il peut ne pas fonctionner à 100%.
+Celui-ci stocke votre configuration sur votre serveur, dans un fichier.
 Vous pouvez copier l'installation un peu partout, le fichier de configuration dépend de l'url d'appel du module. Si le fichier n'est pas trouvé, vous passerez automatiquement par le module d'installation.
 
 Ce module n'est pas sous license particulière, mais si vous forkez le projet pour le modifier de votre côté, et que certaines de vos modifications peuvent servir à d'autres, n'hésitez pas à les soumettre ;)
 
 Configuration requise
 ---------------------
-Rien de compliqué : **Apache** et **PHP**.  
+Rien de compliqué : **Apache** et **PHP**.
 Actuellement, le script a été testé sur une plate-forme **Linux** ( *PHP 5.2.17* ) et a été développée sous environnement **Mac** ( *PHP 5.3.14* ), et fonctionne très bien sur les deux.
 
 Clients PHP
@@ -47,8 +48,8 @@ Ce ne sont pas des fork directs car j'ai du ajouter/modifier 1 ou 2 méthodes da
 
 API Put.io & Betaseries
 -----------------------
-Pour fonctionner, le module a besoin d'un accès **API** **Put.io**.  
-Si vous avez un accès API **Betaseries**, vous pouvez également l'utiliser pour la recherche de sous-titres.  
+Pour fonctionner, le module a besoin d'un accès **API** **Put.io**.
+Si vous avez un accès API **Betaseries**, vous pouvez également l'utiliser pour la recherche de sous-titres.
 Les indications sont données dans le module d'installation.
 
 Trafic
@@ -57,7 +58,7 @@ En théorie, vous n'avez pas trop à vous soucier du nombre de requêtes effectu
 
 Pour ce qui est de **Put.io**, les appels sont fait à chaque fois que vous cliquez sur un dossier (ou un retour au dossier parent).
 
-Enfin, pour **Betaseries** il y a d'avantages d'appels effectués puisque celui-ci va à la fois chercher l'url de la série correspondante à votre dossier Put.io, puis vérifier l'existence de sous-titres pour chacun des fichiers présents dans le dossier. C'est assez minime dans le cadre d'un usage personnel, mais ça peut vite monter si vous utilisez le module constamment.  
+Enfin, pour **Betaseries** il y a d'avantages d'appels effectués puisque celui-ci va à la fois chercher l'url de la série correspondante à votre dossier Put.io, puis vérifier l'existence de sous-titres pour chacun des fichiers présents dans le dossier. C'est assez minime dans le cadre d'un usage personnel, mais ça peut vite monter si vous utilisez le module constamment.
 ***Il y a encore du travail à faire à ce niveau, pour réduire les requêtes, voir les lancer sur demande depuis un dossier, quand on le souhaite et non automatiquement.***
 
 
@@ -71,8 +72,8 @@ Pour l'installer, rien de plus simple, soit vous télécharger le contenu de ce 
 
 TODO
 ----
-J'avais commencé à améliorer la partie Sous-titres pour que le module télécharge et dézip lui-même les sous-titres sur le serveur, puis lance le téléchargement sur la Freebox.  
-Cette partie est pour le moment commentée, il faut donc vous débrouiller pour envoyer les sous-titres sur le serveur.  
+J'avais commencé à améliorer la partie Sous-titres pour que le module télécharge et dézip lui-même les sous-titres sur le serveur, puis lance le téléchargement sur la Freebox.
+Cette partie est pour le moment commentée, il faut donc vous débrouiller pour envoyer les sous-titres sur le serveur.
 Le téléchargement renommait le sous-titre de la façon suivante `[nom_serie] - [saison]x[episode] - [titre_episode].srt`, le but étant de pouvoir faire de même pour la vidéo liée, histoire d'avoir tout de prêt sur la Freebox.
 
 - ~~Rendre le module Betaseries optionnel~~
