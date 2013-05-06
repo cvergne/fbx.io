@@ -26,12 +26,8 @@ if (isset($_POST['downloads'])) {
             // Speed
             $speed = '';
             if ($dl['rx_rate'] > 0) {
-                if (($speed = convertFileSize($dl['rx_rate'])) < 1) {
-                    $speed = convertFileSize($dl['rx_rate'], 'ko') . ' Ko/s';
-                }
-                else {
-                    $speed .= ' Mo/s';
-                }
+                $speed = convertFileSize($dl['rx_rate'], false);
+                $speed = $speed['size'] . '&nbsp;' . ucfirst($speed['unit']) . '/s';
             }
 
             // Progress style
@@ -41,10 +37,13 @@ if (isset($_POST['downloads'])) {
             }
 
             // Write
+                // Sizes
+                $_size_transferred = convertFileSize($transferred, false);
+                $_size_total = convertFileSize($total, false);
             $result .= '<div class="dl">
                         <p><span class="label">' . $dl['name'] . '</span> <a href="#" class="remove pull-right" data-type="' . $dl['type'] . '" data-id="' . $dl['id'] . '"><i class="glyphicon glyphicon-trash"></i></a> <small class="text-muted pull-right">' . $speed . '</small></p>
                         <div class="progress progress-striped active">
-                            <div class="progress-bar' . $progressBarClass . '" style="width: ' . $current . '"><strong>' . $current . '</strong> <small class="opacified">( ' . convertFileSize($transferred) . ' Mo / ' . convertFileSize($total) . ' Mo )</small></div>
+                            <div class="progress-bar' . $progressBarClass . '" style="width: ' . $current . '"><strong>' . $current . '</strong> <small class="opacified">( ' . $_size_transferred['size'] . ' ' . ucfirst($_size_transferred['unit']) . ' / ' . $_size_total['size'] . ' ' . $_size_total['unit'] . ' )</small></div>
                         </div>
                     </div>';
         }
