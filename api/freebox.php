@@ -3,12 +3,15 @@ if (isset($_POST['downloads'])) {
     $fbx_resp = $fbx->download->_list();
 
     $totalCount = count($fbx_resp);
+    $runningCount = 0;
+    $finishedCount = 0;
     $result = '';
     $running = false;
 
     foreach ($fbx_resp as $dl) {
         if (in_array($dl['status'], array('running', 'paused'))) {
             $running = true;
+            $runningCount++;
 
             // Progress
             $total = $dl['size'];
@@ -48,6 +51,7 @@ if (isset($_POST['downloads'])) {
                     </div>';
         }
         else {
+            $finishedCount++;
             if (!empty($result)) {
                 $result .= '<hr />';
             }
@@ -63,6 +67,8 @@ if (isset($_POST['downloads'])) {
     echo json_encode(array(
         'running' => $running,
         'totalResults' => $totalCount,
+        'finishedCount' => $finishedCount,
+        'runningCount' => $runningCount,
         'resultHTML' => $result
     ));
 }

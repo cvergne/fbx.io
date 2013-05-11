@@ -92,6 +92,12 @@ h2, h3, h4 {
 }
 .manual_sub_search.on { display: block; visibility: visible; }
 
+.titleico {
+    color: #CCC;
+    font-size: 80%;
+    margin: 0 3px 0 7px;
+}
+
 /*==========  DOWNLOADS  ==========*/
 .dl .remove {
     color: #b94a48;
@@ -99,19 +105,58 @@ h2, h3, h4 {
     padding: 3px 5px 0 4px;
     border-radius: 2px;
 }
-.dl .remove:hover {
+.dl .remove:hover,
+.dl .remove:active,
+.dl .remove:focus {
     background-color: #b94a48;
     color: #FFF;
     text-decoration: none;
 }
 
-.dl .remove.finished {
+.dl .remove.finished,
+h2 .remove.finished {
     color: #5cb85c;
+    text-decoration: none;
+    border-radius: 2px;
 }
-.dl .remove.finished:hover {
+h2 .remove.finished {
+    display: none;
+    visibility: hidden;
+    margin: 10px 5px 0 0;
+    font-size: 14px;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+h2 .remove.finished.active {
+    display: block;
+    visibility: visible;
+}
+.dl .remove.finished:hover,
+.dl .remove.finished:active,
+.dl .remove.finished:focus,
+h2 .remove.finished:hover,
+h2 .remove.finished:active,
+h2 .remove.finished:focus {
     background-color: #5cb85c;
     color: #FFF;
 }
+
+#addDownloadSection .accordion-toggle {
+    font-weight: bold;
+    text-decoration: none;
+}
+#addDownloadForm .control-group:first-child {
+    margin-top: 10px;
+}
+#addDownloadForm .control-group {
+    padding-right: 10px;
+}
+    #addDownloadForm .form-actions {
+        margin-bottom: 0;
+    }
 
 /*==========  FILES  ==========*/
 .table-fs thead{

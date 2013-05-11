@@ -32,7 +32,7 @@
         <div class="row">
             <div class="col-span-6">
                 <div class="page-header">
-                    <h2>Téléchargements <small>— Freebox</small></h2>
+                    <h2><i class="titleico glyphicon glyphicon-tasks"></i> Téléchargements <small>— Freebox</small> <a id="remove_all_downloads" href="#" class="remove finished pull-right"><i class="glyphicon glyphicon-ok"></i></a></h2>
                 </div>
                 <div class="page-content">
                     <div id="downloads">
@@ -50,36 +50,44 @@
                     <form id="form_freebox_adddownload" class="form-horizontal">
                         <input type="hidden" name="real_url" />
                         <fieldset>
-                            <h6>Ajouter un téléchargement</h6>
-                            <div class="control-group">
-                                <label class="control-label">
-                                    URL
-                                </label>
-                                <div class="controls">
-                                    <input type="text" name="url" placeholder="Url de téléchargement" autocorrect="off" autocapitalize="off" />
+                            <div class="accordion" id="addDownloadSection">
+                                <div class="accordion-group">
+                                    <div class="accordion-heading">
+                                        <a class="accordion-toggle text-danger" data-toggle="collapse" data-parent="#addDownloadSection" href="#addDownloadForm"><i class="glyphicon glyphicon-plus"></i> Ajouter un téléchargement</a>
+                                    </div>
+                                    <div id="addDownloadForm" class="accordion-body collapse">
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                URL
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" name="url" placeholder="Url de téléchargement" autocorrect="off" autocapitalize="off" />
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Nom du fichier
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text" name="file" placeholder="exemple: Movie.mkv" autocorrect="off" autocapitalize="off" />
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="reset" class="btn">
+                                                Reset
+                                            </button>
+                                            <button type="submit" class="btn btn-primary pull-right">
+                                                Envoyer
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">
-                                    Nom du fichier
-                                </label>
-                                <div class="controls">
-                                    <input type="text" name="file" placeholder="exemple: Movie.mkv" autocorrect="off" autocapitalize="off" />
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <button type="reset" class="btn">
-                                    Reset
-                                </button>
-                                <button type="submit" class="btn btn-primary pull-right">
-                                    Envoyer
-                                </button>
                             </div>
                         </fieldset>
                     </form>
                 </div>
                 <div class="page-header">
-                    <h2>Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
+                    <h2><i class="titleico glyphicon glyphicon-hdd"></i> Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
                 </div>
                 <div class="page-content">
                     <div id="disks">
@@ -127,7 +135,7 @@
         <div class="row">
             <div class="col-span-6">
                 <div class="page-header">
-                    <h2>Fichiers <small>— Put.io</small></h2>
+                    <h2><i class="titleico glyphicon glyphicon-file"></i> Fichiers <small>— Put.io</small></h2>
                 </div>
                 <div class="well">
                     <ul id="files_list" class="nav nav-list">
@@ -138,8 +146,6 @@
                     </ul>
                 </div>
 
-            </div>
-            <div class="col-span-6">
                 <?php if (isset($bs)) {
                         $settings_subtitles_autosearchCheck = '';
                         $manual_sub_searchClass = ' on';
@@ -152,18 +158,17 @@
                         <div class="pull-right manual_sub_search<?php echo $manual_sub_searchClass; ?>">
                             <button type="button" class="btn btn-mini btn-danger" disabled="disabled">Recherche les sous-titres</button><br />
                         </div>
-                        <h2>Sous-titres <small>— Betaseries</small></h2>
+                        <h2><i class="titleico glyphicon glyphicon-align-center"></i> Sous-titres <small>— Betaseries</small></h2>
                     </div>
                     <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul></div>
                 <?php } ?>
-            </div>
-            <div class="col-span-6">
+
                 <?php
                     $dl_folder = $fbx->download->config_get();
                     $dl_folder = utf8_decode($dl_folder['download_dir']);
                 ?>
                 <div class="page-header">
-                    <h2>Freebox NAS <small>— <?php echo $dl_folder; ?></small></h2>
+                    <h2><i class="titleico glyphicon glyphicon-download"></i> Freebox NAS <small>— <?php echo $dl_folder; ?></small></h2>
                 </div>
                 <div id="target-freebox-fs"></div>
             </div>

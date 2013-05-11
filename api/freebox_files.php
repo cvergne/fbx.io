@@ -29,20 +29,25 @@
     <tbody>
         <?php
             if ($fb_disks) {
-                foreach ($fb_disks as $file) {
-                    if (substr($file['name'], 0, 1) != '.') {
-                        $size = convertFileSize($file['size'], false);
-                        echo '<tr>
-                                <td class="table-fs-filename"><code>' . utf8_decode($file['name']) . '</code></td>
-                                <td class="table-fs-mimetype">' . utf8_decode($file['mimetype']) . '</td>
-                                <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
-                                <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['name']) . '">&times;</a></td>
-                            </tr>';
+                    $nb_files = 0;
+                    foreach ($fb_disks as $file) {
+                        if (substr($file['name'], 0, 1) != '.') {
+                            $size = convertFileSize($file['size'], false);
+                            echo '<tr>
+                                    <td class="table-fs-filename"><code>' . utf8_decode($file['name']) . '</code></td>
+                                    <td class="table-fs-mimetype">' . utf8_decode($file['mimetype']) . '</td>
+                                    <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
+                                    <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['name']) . '">&times;</a></td>
+                                </tr>';
+                            $nb_files++;
+                        }
                     }
-                }
+                    if ($nb_files == 0) {
+                        echo '<tr><td colspan="4" class="alert alert-info text-center"><strong><em>Aucun fichier</em></strong></td></tr>';
+                    }
             }
             else {
-                echo '<tr><td colspan="3" class="alert alert-error"><strong>Une erreur est survenue</strong></td></tr>';
+                echo '<tr><td colspan="4" class="alert alert-error"><strong>Une erreur est survenue</strong></td></tr>';
             }
         ?>
     </tbody>

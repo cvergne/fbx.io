@@ -33,13 +33,14 @@ var app = {
                 $('input[name=url]').val(anchor.data('nice_url')).prop('readonly', true);
                 $('input[name=file]').val(anchor.text());
                 $(window).scrollTop($('form legend').scrollTop());
+                $('#addDownloadForm').collapse('show');
             }
             else if (type == 'folder') {
                 app.getFiles(type, {'parent_id': anchor.data('folder_id')}, $('#files_list'));
             }
         });
 
-
+        doc.on('click', '#remove_all_downloads', app.removeAllDownloads);
         doc.on('click', 'a.remove[data-type][data-id]', app.removeDownload);
         doc.on('click', '#subs_list a', app.downloadFile);
         doc.on('reset', 'form', function(){
@@ -121,6 +122,7 @@ var app = {
                 $('#log').show().html('Téléchargement lancé');
                 $('form')[0].reset();
                 app.getDownloads();
+                $('#addDownloadForm').collapse('hide');
             }
         });
     },
@@ -133,6 +135,12 @@ var app = {
             },
             dataType: 'JSON',
             success: function(data) {
+                if (data.finishedResults > 0) {
+                    $('#remove_all_downloads').addClass('active');
+                }
+                else {
+                    $('#remove_all_downloads').removeClass('active');
+                }
                 if (data.totalResults > 0) {
                     app._downloads.html(data.resultHTML);
                     if (data.running) {
@@ -146,7 +154,8 @@ var app = {
             }
         });
     },
-    removeAllDownloads: function() {
+    removeAllDownloads: function(ev) {
+        ev.stop();
         $.each($('#downloads a.finished[data-id]'), app.removeDownload);
     },
     removeDownload: function() {
