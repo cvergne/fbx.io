@@ -43,7 +43,7 @@
                         }
                     }
                     if ($nb_files == 0) {
-                        echo '<tr><td colspan="4" class="alert alert-info text-center"><strong><em>Aucun fichier</em></strong></td></tr>';
+                        echo '<tr><td colspan="4" class="text-center text-muted"><em>Aucun fichier dans le dossier</em></td></tr>';
                     }
             }
             else {

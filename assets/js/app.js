@@ -149,7 +149,7 @@ var app = {
                     }
                 }
                 else {
-                    app._downloads.html('<p class="muted">Aucun téléchargement en cours ou terminé.</p>');
+                    app._downloads.html('<p class="text-muted text-center"><small>Aucun téléchargement en cours ou terminé.</small></p>');
                 }
             }
         });

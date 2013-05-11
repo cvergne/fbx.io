@@ -152,13 +152,20 @@ h2 .remove.finished:focus {
     margin-top: 10px;
 }
 #addDownloadForm .control-group {
-    padding-right: 10px;
+    padding: 0 10px;
 }
     #addDownloadForm .form-actions {
         margin-bottom: 0;
     }
 
 /*==========  FILES  ==========*/
+.putio .putio_space {
+    margin-top: 5px;
+    border-top: 2px solid #EEE;
+}
+.putio .progress {
+    margin: 15px 0 0 0;
+}
 .table-fs thead{
     font-size: 90%
 }

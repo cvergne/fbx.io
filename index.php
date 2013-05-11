@@ -9,7 +9,19 @@
 <head>
     <meta charset="utf-8" />
     <title>fbx.io</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+
+    <!-- Mobile part -->
+    <meta name="viewport" content="width=320.1, initial-scale=1.0" />
+
+    <!-- iOS Part -->
+    <meta name="apple-mobile-web-app-title" content="fbx.io" />
+    <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link href="./assets/img/apple-touch-start-640x1096.png" media="(device-height: 568px)" rel="apple-touch-startup-image" />
+    <link href="./assets/img/apple-touch-start-640x920.png" sizes="640x920" media="(device-height: 480px)" rel="apple-touch-startup-image" />
+
+
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/fbx.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -27,7 +39,7 @@
                     <a class="settings hasTooltip" title="Paramètres" data-placement="bottom" href="#modal_settings" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cog"></i></a>
                 </li>
             </ul>
-            <a class="navbar-brand">fbx.io</a>
+            <a class="navbar-brand"><img src="./assets/img/icon.png" width="16" height="16" /> fbx.io</a>
         </div>
         <div class="row">
             <div class="col-span-6">
@@ -36,7 +48,7 @@
                 </div>
                 <div class="page-content">
                     <div id="downloads">
-                        <p class="text-muted">Aucun téléchargement en cours ou terminé.</p>
+                        <p class="text-muted text-center"><small><em>Chargement en cours</em></small></p>
                         <!-- Current downloads goes here -->
                         <!-- <div class="dl">
                             <p><span class="label">Glee.mkv</span></p>
@@ -87,6 +99,62 @@
                     </form>
                 </div>
                 <div class="page-header">
+                    <h2><i class="titleico glyphicon glyphicon-file"></i> Fichiers <small>— Put.io</small></h2>
+                </div>
+                <div class="putio well">
+                    <ul id="files_list" class="nav nav-list">
+                    <?php
+                        $_apifolder_html = true;
+                        require_once(APP_ROOT.'api/folder.php');
+                    ?>
+                    </ul>
+                    <div class="putio_space">
+                        <?php
+                            // Put.io infos
+                            if (isset($_SESSION['oauth_code'], $_SESSION['putio_oauth_access_token'])) {
+                                $_putio = _get(PUTIO_API_URL . '/account/info?oauth_token=' . PUTIO_OAUTHTOKEN);
+                                $free_hdd_p = 100 / ($_putio['info']['disk']['size'] / $_putio['info']['disk']['avail']);
+                                $used_hdd_p = 100 - $free_hdd_p;
+                                $used_hdd_display = convertFileSize($_putio['info']['disk']['avail'], false);
+                                $total_display = $used_hdd_display['size'] . ' ' . ucfirst($used_hdd_display['unit']) . ' ' . (($free_hdd_p > 1) ? 'disponibles' : 'disponible');
+
+                                $hdd_progress_class = '';
+                                if ($free_hdd_p >= 30) {
+                                    $hdd_progress_class = ' progress-bar-success';
+                                }
+                                else if ($free_hdd_p >= 15) {
+                                    $hdd_progress_class = ' progress-bar-warning';
+                                }
+                                else if ($free_hdd_p >= 5) {
+                                    $hdd_progress_class = ' progress-bar-danger';
+                                }
+                                if ($_putio['status'] == 'OK') {
+                                    echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width: ' . $used_hdd_p . '%;">' . $total_display . '</div></div>';
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+
+                <?php if (isset($bs)) {
+                        $settings_subtitles_autosearchCheck = '';
+                        $manual_sub_searchClass = ' on';
+                        if (defined('SETTINGS_SUBTITLES_AUTOSEARCH') && SETTINGS_SUBTITLES_AUTOSEARCH == '1') {
+                            $settings_subtitles_autosearchCheck = ' checked="checked"';
+                            $manual_sub_searchClass = '';
+                        }
+                    ?>
+                    <div class="page-header">
+                        <div class="pull-right manual_sub_search<?php echo $manual_sub_searchClass; ?>">
+                            <button type="button" class="btn btn-mini btn-danger" disabled="disabled">Recherche les sous-titres</button><br />
+                        </div>
+                        <h2><i class="titleico glyphicon glyphicon-align-center"></i> Sous-titres <small>— Betaseries</small></h2>
+                    </div>
+                    <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul></div>
+                <?php } ?>
+            </div>
+            <div class="col-span-6">
+                <div class="page-header">
                     <h2><i class="titleico glyphicon glyphicon-hdd"></i> Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
                 </div>
                 <div class="page-content">
@@ -122,7 +190,7 @@
                                     if ($used_hdd_display > 0) {
                                         echo '<div class="disk">';
                                             echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part['label'] . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
-                                            echo '<div class="progress"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
+                                            echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
                                         echo '</div>';
                                     }
                                 }
@@ -131,38 +199,6 @@
                         ?>
                     </div>
                 </div>
-            </div>
-        <div class="row">
-            <div class="col-span-6">
-                <div class="page-header">
-                    <h2><i class="titleico glyphicon glyphicon-file"></i> Fichiers <small>— Put.io</small></h2>
-                </div>
-                <div class="well">
-                    <ul id="files_list" class="nav nav-list">
-                    <?php
-                        $_apifolder_html = true;
-                        require_once(APP_ROOT.'api/folder.php');
-                    ?>
-                    </ul>
-                </div>
-
-                <?php if (isset($bs)) {
-                        $settings_subtitles_autosearchCheck = '';
-                        $manual_sub_searchClass = ' on';
-                        if (defined('SETTINGS_SUBTITLES_AUTOSEARCH') && SETTINGS_SUBTITLES_AUTOSEARCH == '1') {
-                            $settings_subtitles_autosearchCheck = ' checked="checked"';
-                            $manual_sub_searchClass = '';
-                        }
-                    ?>
-                    <div class="page-header">
-                        <div class="pull-right manual_sub_search<?php echo $manual_sub_searchClass; ?>">
-                            <button type="button" class="btn btn-mini btn-danger" disabled="disabled">Recherche les sous-titres</button><br />
-                        </div>
-                        <h2><i class="titleico glyphicon glyphicon-align-center"></i> Sous-titres <small>— Betaseries</small></h2>
-                    </div>
-                    <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul></div>
-                <?php } ?>
-
                 <?php
                     $dl_folder = $fbx->download->config_get();
                     $dl_folder = utf8_decode($dl_folder['download_dir']);

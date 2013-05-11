@@ -47,7 +47,7 @@
             PUTIO_OAUTHTOKEN: oauth token
         */
     define('PUTIO_APP_CALLBACKURL_ENC', urlencode($callbackuri));
-    define('PUTIO_API_URL', 'http://s01.put.io/v2');
+    define('PUTIO_API_URL', 'https://api.put.io/v2');
     define('PUTIO_DOWNLOAD_URL', 'http://' . PUTIO_USER . ':' . PUTIO_PASSWORD . '@put.io/v2');
     if (isset($_SESSION['putio_oauth_access_token']) && !defined('PUTIO_OAUTHTOKEN')) {
         define('PUTIO_OAUTHTOKEN', $_SESSION['putio_oauth_access_token']);
