@@ -147,6 +147,7 @@ h2 .remove.finished:focus {
 #addDownloadSection .accordion-toggle {
     font-weight: bold;
     text-decoration: none;
+    background-color: #f9f2f4;
 }
 #addDownloadForm .control-group:first-child {
     margin-top: 10px;

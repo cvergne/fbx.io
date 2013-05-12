@@ -36,7 +36,7 @@
                     <a href="./install.php" class="hasTooltip" data-placement="bottom" title="Recommencer l'installation"><i class="glyphicon glyphicon-fire"></i></a>
                 </li>
                 <li>
-                    <a class="settings hasTooltip" title="Paramètres" data-placement="bottom" href="#modal_settings" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cog"></i></a>
+                    <a class="settings hasTooltip" title="Options" data-placement="bottom" href="#modal_settings" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cog"></i></a>
                 </li>
             </ul>
             <a class="navbar-brand"><img src="./assets/img/icon.png" width="16" height="16" /> fbx.io</a>
@@ -193,7 +193,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>Paramètres</h3>
+                    <h3>Options</h3>
                 </div>
                 <form id="form_settings" method="post" action="./api.php?bridge=settings">
                     <div class="modal-body">
