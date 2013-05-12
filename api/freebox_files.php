@@ -21,7 +21,6 @@
     <thead>
         <tr>
             <th>Nom</th>
-            <th>Type</th>
             <th>Poids</th>
             <th></th>
         </tr>
@@ -35,7 +34,6 @@
                             $size = convertFileSize($file['size'], false);
                             echo '<tr>
                                     <td class="table-fs-filename"><code>' . utf8_decode($file['name']) . '</code></td>
-                                    <td class="table-fs-mimetype">' . utf8_decode($file['mimetype']) . '</td>
                                     <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
                                     <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['name']) . '">&times;</a></td>
                                 </tr>';

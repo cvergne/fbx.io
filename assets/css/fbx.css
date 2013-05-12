@@ -98,6 +98,14 @@ h2, h3, h4 {
     margin: 0 3px 0 7px;
 }
 
+.alert-noclose {
+    padding-right: 14px;
+}
+.alert-info .nav > li > a:hover,
+.alert-info .nav > li > a:focus {
+    background-color: #F4FBFF;
+}
+
 /*==========  DOWNLOADS  ==========*/
 .dl .remove {
     color: #b94a48;
@@ -160,6 +168,10 @@ h2 .remove.finished:focus {
     }
 
 /*==========  FILES  ==========*/
+    .putio.alert .nav > li > a:hover,
+    .putio.alert .nav > li > a:focus {
+        background-color: #fbeed5;
+    }
 .putio .putio_space {
     margin-top: 5px;
     border-top: 2px solid #EEE;
@@ -177,6 +189,12 @@ h2 .remove.finished:focus {
 .table-fs tbody{
     font-size: 85%;
 }
+    .table-fs tbody td {
+        padding: 6px 2px;
+    }
+    .table-fs .table-fs-filename code {
+        white-space: normal;
+    }
     .table-fs .table-fs-mimetype{
         color: #BBB;
         font-size: 80%;

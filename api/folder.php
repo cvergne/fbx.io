@@ -21,14 +21,14 @@
         if ($item['content_type'] == 'application/x-directory') {
             $attrs = 'data-type="folder" data-folder_id="' . $item['id'] . '"';
             $icon = '<i class="glyphicon glyphicon-folder-close"></i> ';
-            $resultHTML .= '<li><a href="' . $link . '" ' . $attrs . '><small class="pull-right text-muted">' . $size['size'] . ' ' . ucfirst($size['unit']) . '</small><strong>' . $icon . '<span>' . $item['name'] . '</span>' . '</strong></a></li>';
+            $resultHTML .= '<li><a data-size="' . $item['size'] . '" href="' . $link . '" ' . $attrs . '><small class="pull-right text-muted">' . $size['size'] . ' ' . ucfirst($size['unit']) . '</small><strong>' . $icon . '<span>' . $item['name'] . '</span>' . '</strong></a></li>';
         }
         else {
             $attrs = 'data-type="file" data-nice_url="/files/' . $item['id'] . '/download"';
             $icon = '<i class="glyphicon glyphicon-file"></i> ';
             $link = PUTIO_DOWNLOAD_URL . '/files/' . $item['id'] . '/download?token=' . $_SESSION['putio_oauth_access_token'];
             $filesnames[] = $item['name'];
-            $resultHTML .= '<li><a href="' . $link . '" ' . $attrs . '><small class="pull-right text-muted">' . $size['size'] . ' ' . ucfirst($size['unit']) . '</small><em>' . $icon . '<span>' . $item['name'] . '</span>' . '</em></a></li>';
+            $resultHTML .= '<li><a data-size="' . $item['size'] . '" href="' . $link . '" ' . $attrs . '><small class="pull-right text-muted">' . $size['size'] . ' ' . ucfirst($size['unit']) . '</small><em>' . $icon . '<span>' . $item['name'] . '</span>' . '</em></a></li>';
         }
     }
 
