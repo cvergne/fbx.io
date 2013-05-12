@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
 
     <!-- Mobile part -->
-    <meta name="viewport" content="width=320.1, initial-scale=1.0" />
+    <meta name="viewport" content="initial-scale=1.0" />
 
     <!-- iOS Part -->
     <meta name="apple-mobile-web-app-title" content="fbx.io" />

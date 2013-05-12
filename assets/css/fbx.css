@@ -267,6 +267,10 @@ body.setup {
 
 /*==========  Max width 767px  ==========*/
 @media (max-width: 767px) {
+    body {
+        padding: 0;
+    }
+
     .navbar-brand {
         display: inline-block;
     }
@@ -296,6 +300,11 @@ body.setup {
         max-width: 85%;
         vertical-align: middle;
         margin-left: 3%;
+    }
+
+    [class*="col-span-"], [class*="col-small-"] {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
