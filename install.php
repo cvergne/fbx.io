@@ -102,7 +102,6 @@
                     }
                     fclose($conf_file);
                 }
-
             }
         }
     }
@@ -111,8 +110,19 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Freebox.io</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fbx.io</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+
+    <!-- Mobile part -->
+    <meta name="viewport" content="initial-scale=1.0" />
+
+    <!-- iOS Part -->
+    <meta name="apple-mobile-web-app-title" content="fbx.io" />
+    <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link href="./assets/img/apple-touch-start-640x1096.png" media="(device-height: 568px)" rel="apple-touch-startup-image" />
+    <link href="./assets/img/apple-touch-start-640x920.png" sizes="640x920" media="(device-height: 480px)" rel="apple-touch-startup-image" />
+
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/fbx.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -124,15 +134,25 @@
                 <form method="post" action="./install.php" class="form-horizontal">
                     <fieldset>
                         <legend><h1>Configuration initiale</h1></legend>
+
+                        <?php
+                            if (isset($errors) && count($errors) > 0) {
+                                echo '<div class="alert alert-error alert-noclose"><ul>';
+                                foreach ($errors as $error_id => $error_text) {
+                                    echo '<li><a href="#' . $error_id . '">' . $error_text . '</a></li>';
+                                }
+                                echo '</ul></div>';
+                            }
+                        ?>
                         <h2>Freebox</h2>
 
                         <!-- #freebox:IP -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_freebox_ip'); ?>">
                             <label class="control-label" for="form_freebox_ip">
                                 Adresse IP
                             </label>
                             <div class="controls">
-                                <input id="form_freebox_ip" type="text" name="freebox[ip]" value="" placeholder="Adresse IP distante de votre Freebox" autocorrect="off" autocapitalize="off" />
+                                <input id="form_freebox_ip" class="input-with-feedback" type="text" name="freebox[ip]" value="<?php echo (isset($_POST['freebox']['ip'])) ? $_POST['freebox']['ip'] : ''; ?>" placeholder="Adresse IP distante de votre Freebox" autocorrect="off" autocapitalize="off" />
                                 <?php if ($_SERVER['REMOTE_ADDR'] != '127.0.0.1') { ?>
                                 <p class="help-block">
                                     <small><i class="glyphicon glyphicon-question-sign"></i> Cliquez sur <a class="remote_addr"><?php echo $_SERVER['REMOTE_ADDR']; ?></a> si vous êtes actuellement sur votre Freebox.</small>
@@ -145,12 +165,12 @@
                         </div>
 
                         <!-- freebox:USER -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_freebox_user'); ?>">
                             <label class="control-label" for="form_freebox_user">
                                 Utilisateur
                             </label>
                             <div class="controls">
-                                <input id="form_freebox_user" type="text" name="freebox[user]" value="freebox" autocapitalize="off" />
+                                <input id="form_freebox_user" class="input-with-feedback" type="text" name="freebox[user]" value="<?php echo (isset($_POST['freebox']['user'])) ? $_POST['freebox']['user'] : 'freebox'; ?>" autocapitalize="off" />
                                 <p class="help-block">
                                     <small class="text-muted">Normalement inchangeable, mais au cas où</small>
                                 </p>
@@ -158,12 +178,12 @@
                         </div>
 
                         <!-- freebox:PASSWORD -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_freebox_password'); ?>">
                             <label class="control-label" for="form_freebox_password">
                                 Mot de passe
                             </label>
                             <div class="controls">
-                                <input id="form_freebox_password" type="password" name="freebox[password]" value="" autocorrect="off" autocapitalize="off" />
+                                <input id="form_freebox_password" class="input-with-feedback" type="password" name="freebox[password]" value="<?php echo (isset($_POST['freebox']['password'])) ? $_POST['freebox']['password'] : ''; ?>" autocorrect="off" autocapitalize="off" />
                                 <p class="help-block">
                                     <small class="text-muted">Celui que vous avez défini pour accéder à la console <a href="http://mafreebox.freebox.fr/" target="_blank">http://mafreebox.freebox.fr</a></small>
                                 </p>
@@ -175,22 +195,22 @@
                         <h2>Put.io</h2>
 
                         <!-- putio:USER -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_putio_user'); ?>">
                             <label class="control-label" for="form_putio_user">
                                 Utilisateur
                             </label>
                             <div class="controls">
-                                <input id="form_putio_user" type="text" name="putio[user]" value="" autocapitalize="off" />
+                                <input id="form_putio_user" class="input-with-feedback" type="text" name="putio[user]" value="<?php echo (isset($_POST['freebox']['ip'])) ? $_POST['putio']['user'] : ''; ?>" autocapitalize="off" />
                             </div>
                         </div>
 
                         <!-- putio:PASSWORD -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_putio_password'); ?>">
                             <label class="control-label" for="form_putio_password">
                                 Mot de passe
                             </label>
                             <div class="controls">
-                                <input id="form_putio_password" type="password" name="putio[password]" value="" />
+                                <input id="form_putio_password" class="input-with-feedback" type="password" name="putio[password]" value="<?php echo (isset($_POST['putio']['password'])) ? $_POST['putio']['password'] : ''; ?>" />
                                 <p class="help-block">
                                     <small class="text-muted">Le nom d'utilisateur et le mot de passe sont utilisés pour que la Freebox puisse accéder aux téléchargements, celle-ci ne gérant pas pour le moment les téléchargements en https.</small>
                                 </p>
@@ -208,32 +228,32 @@
                         </div>
 
                         <!-- putio:CLIENT_ID -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_putio_clientid'); ?>">
                             <label class="control-label" for="form_putio_clientid">
                                 Client ID
                             </label>
                             <div class="controls">
-                                <input id="form_putio_clientid" type="text" name="putio[appclientid]" value="" autocorrect="off" autocapitalize="off" />
+                                <input id="form_putio_clientid" class="input-with-feedback" type="text" name="putio[appclientid]" value="<?php echo (isset($_POST['putio']['appclientid'])) ? $_POST['putio']['appclientid'] : ''; ?>" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 
                         <!-- putio:APP_SECRET -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_putio_appsecret'); ?>">
                             <label class="control-label" for="form_putio_appsecret">
                                 Application Secret
                             </label>
                             <div class="controls">
-                                <input id="form_putio_appsecret" type="text" name="putio[appsecret]" value="" autocorrect="off" autocapitalize="off" />
+                                <input id="form_putio_appsecret" class="input-with-feedback" type="text" name="putio[appsecret]" value="<?php echo (isset($_POST['putio']['appsecret'])) ? $_POST['putio']['appsecret'] : ''; ?>" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 
                         <!-- putio:OAUTH_TOKEN -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_putio_oauthtoken'); ?>">
                             <label class="control-label" for="form_putio_oauthtoken">
                                 Oauth Token
                             </label>
                             <div class="controls">
-                                <input id="form_putio_oauthtoken" type="text" name="putio[oauthtoken]" value="" placeholder="Facultatif" autocorrect="off" autocapitalize="off" />
+                                <input id="form_putio_oauthtoken" class="input-with-feedback" type="text" name="putio[oauthtoken]" value="<?php echo (isset($_POST['putio']['oauthtoken'])) ? $_POST['putio']['oauthtoken'] : ''; ?>" placeholder="Facultatif" autocorrect="off" autocapitalize="off" />
                                 <p class="help-block">
                                     <small class="text-muted">Vous évite de devoir vous reconnecter à chaque fois.</small>
                                 </p>
@@ -246,7 +266,7 @@
                         <p class="intro">Ces champs sont à remplir uniquement si vous souhaitez utiliser la recherche de sous-titres et le nommage automatique des vidéos.</p>
 
                         <!-- betaseries:APIKEY -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_betaseries_apikey'); ?>">
                             <div class="controls">
                                 <p class="help-block"><small>Avant de remplir ces champs, vous devez <a href="http://www.betaseries.com/api" target="_blank">demander une clé API</a> sur <strong>Betaseries</strong>.</small></p>
                             </div>
@@ -254,12 +274,12 @@
                                 API Key
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_apikey" type="text" name="betaseries[apikey]" value="" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
+                                <input id="form_betaseries_apikey" class="input-with-feedback" type="text" name="betaseries[apikey]" value="<?php echo (isset($_POST['betaseries']['apikey'])) ? $_POST['betaseries']['apikey'] : ''; ?>" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 
                         <!-- betaseries:USER -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_betaseries_user'); ?>">
                             <div class="controls">
                                 <hr/>
                                 <p class="help-block"><small class="text-muted">Les fonctions liées à votre compte ne sont pour le moment pas actives, ces informations sont donc pour le moment facultatives mais peuvent servir dans le futur</small></p>
@@ -268,29 +288,38 @@
                                 Utilisateur
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_user" type="text" name="betaseries[user]" value="" placeholder="facultatif" autocapitalize="off" />
+                                <input id="form_betaseries_user" class="input-with-feedback" type="text" name="betaseries[user]" value="<?php echo (isset($_POST['betaseries']['user'])) ? $_POST['betaseries']['user'] : ''; ?>" placeholder="facultatif" autocapitalize="off" />
                             </div>
                         </div>
 
                         <!-- betaseries:PASSWORD -->
-                        <div class="control-group">
+                        <div class="control-group<?php _setupIsInError('form_betaseries_password'); ?>">
                             <label class="control-label" for="form_betaseries_password">
                                 Mot de passe
                             </label>
                             <div class="controls">
-                                <input id="form_betaseries_password" type="password" name="betaseries[password]" value="" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
+                                <input id="form_betaseries_password" class="input-with-feedback" type="password" name="betaseries[password]" value="<?php echo (isset($_POST['betaseries']['password'])) ? $_POST['betaseries']['password'] : ''; ?>" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
                             </div>
                         </div>
 
                         <hr />
 
-                        <h2>Paramètres</h2>
+                        <h2>Options</h2>
 
+                        <div class="control-group">
+                            <label class="control-label">Put.io</label>
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <input type="checkbox" value="1" name="settings[putio_hidespace]"<?php echo (isset($_POST['settings']['putio_hidespace'])) ? ' checked="checked"' : ''; ?> />
+                                    Désactiver l'affichage de l'espace utilisé/restant sur Put.io
+                                </label>
+                            </div>
+                        </div>
                         <div class="control-group">
                             <label class="control-label">Sous-titres</label>
                             <div class="controls">
                             <label class="checkbox">
-                                <input type="checkbox" value="1" name="settings[subtitles_autosearch]" />
+                                <input type="checkbox" value="1" name="settings[subtitles_autosearch]"<?php echo (isset($_POST['settings']['subtitles_autosearch'])) ? ' checked="checked"' : ''; ?> />
                                 Activer la recherche automatique de sous-titres
                                 <p class="help-block">
                                     <small class="text-muted">Vous devez remplir les paramètres concernant Betaseries pour utiliser cette option</small>

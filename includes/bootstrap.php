@@ -10,6 +10,8 @@
     define('CONFIG_FILE_NAME', md5($root_uri));
     define('CONFIG_FILE_PATH', APP_ROOT.'includes/configs/'.CONFIG_FILE_NAME.'.ini');
 
+    // Required libs
+    require_once(APP_ROOT . 'includes/functions.php');
 
     // Define CONF from .ini file
     if (!defined('INSTALL_MODE')) {
@@ -56,8 +58,6 @@
     // DL FOLDER
     define('APP_DL_FOLDER', APP_ROOT.'temp/dl/');
 
-    // Required libs
-    require_once(APP_ROOT . 'includes/functions.php');
 
     // BETASERIES
         /* const:

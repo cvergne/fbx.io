@@ -171,3 +171,13 @@
             'state' => $setting_state
         );
     }
+
+    function _setupIsInError($id) {
+        global $errors;
+        if (isset($errors[$id])) {
+            echo ' has-error';
+        }
+        else {
+            echo '';
+        }
+    }

@@ -241,6 +241,11 @@ body.setup {
     padding: 0;
 }
 
+.setup .alert-error a {
+    color: inherit;
+    font-weight: bold;
+}
+
 .setup h2 {
     padding: 5px;
     margin: 10px 0;
