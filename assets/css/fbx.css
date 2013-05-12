@@ -90,7 +90,7 @@ h2, h3, h4 {
     display: none;
     visibility: hidden;
 }
-.manual_sub_search.on { display: block; visibility: visible; }
+.manual_sub_search.off { display: block; visibility: visible; }
 
 .titleico {
     color: #CCC;
@@ -162,6 +162,10 @@ h2 .remove.finished:focus {
 .putio .putio_space {
     margin-top: 5px;
     border-top: 2px solid #EEE;
+}
+.putio .putio_space.off {
+    display: none;
+    visibility: hidden;
 }
 .putio .progress {
     margin: 15px 0 0 0;

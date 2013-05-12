@@ -258,13 +258,22 @@ var app = {
         return false;
     },
     changeSetting: {
+        settings_putio_hidespace: function(ev, that) {
+            var putio_space = $('.putio_space');
+            if (that.checked === true) {
+                putio_space.addClass('off');
+            }
+            else {
+                putio_space.removeClass('off').load('./api.php?bridge=putio_storage');
+            }
+        },
         settings_subtitles_autosearch: function(ev, that) {
             var manual_sub_search = $('.manual_sub_search');
             if (that.checked === true) {
-                manual_sub_search.removeClass('on');
+                manual_sub_search.removeClass('off');
             }
             else {
-                manual_sub_search.addClass('on');
+                manual_sub_search.addClass('off');
             }
         }
     }

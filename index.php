@@ -108,44 +108,21 @@
                         require_once(APP_ROOT.'api/folder.php');
                     ?>
                     </ul>
-                    <div class="putio_space">
-                        <?php
-                            // Put.io infos
-                            if (isset($_SESSION['oauth_code'], $_SESSION['putio_oauth_access_token'])) {
-                                $_putio = _get(PUTIO_API_URL . '/account/info?oauth_token=' . PUTIO_OAUTHTOKEN);
-                                $free_hdd_p = 100 / ($_putio['info']['disk']['size'] / $_putio['info']['disk']['avail']);
-                                $used_hdd_p = 100 - $free_hdd_p;
-                                $used_hdd_display = convertFileSize($_putio['info']['disk']['avail'], false);
-                                $total_display = $used_hdd_display['size'] . ' ' . ucfirst($used_hdd_display['unit']) . ' ' . (($free_hdd_p > 1) ? 'disponibles' : 'disponible');
-
-                                $hdd_progress_class = '';
-                                if ($free_hdd_p >= 30) {
-                                    $hdd_progress_class = ' progress-bar-success';
-                                }
-                                else if ($free_hdd_p >= 15) {
-                                    $hdd_progress_class = ' progress-bar-warning';
-                                }
-                                else if ($free_hdd_p >= 5) {
-                                    $hdd_progress_class = ' progress-bar-danger';
-                                }
-                                if ($_putio['status'] == 'OK') {
-                                    echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width: ' . $used_hdd_p . '%;">' . $total_display . '</div></div>';
-                                }
+                    <?php
+                        $settings_putio_hidespace = _settingBool('SETTINGS_PUTIO_HIDESPACE', 'off', 'on', '');
+                        echo '<div class="putio_space' . $settings_putio_hidespace['class'] . '">';
+                            if ($settings_putio_hidespace['state'] !== true) {
+                                require_once(APP_ROOT.'api/putio_storage.php');
                             }
-                        ?>
-                    </div>
+                        echo '</div>';
+                    ?>
                 </div>
 
                 <?php if (isset($bs)) {
-                        $settings_subtitles_autosearchCheck = '';
-                        $manual_sub_searchClass = ' on';
-                        if (defined('SETTINGS_SUBTITLES_AUTOSEARCH') && SETTINGS_SUBTITLES_AUTOSEARCH == '1') {
-                            $settings_subtitles_autosearchCheck = ' checked="checked"';
-                            $manual_sub_searchClass = '';
-                        }
+                        $manual_sub_search = _settingBool('SETTINGS_SUBTITLES_AUTOSEARCH');
                     ?>
                     <div class="page-header">
-                        <div class="pull-right manual_sub_search<?php echo $manual_sub_searchClass; ?>">
+                        <div class="pull-right manual_sub_search<?php echo $manual_sub_search['class']; ?>">
                             <button type="button" class="btn btn-mini btn-danger" disabled="disabled">Recherche les sous-titres</button><br />
                         </div>
                         <h2><i class="titleico glyphicon glyphicon-align-center"></i> Sous-titres <small>— Betaseries</small></h2>
@@ -221,10 +198,17 @@
                 <form id="form_settings" method="post" action="./api.php?bridge=settings">
                     <div class="modal-body">
                             <fieldset>
+                                <h6>Put.io</h6>
+                                <div class="control-group">
+                                    <label class="checkbox">
+                                        <input type="checkbox" value="1" id="settings_putio_hidespace" name="settings[putio_hidespace]"<?php echo $settings_putio_hidespace['checked']; ?> />
+                                        Masquer l'espace disponible
+                                    </label>
+                                </div>
                                 <h6>Sous-titres</h6>
                                 <div class="control-group">
                                     <label class="checkbox">
-                                        <input type="checkbox" value="1" id="settings_subtitles_autosearch" name="settings[subtitles_autosearch]"<?php echo $settings_subtitles_autosearchCheck; ?> />
+                                        <input type="checkbox" value="1" id="settings_subtitles_autosearch" name="settings[subtitles_autosearch]"<?php echo $manual_sub_search['checked']; ?> />
                                         Activer la recherche automatique de sous-titres
                                     </label>
                                 </div>

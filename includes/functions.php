@@ -146,3 +146,28 @@
 
         return $show_title . ' - ' . $season . 'x' . $episode . ' - ' . $episode_title;
     }
+
+    function _settingBool($key, $on= 'on', $off='off', $default='off') {
+        if (defined($key)) {
+            if (constant($key) == '0') {
+                $setting_input_checked = ' checked="checked"';
+                $setting_target_class = ' ' . $off;
+                $setting_state = true;
+            }
+            else if (constant($key) == '1') {
+                $setting_input_checked = ' checked="checked"';
+                $setting_target_class = ' ' . $on;
+                $setting_state = true;
+            }
+        }
+        else {
+            $setting_input_checked = '';
+            $setting_target_class = ' ' . $default;
+            $setting_state = false;
+        }
+        return array(
+            'checked' => $setting_input_checked,
+            'class' => $setting_target_class,
+            'state' => $setting_state
+        );
+    }
