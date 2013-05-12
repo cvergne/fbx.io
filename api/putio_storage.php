@@ -8,13 +8,13 @@
         $total_display = $used_hdd_display['size'] . ' ' . ucfirst($used_hdd_display['unit']) . ' ' . (($free_hdd_p > 1) ? 'disponibles' : 'disponible');
 
         $hdd_progress_class = '';
-        if ($free_hdd_p >= 30) {
+        if ($free_hdd_p >= 50) {
             $hdd_progress_class = ' progress-bar-success';
         }
-        else if ($free_hdd_p >= 15) {
+        else if ($free_hdd_p >= 30) {
             $hdd_progress_class = ' progress-bar-warning';
         }
-        else if ($free_hdd_p >= 5) {
+        else if ($free_hdd_p >= 15) {
             $hdd_progress_class = ' progress-bar-danger';
         }
         if ($_putio['status'] == 'OK') {
