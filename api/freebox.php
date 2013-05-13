@@ -46,7 +46,7 @@ if (isset($_POST['downloads'])) {
             $result .= '<div class="dl">
                         <p><span class="label">' . $dl['name'] . '</span> <a href="#" class="remove pull-right" data-type="' . $dl['type'] . '" data-id="' . $dl['id'] . '"><i class="glyphicon glyphicon-trash"></i></a> <small class="text-muted pull-right">' . $speed . '</small></p>
                         <div class="progress progress-striped active">
-                            <div class="progress-bar' . $progressBarClass . '" style="width: ' . $current . '"><strong>' . $current . '</strong> <small class="opacified">( ' . $_size_transferred['size'] . ' ' . ucfirst($_size_transferred['unit']) . ' / ' . $_size_total['size'] . ' ' . $_size_total['unit'] . ' )</small></div>
+                            <div class="progress-bar' . $progressBarClass . '" style="width: ' . $current . '"><strong>' . $current . '</strong> <small class="opacified">( ' . $_size_transferred['size'] . ' ' . ucfirst($_size_transferred['unit']) . ' / ' . $_size_total['size'] . ' ' . ucfirst($_size_total['unit']) . ' )</small></div>
                         </div>
                     </div>';
         }

@@ -31,7 +31,7 @@ var app = {
             if (type == 'file') {
                 $('input[name=real_url]').val(this.href);
                 $('input[name=url]').val(anchor.data('nice_url')).prop('readonly', true);
-                $('input[name=file]').val(anchor.text());
+                $('input[name=file]').val(anchor.find('span').text());
                 $(window).scrollTop($('form legend').scrollTop());
                 $('#addDownloadForm').collapse('show');
             }
