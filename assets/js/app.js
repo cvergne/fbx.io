@@ -135,7 +135,8 @@ var app = {
             },
             dataType: 'JSON',
             success: function(data) {
-                if (data.finishedResults > 0) {
+                console.log(data);
+                if (data.finishedCount > 0) {
                     $('#remove_all_downloads').addClass('active');
                 }
                 else {
@@ -155,8 +156,9 @@ var app = {
         });
     },
     removeAllDownloads: function(ev) {
-        ev.stop();
+        ev.preventDefault();
         $.each($('#downloads a.finished[data-id]'), app.removeDownload);
+        $(this).removeClass('active');
     },
     removeDownload: function() {
         var anchor = $(this);
