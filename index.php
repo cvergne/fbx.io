@@ -82,6 +82,9 @@
                                             </label>
                                             <div class="controls">
                                                 <input type="text" name="file" placeholder="exemple: Movie.mkv" autocorrect="off" autocapitalize="off" />
+                                                <p class="help-block guess<?php echo (defined('SETTINGS_FILENAME_GUESSOPTION')) ? '' : ' hidden'; ?>">
+                                                    <a href="#" class="api_guess_filename"><small>Deviner le nom de fichier</small></a>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="form-actions">
@@ -198,19 +201,67 @@
                 <form id="form_settings" method="post" action="./api.php?bridge=settings">
                     <div class="modal-body">
                             <fieldset>
+                                <!--
+                                <h6>Nommage des fichiers</h6>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        Renommer auto. les fichiers
+                                    </label>
+                                    <div class="controls">
+                                        <label class="radio">
+                                            <input type="radio" value="1" id="settings_filename_auto_1" name="settings[filename_auto]"<?php _settingCheck('SETTINGS_FILENAME_AUTO', 1); ?> />
+                                            Avant le téléchargement
+                                            <p class="help-block"><small class="text-muted">ne fonctionnera que sur les fichiers put.io, et ralentira l'ajout d'un téléchargement</small></p>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="2" id="settings_filename_auto_2" name="settings[filename_auto]"<?php _settingCheck('SETTINGS_FILENAME_AUTO', 2); ?> />
+                                            Au téléchargement
+                                            <p class="help-block"><small class="text-muted">fonctionnera pour tous les fichiers, mais empêchera le nom personnalisé si un nom automatique est trouvé</small></p>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="3" id="settings_filename_auto_3" name="settings[filename_auto]"<?php _settingCheck('SETTINGS_FILENAME_AUTO', 3); ?> />
+                                            Au cas par cas
+                                            <p class="help-block"><small class="text-muted">vous devrez cocher la case dans le formulaire de téléchargement à chaque fois que vous souhaiterez l'utiliser</small></p>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" value="0" id="settings_filename_auto_0" name="settings[filename_auto]"<?php _settingCheck('SETTINGS_FILENAME_AUTO', 0, true); ?> />
+                                            Désactivé
+                                        </label>
+                                    </div>
+                                </div>
+                                -->
+                                <h6>Nommage des fichiers</h6>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="1" id="settings_filenames_autoputio" name="settings[filename_autoputio]"<?php _settingCheck('settings_filename_autoputio', 1); ?> />
+                                            Activer le renommage automatique sur les fichiers Put.io
+                                        </label>
+                                    </div>
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="1" id="settings_filenames_guessoption" name="settings[filename_guessoption]"<?php _settingCheck('settings_filename_guessoption', 1); ?> />
+                                            Activer l'option de recherche automatique de nom de fichier
+                                        </label>
+                                    </div>
+                                </div>
                                 <h6>Put.io</h6>
                                 <div class="control-group">
-                                    <label class="checkbox">
-                                        <input type="checkbox" value="1" id="settings_putio_hidespace" name="settings[putio_hidespace]"<?php echo $settings_putio_hidespace['checked']; ?> />
-                                        Masquer l'espace disponible
-                                    </label>
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="1" id="settings_putio_hidespace" name="settings[putio_hidespace]"<?php echo $settings_putio_hidespace['checked']; ?> />
+                                            Masquer l'espace disponible
+                                        </label>
+                                    </div>
                                 </div>
                                 <h6>Sous-titres</h6>
                                 <div class="control-group">
-                                    <label class="checkbox">
-                                        <input type="checkbox" value="1" id="settings_subtitles_autosearch" name="settings[subtitles_autosearch]"<?php echo $manual_sub_search['checked']; ?> />
-                                        Activer la recherche automatique de sous-titres
-                                    </label>
+                                    <div class="controls">
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="1" id="settings_subtitles_autosearch" name="settings[subtitles_autosearch]"<?php echo $manual_sub_search['checked']; ?> />
+                                            Activer la recherche automatique de sous-titres
+                                        </label>
+                                    </div>
                                 </div>
                             </fieldset>
                     </div>

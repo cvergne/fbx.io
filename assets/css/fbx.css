@@ -51,6 +51,9 @@ body {
     padding: 8px;
 }
 
+label .help-block {
+    line-height: 1.2;
+}
 
 
 /*==========  Misc  ==========*/
@@ -168,6 +171,16 @@ h2 .remove.finished:focus {
 }
     #addDownloadForm .form-actions {
         margin-bottom: 0;
+    }
+
+.guess {
+    font-size: 90%;
+    padding: 5px 5px 0 0;
+    text-align: right;
+    margin-bottom: 0;
+}
+    .guess.inactive {
+        visibility: hidden;
     }
 
 /*==========  FILES  ==========*/

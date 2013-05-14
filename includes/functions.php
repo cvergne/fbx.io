@@ -120,15 +120,30 @@
       return false;
     }
 
-    function getEpisodeFilename($show_title, $season, $episode, $title=null) {
+    function getEpisodeFilename($filename, $with_ext=true) {
+        if (preg_match("'^(.+)\.S([0-9]+)E([0-9]+).*$'i",$filename,$n)) {
+            $fileinfo = pathinfo($filename);
+            $name = preg_replace("'\.'"," ",$n[1]);
+            $season = intval($n[2],10);
+            $episode = intval($n[3],10);
+
+            $new_filename = getEpisodeInfos($name, $season, $episode);
+            if ($with_ext) {
+                $new_filename .= '.' . $fileinfo['extension'];
+            }
+
+            return $new_filename;
+        }
+
+        return $filename;
+    }
+
+    function getEpisodeInfos($show_title, $season, $episode, $title=null) {
         global $bs;
         if (empty($show_title) || empty($season) || empty($episode)) {
             return false;
         }
-        if (empty($title)) {
-            if (!isset($bs)) {
-                $bs = new BetaSeries_Client(BETASERIES_URL, BETASERIES_APIKEY, BetaSeries_Client::JSON, BetaSeries_Client::LANGUAGE_VF);
-            }
+        if (empty($title) && isset($bs)) {
             $s = $bs->getURL($show_title);
             $s = json_decode($bs->getEpisode($s, $season, $episode), true);
             if ($s['root']['code'] != '1' || count($s['root']['seasons']) == 0 || count($s['root']['seasons'][0]['episodes']) == 0) {
@@ -147,7 +162,45 @@
         return $show_title . ' - ' . $season . 'x' . $episode . ' - ' . $episode_title;
     }
 
+    function _settingCheck($key, $val, $or_undefined=false, $echo=true, $trueval=' checked="checked"', $falseval='') {
+        $key = strtoupper($key);
+        if (defined($key)) {
+            if (constant($key) == $val) {
+                $is_true = true;
+            }
+            else {
+                $is_true = false;
+            }
+        }
+        else {
+            if ($or_undefined) {
+                $is_true = true;
+            }
+            else {
+                $is_true = false;
+            }
+        }
+
+        if ($echo) {
+            if ($is_true) {
+                echo $trueval;
+            }
+            else {
+                echo $falseval;
+            }
+        }
+        else {
+            if ($is_true) {
+                return $trueval;
+            }
+            else {
+                return $falseval;
+            }
+        }
+    }
+
     function _settingBool($key, $on= 'on', $off='off', $default='off') {
+        $key = strtoupper($key);
         if (defined($key)) {
             if (constant($key) == '0') {
                 $setting_input_checked = ' checked="checked"';

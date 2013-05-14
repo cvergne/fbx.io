@@ -23,6 +23,9 @@ var app = {
 
         // Events
         doc.on('click', '#target-freebox-fs a[data-path]', app.removeFbxFile);
+        $('input[name=url]').on('change', function(ev) {
+            $('input[name=file]').val('');
+        });
 
         doc.on('click', 'a[data-type]', function(ev) {
             ev.preventDefault();
@@ -31,20 +34,29 @@ var app = {
             if (type == 'file') {
                 $('input[name=real_url]').val(this.href);
                 $('input[name=url]').val(anchor.data('nice_url')).prop('readonly', true);
-                $('input[name=file]').val(anchor.find('span').text());
+                if (typeof anchor.data('nice_filename') !== 'undefined') {
+                    $('input[name=file]').val(anchor.data('nice_filename'));
+                }
+                else {
+                    $('input[name=file]').val(anchor.find('span').text());
+                }
                 $(window).scrollTop($('form legend').scrollTop());
                 $('#addDownloadForm').collapse('show');
+                $('.guess').addClass('inactive');
             }
             else if (type == 'folder') {
                 app.getFiles(type, {'parent_id': anchor.data('folder_id')}, $('#files_list'));
             }
         });
 
+        doc.on('click', 'a.api_guess_filename', app.guessFilename);
+
         doc.on('click', '#remove_all_downloads', app.removeAllDownloads);
         doc.on('click', 'a.remove[data-type][data-id]', app.removeDownload);
         doc.on('click', '#subs_list a', app.downloadFile);
         doc.on('reset', 'form', function(){
             $('input[readonly]').prop('readonly', false);
+            $('.guess').removeClass('inactive');
         });
         doc.on('submit', '#form_freebox_adddownload', function(ev){
             ev.preventDefault();
@@ -65,6 +77,40 @@ var app = {
         });
 
         $('a.hasTooltip').tooltip();
+    },
+    guessFilename: function(ev) {
+        ev.preventDefault();
+        var anchor = $(this);
+        var url_inp = $('input[name=url]');
+        var file_inp = $('input[name=file]');
+        /* original_filename */
+        if (inp.val() !== '') {
+            original_filename = inp.val();
+        }
+        else {
+            original_filename = url_inp.val();
+        }
+
+        if (original_filename !== '') {
+            inp.attr('disabled', 'disabled');
+            url_inp.attr('disabled', 'disabled');
+
+            $.ajax({
+                method: 'post',
+                url: './api.php?bridge=self_guessfilename',
+                data: {
+                    'uri': original_filename
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(original_filename);
+                    inp.attr('disabled', false);
+                    if (typeof data.root !== 'undefined' && !data.root.error) {
+                        inp.val(data.root.filename);
+                    }
+                }
+            });
+        }
     },
     getFbxFiles: function() {
         $('#target-freebox-fs').load('./api.php?bridge=freebox_files');
@@ -260,6 +306,15 @@ var app = {
         return false;
     },
     changeSetting: {
+        settings_filenames_guessoption: function(ev, that) {
+            var guess = $('.guess');
+            if (that.checked === true) {
+                guess.removeClass('hidden');
+            }
+            else {
+                guess.addClass('hidden');
+            }
+        },
         settings_putio_hidespace: function(ev, that) {
             var putio_space = $('.putio_space');
             if (that.checked === true) {

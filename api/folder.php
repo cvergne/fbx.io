@@ -24,7 +24,13 @@
             $resultHTML .= '<li><a data-size="' . $item['size'] . '" href="' . $link . '" ' . $attrs . '><small class="pull-right text-muted">' . $size['size'] . ' ' . ucfirst($size['unit']) . '</small><strong>' . $icon . '<span>' . $item['name'] . '</span>' . '</strong></a></li>';
         }
         else {
-            $attrs = 'data-type="file" data-nice_url="/files/' . $item['id'] . '/download"';
+            if (defined('SETTINGS_FILENAME_AUTOPUTIO')) {
+                $nice_filename = 'data-nice_filename="' . getEpisodeFilename($item['name']) . '" ';
+            }
+            else {
+                $nice_filename = '';
+            }
+            $attrs = 'data-type="file" ' . $nice_filename . 'data-nice_url="/files/' . $item['id'] . '/download"';
             $icon = '<i class="glyphicon glyphicon-file"></i> ';
             $link = PUTIO_DOWNLOAD_URL . '/files/' . $item['id'] . '/download?token=' . $_SESSION['putio_oauth_access_token'];
             $filesnames[] = $item['name'];
