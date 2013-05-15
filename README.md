@@ -78,6 +78,6 @@ Le téléchargement renommait le sous-titre de la façon suivante `[nom_serie] -
 
 - ~~Rendre le module Betaseries optionnel~~
 - ~~Lancer les recherches de Sous-titres Betaseries en manuel~~
-- Téléchargement automatique (temporaire) des sous-titres sur le serveur puis sur la Freebox
-- Nommage automatique des vidéos de séries comme les sous-titres
+- ~~Nommage automatique des vidéos de séries~~
+- Téléchargement automatique (temporaire) des sous-titres sur le serveur + renommage auto, puis téléchargement sur la Freebox
 - Script type "CRON" gérant les nouveaux téléchargements automatiquement
