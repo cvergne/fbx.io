@@ -4,7 +4,7 @@
     $resultHTML = '';
 
     $uri = 'https://api.put.io/v2/files/list?oauth_token=' . PUTIO_OAUTHTOKEN;
-    if (isset($_POST['parent_id'])) {
+    if (isset($_POST['parent_id']) && !empty($_POST['parent_id'])) {
         $uri .= '&parent_id=' . $_POST['parent_id'];
     }
     $itemlist = _get($uri);
@@ -47,6 +47,7 @@
             $betaseries_id = null;
         }
         echo json_encode(array(
+            'currentFolderID' => $itemlist['parent']['id'],
             'totalResults' => count($filesnames),
             'files' => $filesnames,
             'folder_name' => strtolower($itemlist['parent']['name']),

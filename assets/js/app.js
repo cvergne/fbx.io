@@ -6,7 +6,11 @@ var app = {
         app._subtitles = $('#subs_list');
         app._settingsForm = $('#form_settings');
         app._settings = {};
+        app._settingsQueue = [];
         app._putioCurrentFolder = null; // cache putio folder request
+        app._addDownload_realurl = $('input[name=real_url]');
+        app._addDownload_url = $('input[name=url]');
+        app._addDownload_file = $('input[name=file]');
 
         // Settings
         var settings = app._settingsForm.serializeArray();
@@ -23,8 +27,8 @@ var app = {
 
         // Events
         doc.on('click', '#target-freebox-fs a[data-path]', app.removeFbxFile);
-        $('input[name=url]').on('change', function(ev) {
-            $('input[name=file]').val('');
+        app._addDownload_url.on('change', function(ev) {
+            app._addDownload_file.val('');
         });
 
         doc.on('click', 'a[data-type]', function(ev) {
@@ -32,17 +36,19 @@ var app = {
             var anchor = $(this);
             var type = anchor.data('type');
             if (type == 'file') {
-                $('input[name=real_url]').val(this.href);
-                $('input[name=url]').val(anchor.data('nice_url')).prop('readonly', true);
+                app._addDownload_realurl.val(this.href);
+                app._addDownload_url.val(anchor.data('nice_url')).prop('readonly', true);
                 if (typeof anchor.data('nice_filename') !== 'undefined') {
-                    $('input[name=file]').val(anchor.data('nice_filename'));
+                    app._addDownload_file.val(anchor.data('nice_filename'));
                 }
                 else {
-                    $('input[name=file]').val(anchor.find('span').text());
+                    app._addDownload_file.val(anchor.find('span').text());
                 }
                 $(window).scrollTop($('form legend').scrollTop());
                 $('#addDownloadForm').collapse('show');
-                $('.guess').addClass('inactive');
+                if (app.checkSetting('settings_filename_autoputio', '1')) {
+                    $('.guess').addClass('inactive');
+                }
             }
             else if (type == 'folder') {
                 app.getFiles(type, {'parent_id': anchor.data('folder_id')}, $('#files_list'));
@@ -81,19 +87,17 @@ var app = {
     guessFilename: function(ev) {
         ev.preventDefault();
         var anchor = $(this);
-        var url_inp = $('input[name=url]');
-        var file_inp = $('input[name=file]');
         /* original_filename */
-        if (inp.val() !== '') {
-            original_filename = inp.val();
+        if (app._addDownload_file.val() !== '') {
+            original_filename = app._addDownload_file.val();
         }
         else {
-            original_filename = url_inp.val();
+            original_filename = app._addDownload_url.val();
         }
 
         if (original_filename !== '') {
-            inp.attr('disabled', 'disabled');
-            url_inp.attr('disabled', 'disabled');
+            app._addDownload_file.attr('disabled', 'disabled');
+            app._addDownload_file.attr('disabled', 'disabled');
 
             $.ajax({
                 method: 'post',
@@ -103,10 +107,9 @@ var app = {
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(original_filename);
-                    inp.attr('disabled', false);
+                    app._addDownload_file.attr('disabled', false);
                     if (typeof data.root !== 'undefined' && !data.root.error) {
-                        inp.val(data.root.filename);
+                        app._addDownload_file.val(data.root.filename);
                     }
                 }
             });
@@ -154,6 +157,13 @@ var app = {
                 }
             }
         });
+    },
+    refreshFiles: function() {
+        var currentFolderID = 0;
+        if (app._putioCurrentFolder !== null) {
+            currentFolderID = app._putioCurrentFolder.currentFolderID;
+        }
+        app.getFiles('folder', {'parent_id': currentFolderID}, $('#files_list'));
     },
     addDownload: function(postData) {
         $.ajax({
@@ -296,7 +306,15 @@ var app = {
             method: this.method,
             url: this.action,
             data: data,
-            dataType: 'JSON'
+            dataType: 'JSON',
+            success: function() {
+                if (app._settingsQueue.length > 0) {
+                    $.each(app._settingsQueue, function(i, fx){
+                        fx();
+                    });
+                }
+                app._settingsQueue = [];
+            }
         });
     },
     checkSetting: function(name, val) {
@@ -306,7 +324,13 @@ var app = {
         return false;
     },
     changeSetting: {
-        settings_filenames_guessoption: function(ev, that) {
+        settings_filename_autoputio: function(ev, that) {
+            if (that.checked !== true && app._addDownload_realurl.val() !== '' && app.checkSetting('settings_filename_guessoption', '1')) {
+                $('.guess').removeClass('inactive');
+            }
+            app._settingsQueue.push(app.refreshFiles);
+        },
+        settings_filename_guessoption: function(ev, that) {
             var guess = $('.guess');
             if (that.checked === true) {
                 guess.removeClass('hidden');

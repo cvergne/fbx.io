@@ -234,13 +234,13 @@
                                 <div class="control-group">
                                     <div class="controls">
                                         <label class="checkbox">
-                                            <input type="checkbox" value="1" id="settings_filenames_autoputio" name="settings[filename_autoputio]"<?php _settingCheck('settings_filename_autoputio', 1); ?> />
+                                            <input type="checkbox" value="1" id="settings_filename_autoputio" name="settings[filename_autoputio]"<?php _settingCheck('settings_filename_autoputio', 1); ?> />
                                             Activer le renommage automatique sur les fichiers Put.io
                                         </label>
                                     </div>
                                     <div class="controls">
                                         <label class="checkbox">
-                                            <input type="checkbox" value="1" id="settings_filenames_guessoption" name="settings[filename_guessoption]"<?php _settingCheck('settings_filename_guessoption', 1); ?> />
+                                            <input type="checkbox" value="1" id="settings_filename_guessoption" name="settings[filename_guessoption]"<?php _settingCheck('settings_filename_guessoption', 1); ?> />
                                             Activer l'option de recherche automatique de nom de fichier
                                         </label>
                                     </div>
