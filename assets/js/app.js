@@ -191,7 +191,6 @@ var app = {
             },
             dataType: 'JSON',
             success: function(data) {
-                console.log(data);
                 if (data.finishedCount > 0) {
                     $('#remove_all_downloads').addClass('active');
                 }
