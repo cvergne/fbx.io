@@ -8,7 +8,6 @@
         $uri .= '&parent_id=' . $_POST['parent_id'];
     }
     $itemlist = _get($uri);
-    // printr($itemlist);
 
     if (isset($_POST['parent_id'], $itemlist['parent']['parent_id'])) {
         $resultHTML .= '<li><a href="#" data-type="folder" data-parent_id="' . $itemlist['parent']['parent_id'] . '"><i class="glyphicon glyphicon-chevron-left"></i> Retour</a></li>';

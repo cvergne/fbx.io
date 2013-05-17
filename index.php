@@ -1,8 +1,12 @@
 <?php
     require_once('./includes/bootstrap.php');
+    $ping = new Ping('api.put.io', 5);
+    $putio_latency = $ping->ping('fsockopen');
     if (!isset($_SESSION['oauth_code'], $_SESSION['putio_oauth_access_token'])) {
-        header('Location:https://api.put.io/v2/oauth2/authenticate?client_id=' . PUTIO_APPCLIENTID . '&response_type=code&redirect_uri=' . PUTIO_APP_CALLBACKURL_ENC);
-      }
+        if ($putio_latency) {
+            header('Location:https://api.put.io/v2/oauth2/authenticate?client_id=' . PUTIO_APPCLIENTID . '&response_type=code&redirect_uri=' . PUTIO_APP_CALLBACKURL_ENC);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,19 +109,22 @@
                     <h2><i class="titleico glyphicon glyphicon-file"></i> Fichiers <small>— Put.io</small></h2>
                 </div>
                 <div class="putio well">
-                    <ul id="files_list" class="nav nav-list">
-                    <?php
-                        $_apifolder_html = true;
-                        require_once(APP_ROOT.'api/folder.php');
-                    ?>
-                    </ul>
                     <?php
                         $settings_putio_hidespace = _settingBool('SETTINGS_PUTIO_HIDESPACE', 'off', 'on', '');
-                        echo '<div class="putio_space' . $settings_putio_hidespace['class'] . '">';
-                            if ($settings_putio_hidespace['state'] !== true) {
-                                require_once(APP_ROOT.'api/putio_storage.php');
-                            }
-                        echo '</div>';
+                        if ($putio_latency) {
+                            echo '<ul id="files_list" class="nav nav-list">';
+                                $_apifolder_html = true;
+                                require_once(APP_ROOT.'api/folder.php');
+                            echo '</ul>';
+                            echo '<div class="putio_space' . $settings_putio_hidespace['class'] . '">';
+                                if ($settings_putio_hidespace['state'] !== true) {
+                                    require_once(APP_ROOT.'api/putio_storage.php');
+                                }
+                            echo '</div>';
+                        }
+                        else {
+                            echo '<ul id="files_list" class="nav nav-list"></ul><div class="alert alert-warning">Put.io n\'est pas accessible pour le moment.</div>';
+                        }
                     ?>
                 </div>
 
