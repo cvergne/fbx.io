@@ -11,6 +11,10 @@ body {
     .label {
         font-weight: bold;
     }
+    .progress-bar {
+        font-weight: bold;
+        font-size: 13px;
+    }
 }
 
 
@@ -73,6 +77,10 @@ label .help-block {
 body > .container {
 }
 
+.label {
+    white-space: normal;
+}
+
 div.page-header {
     padding: 0 5px;
     margin-bottom: 10px;
@@ -91,7 +99,7 @@ h2, h3, h4 {
     line-height: 3.4rem;
 }
     h2 small {
-        font-size: 50%;
+        font-size: 65%;
     }
 
 .opacified {
@@ -357,8 +365,8 @@ body.setup {
    -moz-box-sizing: border-box;
 -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        display: inline-block;
-        word-wrap: break-word;
+        display: inline;
+        word-wrap: normal;
         max-width: 85%;
         vertical-align: middle;
         margin-left: 3%;
