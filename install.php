@@ -143,6 +143,9 @@
                                 }
                                 echo '</ul></div>';
                             }
+                            if (isset($_GET['restart'])) {
+                                echo '<div class="alert alert-info"><strong>Pas d\'inquiétude, tant que vous n\'avez pas correctement rempli le formulaire, votre configuration actuelle ne sera pas supprimée !</strong></div>';
+                            }
                         ?>
                         <h2>Freebox</h2>
 

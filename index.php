@@ -37,7 +37,7 @@
         <div class="navbar">
             <ul class="nav pull-right">
                 <li>
-                    <a href="./install.php" class="hasTooltip" data-placement="bottom" title="Recommencer l'installation"><i class="glyphicon glyphicon-fire"></i></a>
+                    <a href="./install.php?restart" class="hasTooltip" data-placement="bottom" title="Recommencer l'installation"><i class="glyphicon glyphicon-repeat"></i></a>
                 </li>
                 <li>
                     <a class="settings hasTooltip" title="Options" data-placement="bottom" href="#modal_settings" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cog"></i></a>
@@ -191,7 +191,7 @@
                     $dl_folder = utf8_decode($dl_folder['download_dir']);
                 ?>
                 <div class="page-header">
-                    <h2><i class="titleico glyphicon glyphicon-download"></i> Freebox NAS <small>— <?php echo $dl_folder; ?></small></h2>
+                    <h2><i class="titleico glyphicon glyphicon-download-alt"></i> Freebox NAS <small>— <?php echo $dl_folder; ?></small></h2>
                 </div>
                 <div id="target-freebox-fs"></div>
             </div>

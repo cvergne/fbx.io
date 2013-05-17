@@ -10,7 +10,7 @@
     $itemlist = _get($uri);
 
     if (isset($_POST['parent_id'], $itemlist['parent']['parent_id'])) {
-        $resultHTML .= '<li><a href="#" data-type="folder" data-parent_id="' . $itemlist['parent']['parent_id'] . '"><i class="glyphicon glyphicon-chevron-left"></i> Retour</a></li>';
+        $resultHTML .= '<li class="pull-right"><a href="#" data-type="folder" data-parent_id="' . $itemlist['parent']['parent_id'] . '"><i class="glyphicon glyphicon-chevron-up"></i> Dossier Parent</a></li>';
     }
 
     $resultHTML .= '<li class="nav-header">' . $itemlist['parent']['name'] . '</li>';
