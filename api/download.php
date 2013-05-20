@@ -41,14 +41,27 @@ if (isset($_POST['url']) && !empty($_POST['url'])) {
                 }
             }
         }
+        if (!empty($_result_html) && count($_result_fileslist) > 0) {
+            $error = false;
+            $_result_html = '<li class="pull-right"><a href="#" class="backfromfolder"><i class="glyphicon glyphicon-chevron-up"></i> Retour</a></li><li class="nav-header"><i class="glyphicon glyphicon-comment"></i>' . $fileinfos['basename'] . '</li>' . $_result_html;
+        }
+        $resp = array(
+            'html' => $_result_html,
+            'fileslist' => $_result_fileslist
+        );
     }
+    else if (file_exists(APP_DL_FOLDER.$filename)) {
+        $error = false;
+
+        $resp = array(
+            'completepath' => APP_DL_FOLDER_URI.$filename,
+            'newfilename' => $new_filename . '.' . $fileinfos['extension'],
+            'originfilename' => stripslashes($fileinfos['basename'])
+        );
+    }
+
+    echo json_encode(array(
+        'error' => $error,
+        'root' => $resp
+    ));
 }
-if (!empty($_result_html) && count($_result_fileslist) > 0) {
-    $error = false;
-    $_result_html = '<li class="pull-right"><a href="#" class="backfromfolder"><i class="glyphicon glyphicon-chevron-up"></i> Retour</a></li><li class="nav-header"><i class="glyphicon glyphicon-comment"></i>' . $fileinfos['basename'] . '</li>' . $_result_html;
-}
-echo json_encode(array('root' => array(
-    'error' => $error,
-    'html' => $_result_html,
-    'fileslist' => $_result_fileslist
-)));

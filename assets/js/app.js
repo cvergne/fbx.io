@@ -42,20 +42,20 @@ var app = {
             ev.preventDefault();
             var anchor = $(this);
             var type = anchor.data('type');
+            var nice_filename = '';
             if (type == 'file') {
-                app._addDownload_realurl.val(this.href);
-                app._addDownload_url.val(anchor.data('nice_url')).prop('readonly', true);
                 if (typeof anchor.data('nice_filename') !== 'undefined') {
-                    app._addDownload_file.val(anchor.data('nice_filename'));
+                    nice_filename = anchor.data('nice_filename');
                 }
                 else {
-                    app._addDownload_file.val(anchor.find('span').text());
+                    nice_filename = anchor.find('span').text();
                 }
-                $(window).scrollTop($('form legend').scrollTop());
-                $('#addDownloadForm').collapse('show');
-                if (app.checkSetting('settings_filename_autoputio', '1')) {
-                    $('.guess').addClass('inactive');
-                }
+
+                app.setDownload({
+                    real_url: this.href,
+                    url: anchor.data('nice_url'),
+                    nice_filename: nice_filename
+                });
             }
             else if (type == 'folder') {
                 app.getFiles(type, {'parent_id': anchor.data('folder_id')}, $('#files_list'));
@@ -70,18 +70,11 @@ var app = {
             var origin_filename = anchor.data('origin_filename');
             var uri = this.href;
 
-            app._addDownload_realurl.val(uri);
-            app._addDownload_url.val(origin_filename).prop('readonly', true);
-            if (nice_filename !== '') {
-                app._addDownload_file.val(nice_filename);
-            }
-            else {
-                app._addDownload_file.val(origin_filename);
-            }
-
-            $(window).scrollTop($('form legend').scrollTop());
-            $('#addDownloadForm').collapse('show');
-            $('.guess').addClass('inactive');
+            app.setDownload({
+                real_url: uri,
+                url: origin_filename,
+                nice_filename: nice_filename
+            });
         });
         doc.on('click', '#subs_folder .backfromfolder', function(ev){
             ev.preventDefault();
@@ -93,7 +86,7 @@ var app = {
 
         doc.on('click', '#remove_all_downloads', app.removeAllDownloads);
         doc.on('click', 'a.remove[data-type][data-id]', app.removeDownload);
-        doc.on('click', '#subs_list a', app.downloadFile);
+        doc.on('click', '#subs_list a', app.downloadSub);
         doc.on('reset', 'form', function(){
             $('input[readonly]').prop('readonly', false);
             $('.guess').removeClass('inactive');
@@ -199,6 +192,20 @@ var app = {
         }
         app.getFiles('folder', {'parent_id': currentFolderID}, $('#files_list'));
     },
+    setDownload: function(dlDatas) {
+        app._addDownload_realurl.val(dlDatas.real_url);
+        app._addDownload_url.val(dlDatas.url).prop('readonly', true);
+        if (dlDatas.nice_filename !== '') {
+            app._addDownload_file.val(dlDatas.nice_filename);
+        }
+        else {
+            app._addDownload_file.val(dlDatas.url);
+        }
+
+        $(window).scrollTop($('form legend').scrollTop());
+        $('#addDownloadForm').collapse('show');
+        $('.guess').addClass('inactive');
+    },
     addDownload: function(postData) {
         $.ajax({
             method: 'post',
@@ -299,7 +306,7 @@ var app = {
             }
         });
     },
-    downloadFile: function(ev) {
+    downloadSub: function(ev) {
         /**
 
             TODO:
@@ -319,9 +326,18 @@ var app = {
             },
             dataType: 'JSON',
             success: function(data) {
-                if (typeof data.root !== 'undefined' && typeof data.root.error !== 'undefined' && !data.root.error) {
-                    $('#subs_folder').parent('.well').addClass('infolder');
-                    $('#subs_folder').html(data.root.html);
+                if (typeof data.root !== 'undefined' && typeof data.error !== 'undefined' && !data.error) {
+                    if (typeof data.root.html !== 'undefined') {
+                        $('#subs_folder').parent('.well').addClass('infolder');
+                        $('#subs_folder').html(data.root.html);
+                    }
+                    else if(typeof data.root.completepath !== 'undefined') {
+                        app.setDownload({
+                            real_url: data.root.completepath,
+                            url: data.root.originfilename,
+                            nice_filename: data.root.newfilename
+                        });
+                    }
                 }
             }
         });
