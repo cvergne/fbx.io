@@ -57,8 +57,13 @@
     }
 
     // DL FOLDER
-    define('APP_DL_FOLDER', APP_ROOT.'temp/dl/');
-    define('APP_DL_FOLDER_URI', APP_ROOT_URI . 'temp/dl/');
+    define('APP_DL_ROOT_PATH', 'temp/dl/');
+    define('APP_DL_FOLDER', APP_ROOT . APP_DL_ROOT_PATH . date('Y-m-d') . '/');
+    define('APP_DL_FOLDER_URI', APP_ROOT_URI . APP_DL_ROOT_PATH . date('Y-m-d') . '/');
+    if (!is_dir(APP_DL_FOLDER)) {
+        emptydir(APP_ROOT . APP_DL_ROOT_PATH);
+        mkdir(APP_DL_FOLDER, 0755);
+    }
 
 
     // BETASERIES

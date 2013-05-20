@@ -120,6 +120,25 @@
       return false;
     }
 
+    function emptydir($dir, $delete = false) {
+        $dossier = $dir;
+        $dir = opendir($dossier);
+        while($file = readdir($dir)) {
+            if(!in_array($file, array(".", ".."))){
+                if(is_dir("$dossier/$file")) {
+                    emptydir("$dossier/$file", true);
+                } else {
+                    unlink("$dossier/$file");
+                }
+            }
+        }
+        closedir($dir);
+
+        if($delete == true) {
+            rmdir("$dossier/$file");
+        }
+    }
+
     function getEpisodeFilename($filename, $with_ext=true) {
         if (preg_match("'^(.+)\.S([0-9]+)E([0-9]+).*$'i",$filename,$n)) {
             $fileinfo = pathinfo($filename);
