@@ -85,7 +85,7 @@ var app = {
         });
         doc.on('click', '#subs_folder .backfromfolder', function(ev){
             ev.preventDefault();
-            $(this).parents('.infolder').removeClass('.infolder');
+            $(this).parents('.infolder').removeClass('infolder');
             $('#subs_folder').html('');
         });
 
