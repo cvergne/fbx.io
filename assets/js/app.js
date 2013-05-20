@@ -12,6 +12,13 @@ var app = {
         app._addDownload_url = $('input[name=url]');
         app._addDownload_file = $('input[name=file]');
 
+        // Text
+        app._lang = {
+            downloads: {
+                no_downloads: '<p class="text-muted text-center"><small>Aucun téléchargement en cours ou terminé.</small></p>'
+            }
+        };
+
         // Settings
         var settings = app._settingsForm.serializeArray();
 
@@ -205,7 +212,7 @@ var app = {
                     }
                 }
                 else {
-                    app._downloads.html('<p class="text-muted text-center"><small>Aucun téléchargement en cours ou terminé.</small></p>');
+                    app._downloads.html(app._lang.downloads.no_downloads);
                 }
             }
         });
@@ -227,7 +234,11 @@ var app = {
             },
             dataType: 'JSON',
             success: function(data) {
-                app.getDownloads();
+                anchor.next('hr').remove();
+                anchor.parents('.dl').remove();
+                if ($('.dl').length === 0) {
+                    app._downloads.html(app._lang.downloads.no_downloads);
+                }
             }
         });
     },
