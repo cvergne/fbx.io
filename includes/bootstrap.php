@@ -4,10 +4,11 @@
     // CORE
     $root_uri = pathinfo('http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME']);
     $root_uri = $root_uri['dirname'] . '/';
-    $callbackuri = $root_uri . 'callbackurl.php';
+    define('APP_ROOT_URI', $root_uri);
+    $callbackuri = APP_ROOT_URI . 'callbackurl.php';
     $_sf = pathinfo($_SERVER["SCRIPT_FILENAME"]);
     define('APP_ROOT', $_sf['dirname'] . '/');
-    define('CONFIG_FILE_NAME', md5($root_uri));
+    define('CONFIG_FILE_NAME', md5(APP_ROOT_URI));
     define('CONFIG_FILE_PATH', APP_ROOT.'includes/configs/'.CONFIG_FILE_NAME.'.ini');
 
     // Required libs
@@ -57,6 +58,7 @@
 
     // DL FOLDER
     define('APP_DL_FOLDER', APP_ROOT.'temp/dl/');
+    define('APP_DL_FOLDER_URI', APP_ROOT_URI . 'temp/dl/');
 
 
     // BETASERIES

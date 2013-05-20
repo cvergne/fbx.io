@@ -335,6 +335,11 @@ body.setup {
         cursor: pointer;
     }
 
+/*==========  Subtitles  ==========*/
+.well:not(.infolder) #subs_folder { display: none; visibility: hidden; }
+.well.infolder #subs_list { display: none; visibility: hidden; }
+
+
 /*==========  Max width 767px  ==========*/
 @media (max-width: 767px) {
     body {
