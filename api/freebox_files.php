@@ -10,21 +10,53 @@
     }
     $dl_folder = $fbx->download->config_get();
     $dl_folder = utf8_decode($dl_folder['download_dir']);
-    $files = array();
+    $raw_files = array();
+    $final_files = array();
 
     try {
         $fb_disks = $fbx->fs->_list($dl_folder, array('with_attr' => true));
         foreach ($fb_disks as $file) {
             if (substr($file['name'], 0, 1) != '.') {
-                $size = convertFileSize($file['size'], false);
-                $files[utf8_decode($file['name'])] = '<tr>
-                        <td class="table-fs-filename"><code>' . utf8_decode($file['name']) . '</code></td>
+                $original_filename = utf8_decode($file['name']);
+                $fileinfos = pathinfo($original_filename);
+                if (!isset($raw_files[$fileinfos['filename']])) {
+                    $raw_files[$fileinfos['filename']] = array();
+                }
+                if (!in_array($fileinfos['extension'], $_config_freebox_subtitles_extensions)) {
+                    $raw_files[$fileinfos['filename']]['file'] = $file;
+                }
+                else if(!isset($raw_files[$fileinfos['filename']]['sub']) && in_array($fileinfos['extension'], $_config_freebox_subtitles_extensions)) {
+                    $raw_files[$fileinfos['filename']]['sub'] = $file;
+                }
+            }
+        }
+        ksort($raw_files);
+        foreach ($raw_files as $file) {
+            if (isset($file['file'], $file['sub'])) {
+                $size = convertFileSize($file['file']['size'], false);
+                $final_files[utf8_decode($file['file']['name'])] = '<tr>
+                        <td class="table-fs-filename"><code>' . utf8_decode($file['file']['name']) . '</code><br /><span class="text-muted">+</span>&nbsp;<code class="alt">' . utf8_decode($file['sub']['name']) . '</code></td>
                         <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
-                        <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['name']) . '">&times;</a></td>
+                        <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['file']['name']) . '"><i class="glyphicon glyphicon-trash"></i></a></td>
+                    </tr>';
+            }
+            else if (isset($file['sub'])) {
+                $size = convertFileSize($file['sub']['size'], false);
+                $final_files[utf8_decode($file['sub']['name'])] = '<tr>
+                        <td class="table-fs-filename"><code class="alt">' . utf8_decode($file['sub']['name']) . '</code></td>
+                        <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
+                        <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['sub']['name']) . '"><i class="glyphicon glyphicon-trash"></i></a></td>
+                    </tr>';
+            }
+            else if (isset($file['file'])) {
+                $size = convertFileSize($file['file']['size'], false);
+                $final_files[utf8_decode($file['file']['name'])] = '<tr>
+                        <td class="table-fs-filename"><code>' . utf8_decode($file['file']['name']) . '</code></td>
+                        <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
+                        <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['file']['name']) . '"><i class="glyphicon glyphicon-trash"></i></a></td>
                     </tr>';
             }
         }
-        ksort($files);
     } catch(Exception $e) {
         $fb_disks = false;
     }
@@ -41,7 +73,7 @@
         <?php
             if ($fb_disks) {
                     $nb_files = 0;
-                    foreach ($files as $file) {
+                    foreach ($final_files as $file) {
                         echo $file;
                         $nb_files++;
                     }

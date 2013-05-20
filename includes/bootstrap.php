@@ -40,6 +40,7 @@
         FREEBOX_USER: utilisateur freebox
         FREEBOX_PASSWORD: mot de passe freebox
     */
+    $_config_freebox_subtitles_extensions = array('srt', 'ass', 'ssa');
 
     // PUT.IO
         /* const:
