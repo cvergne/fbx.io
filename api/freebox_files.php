@@ -10,9 +10,21 @@
     }
     $dl_folder = $fbx->download->config_get();
     $dl_folder = utf8_decode($dl_folder['download_dir']);
+    $files = array();
 
     try {
         $fb_disks = $fbx->fs->_list($dl_folder, array('with_attr' => true));
+        foreach ($fb_disks as $file) {
+            if (substr($file['name'], 0, 1) != '.') {
+                $size = convertFileSize($file['size'], false);
+                $files[utf8_decode($file['name'])] = '<tr>
+                        <td class="table-fs-filename"><code>' . utf8_decode($file['name']) . '</code></td>
+                        <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
+                        <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['name']) . '">&times;</a></td>
+                    </tr>';
+            }
+        }
+        ksort($files);
     } catch(Exception $e) {
         $fb_disks = false;
     }
@@ -29,16 +41,9 @@
         <?php
             if ($fb_disks) {
                     $nb_files = 0;
-                    foreach ($fb_disks as $file) {
-                        if (substr($file['name'], 0, 1) != '.') {
-                            $size = convertFileSize($file['size'], false);
-                            echo '<tr>
-                                    <td class="table-fs-filename"><code>' . utf8_decode($file['name']) . '</code></td>
-                                    <td class="table-fs-size">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</td>
-                                    <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['name']) . '">&times;</a></td>
-                                </tr>';
-                            $nb_files++;
-                        }
+                    foreach ($files as $file) {
+                        echo $file;
+                        $nb_files++;
                     }
                     if ($nb_files == 0) {
                         echo '<tr><td colspan="4" class="text-center text-muted"><em>Aucun fichier dans le dossier</em></td></tr>';
