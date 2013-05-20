@@ -1,6 +1,7 @@
 <?php
     $resp = array();
     $filesnames = array();
+    $clean_filesnames = array();
     $resultHTML = '';
 
     $uri = 'https://api.put.io/v2/files/list?oauth_token=' . PUTIO_OAUTHTOKEN;
@@ -24,15 +25,18 @@
         }
         else {
             if (defined('SETTINGS_FILENAME_AUTOPUTIO')) {
-                $nice_filename = 'data-nice_filename="' . getEpisodeFilename($item['name']) . '" ';
+                $standalone_nicefilename = getEpisodeFilename($item['name']);
+                $nice_filename = 'data-nice_filename="' . $standalone_nicefilename . '" ';
             }
             else {
+                $standalone_nicefilename = '';
                 $nice_filename = '';
             }
             $attrs = 'data-type="file" ' . $nice_filename . 'data-nice_url="/files/' . $item['id'] . '/download"';
             $icon = '<i class="glyphicon glyphicon-file"></i> ';
             $link = PUTIO_DOWNLOAD_URL . '/files/' . $item['id'] . '/download?token=' . $_SESSION['putio_oauth_access_token'];
             $filesnames[] = $item['name'];
+            $clean_filesnames[] = $standalone_nicefilename;
             $resultHTML .= '<li><a data-size="' . $item['size'] . '" href="' . $link . '" ' . $attrs . '><small class="pull-right text-muted">' . $size['size'] . ' ' . ucfirst($size['unit']) . '</small><em>' . $icon . '<span>' . $item['name'] . '</span>' . '</em></a></li>';
         }
     }
@@ -49,6 +53,7 @@
             'currentFolderID' => $itemlist['parent']['id'],
             'totalResults' => count($filesnames),
             'files' => $filesnames,
+            'cleanfiles' => $clean_filesnames,
             'folder_name' => strtolower($itemlist['parent']['name']),
             'betaseries_id' =>  $betaseries_id,
             'resultHTML' => $resultHTML

@@ -137,7 +137,7 @@
                         </div>
                         <h2><i class="titleico glyphicon glyphicon-align-center"></i> Sous-titres <small>— Betaseries</small></h2>
                     </div>
-                    <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul></div>
+                    <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul><ul class="nav nav-list" id="subs_folder"></ul></div>
                 <?php } ?>
             </div>
             <div class="col-span-6">

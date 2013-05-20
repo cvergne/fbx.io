@@ -55,6 +55,33 @@ var app = {
             }
         });
 
+        doc.on('click', '#subs_folder a[data-nice_filename]', function(ev){
+            ev.preventDefault();
+
+            var anchor = $(this);
+            var nice_filename = anchor.data('nice_filename');
+            var origin_filename = anchor.data('origin_filename');
+            var uri = this.href;
+
+            app._addDownload_realurl.val(uri);
+            app._addDownload_url.val(origin_filename).prop('readonly', true);
+            if (nice_filename !== '') {
+                app._addDownload_file.val(nice_filename);
+            }
+            else {
+                app._addDownload_file.val(origin_filename);
+            }
+
+            $(window).scrollTop($('form legend').scrollTop());
+            $('#addDownloadForm').collapse('show');
+            $('.guess').addClass('inactive');
+        });
+        doc.on('click', '#subs_folder .backfromfolder', function(ev){
+            ev.preventDefault();
+            $(this).parents('.infolder').removeClass('.infolder');
+            $('#subs_folder').html('');
+        });
+
         doc.on('click', 'a.api_guess_filename', app.guessFilename);
 
         doc.on('click', '#remove_all_downloads', app.removeAllDownloads);
@@ -79,7 +106,7 @@ var app = {
             if (app._putioCurrentFolder === null) {
                 return false;
             }
-            app.getSubs(app._putioCurrentFolder.betaseries_id, app._putioCurrentFolder.files);
+            app.getSubs(app._putioCurrentFolder.betaseries_id, app._putioCurrentFolder.files, app._putioCurrentFolder.cleanfiles);
         });
 
         $('a.hasTooltip').tooltip();
@@ -150,7 +177,7 @@ var app = {
                     if (typeof data.files !== 'undefined' && typeof data.betaseries_id !== 'undefined') {
                         app._putioCurrentFolder = data;
                         if (app.checkSetting('settings_subtitles_autosearch', '1')) {
-                            app.getSubs(data.betaseries_id, data.files);
+                            app.getSubs(data.betaseries_id, data.files, data.cleanfiles);
                         }
                     }
                     target.html(data.resultHTML);
@@ -231,7 +258,7 @@ var app = {
             }
         });
     },
-    getSubs: function(show, files) {
+    getSubs: function(show, files, cleanfiles) {
         if (typeof show === 'undefined' || typeof files === 'undefined') {
             app._subtitles.html('<li class="nav-header">Aucun sous-titre</li>');
             return false;
@@ -242,7 +269,8 @@ var app = {
             url: './api.php?bridge=subtitles',
             data: {
                 'show': show,
-                'files': files
+                'files': files,
+                'cleanfiles': cleanfiles
             },
             dataType: 'JSON',
             cache: true,
@@ -268,7 +296,6 @@ var app = {
 
         **/
 
-        /*
         ev.preventDefault();
 
         $.ajax({
@@ -277,16 +304,16 @@ var app = {
             data: {
                 'url': this.href,
                 'filename': this.innerText,
-                'show_title': $(this).data('show_title'),
-                'show_season': $(this).data('show_season'),
-                'show_episode': $(this).data('show_episode')
+                'nicename': $(this).data('nice_filename')
             },
             dataType: 'JSON',
             success: function(data) {
-                console.log(data);
+                if (typeof data.root !== 'undefined' && typeof data.root.error !== 'undefined' && !data.root.error) {
+                    $('#subs_folder').parent('.well').addClass('infolder');
+                    $('#subs_folder').html(data.root.html);
+                }
             }
         });
-        */
     },
     saveSettings: function(ev) {
         ev.preventDefault();
