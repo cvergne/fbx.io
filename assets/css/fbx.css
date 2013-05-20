@@ -241,6 +241,13 @@ h2 .remove.finished:focus {
     .table-fs .table-fs-filename code {
         white-space: normal;
     }
+        .table-fs .table-fs-filename code.alt {
+            padding: 1px 3px;
+            border-radius: 2px;
+            background-color: #F7F7F7;
+            color: #6B6869;
+            font-size: 80%;
+        }
     .table-fs .table-fs-mimetype{
         color: #BBB;
         font-size: 80%;
@@ -257,15 +264,17 @@ h2 .remove.finished:focus {
         .table-fs .table-fs-remove a {
             cursor: pointer;
             display: block;
-            font-weight: bold;
-            font-size: 17px;
+            font-weight: normal;
+            font-size: 12px;
             vertical-align: top;
             color: #D9534F;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             text-align: center;
-            line-height: 17px;
-        }
+            line-height: 23px;
+        
+            border-radius: 2px;
+}
         .table-fs .table-fs-remove a:hover,
         .table-fs .table-fs-remove a:focus,
         .table-fs .table-fs-remove a:active {
