@@ -130,6 +130,7 @@ var app = {
                 method: 'post',
                 url: './api.php?bridge=self_guessfilename',
                 data: {
+                    'ajax': true,
                     'uri': original_filename
                 },
                 dataType: 'json',
@@ -152,6 +153,7 @@ var app = {
                 method: 'post',
                 url: './api.php?bridge=freebox_files',
                 data: {
+                    'ajax': true,
                     'rm': true,
                     'path': anchor.data('path')
                 },
@@ -166,7 +168,7 @@ var app = {
         $.ajax({
             method: 'post',
             url: './api.php?bridge=' + type,
-            data: data,
+            data: $.extend(data, {'ajax': true}),
             dataType: 'JSON',
             beforeSend: function() {
                 app._subtitles.html('<li class="nav-header">Aucun sous-titre</li>');
@@ -210,7 +212,7 @@ var app = {
         $.ajax({
             method: 'post',
             url: "./api.php?bridge=freebox",
-            data: data,
+            data: $.extend(data, {'ajax': true}),
             beforeSend: function() {
                 $('form input').prop('disabled', 'disabled');
             },
@@ -228,6 +230,7 @@ var app = {
             method: 'post',
             url: './api.php?bridge=freebox',
             data: {
+                'ajax': true,
                 'downloads': true
             },
             dataType: 'JSON',
@@ -262,6 +265,7 @@ var app = {
             method: 'post',
             url: './api.php?bridge=freebox',
             data: {
+                'ajax': true,
                 'removeDownload': true,
                 type: anchor.data('type'),
                 id: anchor.data('id')
@@ -289,6 +293,7 @@ var app = {
             method: 'post',
             url: './api.php?bridge=subtitles',
             data: {
+                'ajax': true,
                 'show': show,
                 'files': files,
                 'cleanfiles': cleanfiles
@@ -323,6 +328,7 @@ var app = {
             method: 'post',
             url: './api.php?bridge=download',
             data: {
+                'ajax': true,
                 'url': this.href,
                 'filename': this.innerText,
                 'nicename': $(this).data('nice_filename')
@@ -361,7 +367,7 @@ var app = {
         $.ajax({
             method: this.method,
             url: this.action,
-            data: data,
+            data: $.extend(data, {'ajax': true}),
             dataType: 'JSON',
             success: function() {
                 if (app._settingsQueue.length > 0) {

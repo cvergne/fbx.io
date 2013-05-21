@@ -1,6 +1,14 @@
 <?php
     session_start();
 
+    // AJAX
+    if (isset($_POST['ajax']) && $_POST['ajax'] == true) {
+        define('AJAX', true);
+    }
+    else {
+        define('AJAX', false);
+    }
+
     // CORE
     $root_uri = pathinfo('http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME']);
     $root_uri = $root_uri['dirname'] . '/';
@@ -61,7 +69,7 @@
     define('APP_DL_ROOT_PATH', 'temp/dl/');
     define('APP_DL_FOLDER', APP_ROOT . APP_DL_ROOT_PATH . date('Y-m-d') . '/');
     define('APP_DL_FOLDER_URI', APP_ROOT_URI . APP_DL_ROOT_PATH . date('Y-m-d') . '/');
-    if (!is_dir(APP_DL_FOLDER)) {
+    if (!AJAX && !is_dir(APP_DL_FOLDER)) {
         emptydir(APP_ROOT . APP_DL_ROOT_PATH);
         mkdir(APP_DL_FOLDER, 0755);
     }
