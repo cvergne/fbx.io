@@ -23,6 +23,8 @@ Actuellement, le module permet :
 * De rechercher les sous-titres sur **Betaseries** d'un fichier **Put.io**, si celui-ci est dans un dossier portant le nom de la série
 * D'afficher la liste des périphériques de stockages connectés au **Freebox Server** ( *y compris le disque interne* ), et l'espace utilisé/disponible
 * D'afficher la liste des fichiers/dossiers présents dans le dossier de Téléchargement (et de les supprimer)
+* De télécharger un sous-titre en fonction du dossier Put.io en cours
+* Deviner automatiquement le nom des vidéos et sous-titres via Betaseries
 
 Avertissement
 -----------------------
@@ -79,5 +81,5 @@ Le téléchargement renommait le sous-titre de la façon suivante `[nom_serie] -
 - ~~Rendre le module Betaseries optionnel~~
 - ~~Lancer les recherches de Sous-titres Betaseries en manuel~~
 - ~~Nommage automatique des vidéos de séries~~
-- Téléchargement automatique (temporaire) des sous-titres sur le serveur + renommage auto, puis téléchargement sur la Freebox
+- ~~Téléchargement automatique (temporaire) des sous-titres sur le serveur + renommage auto, puis téléchargement sur la Freebox~~
 - Script type "CRON" gérant les nouveaux téléchargements automatiquement
