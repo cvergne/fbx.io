@@ -273,6 +273,9 @@ var app = {
                 if ($('.dl').length === 0) {
                     app._downloads.html(app._lang.downloads.no_downloads);
                 }
+                if ($('.dl .label-success').length === 0) {
+                    $('#remove_all_downloads').removeClass('active');
+                }
             }
         });
     },

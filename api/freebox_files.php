@@ -75,7 +75,6 @@
                     if (count($final_files) > 0) {
                         foreach ($final_files as $file) {
                             echo $file;
-                            $nb_files++;
                         }
                     }
                     else {

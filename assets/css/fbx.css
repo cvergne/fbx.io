@@ -22,6 +22,13 @@ body {
     vertical-align: -10%;
 }
 
+.label-finished {
+    color: #666;
+    font-size: 75%;
+    font-weight: 600;
+    line-height: 2;
+}
+
 /*==========  Navbar  ==========*/
 .navbar-brand {
     cursor: default;
@@ -272,7 +279,7 @@ h2 .remove.finished:focus {
             height: 22px;
             text-align: center;
             line-height: 23px;
-        
+
             border-radius: 2px;
 }
         .table-fs .table-fs-remove a:hover,
