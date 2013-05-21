@@ -11,6 +11,11 @@
     }
 
     function _get($url) {
+        global $_config_log;
+        if ($_config_log) {
+            $_config_log->logInfo('[Put.io]: ' . $url);
+        }
+
         $ch = curl_init();
         curl_setopt_array($ch, array(
             CURLOPT_HTTPHEADER => array('Content-type: application/json'),

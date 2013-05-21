@@ -7,6 +7,9 @@ cookie.txt
 # Ignore subtitles downloads
 temp/dl/*
 
+# Ignore logs files
+temp/logs/*
+
 # Compiled source #
 ###################
 *.com

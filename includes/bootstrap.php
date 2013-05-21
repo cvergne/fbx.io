@@ -41,6 +41,11 @@
 
     // CONF
     /* const définies depuis le conf .ini */
+    $_config_log = false;
+    if (true || defined('SETTINGS_USE_LOG')) {
+        $_config_log = new KLogger(APP_ROOT . 'temp/logs/', KLogger::INFO);
+        $_config_log->logInfo('[Fbx.io]: MAIN LOAD INSTANCE');
+    }
 
     // FREEBOX
     /* const:

@@ -200,6 +200,15 @@ class Mafreebox {
      * @return mixed le retour de la méthode appelée.
      */
     public function exec($method, $params = array()) {
+        global $_config_log;
+        if ($_config_log) {
+            if (count($params) > 0) {
+                $_config_log->logInfo('[Freebox]: ' . $method, $params);
+            }
+            else {
+                $_config_log->logInfo('[Freebox]: ' . $method);
+            }
+        }
 
         // On détermine la page à appeler en fonction du nom de la méthode.
         $real_method = explode('.', $method);
