@@ -272,8 +272,9 @@ var app = {
             },
             dataType: 'JSON',
             success: function(data) {
-                anchor.next('hr').remove();
-                anchor.parents('.dl').remove();
+                var dl = anchor.parents('.dl');
+                dl.next('hr').remove();
+                dl.remove();
                 if ($('.dl').length === 0) {
                     app._downloads.html(app._lang.downloads.no_downloads);
                 }
