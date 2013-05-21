@@ -71,13 +71,14 @@
     </thead>
     <tbody>
         <?php
-            if ($fb_disks) {
-                    $nb_files = 0;
-                    foreach ($final_files as $file) {
-                        echo $file;
-                        $nb_files++;
+            if ($fb_disks !== false) {
+                    if (count($final_files) > 0) {
+                        foreach ($final_files as $file) {
+                            echo $file;
+                            $nb_files++;
+                        }
                     }
-                    if ($nb_files == 0) {
+                    else {
                         echo '<tr><td colspan="4" class="text-center text-muted"><em>Aucun fichier dans le dossier</em></td></tr>';
                     }
             }
