@@ -245,6 +245,10 @@ h2 .remove.finished:focus {
     .table-fs tbody td {
         padding: 6px 2px;
     }
+    .table-fs .unfinished {
+    text-decoration: line-through;
+
+}
     .table-fs .table-fs-filename code {
         white-space: normal;
     }
