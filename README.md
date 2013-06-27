@@ -6,6 +6,8 @@ fbx.io
 
 M'étant aperçu que cela pouvait intéresser quelques personnes (*qui souhaitent également y contribuer*), je le met à disposition sur ce dépot.
 
+**ATTENTION : Avec la mise à jour 2.0 du firmware Freebox (Freebox OS) et la nouvelle version de l'API, l'outil ne fonctionne plus**
+
 Préambule
 ---------
 Avant toute chose, je tiens à dire que ça a été un peu codé à l'arrache.
