@@ -1,0 +1,3 @@
+[submodule "includes/lib_freebox2"]
+	path = includes/lib_freebox2
+	url = git://github.com/cvergne/FreeboxOS_Client.git

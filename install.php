@@ -12,23 +12,35 @@
                 // IP
                 $preconfiguration['freebox']['ip'] = trim($_POST['freebox']['ip']);
                 if (empty($preconfiguration['freebox']['ip']) || !filter_var($preconfiguration['freebox']['ip'], FILTER_VALIDATE_IP)) {
-                    $errors['form_freebox_ip'] = "Indiquez une adresse IP valide.";
+                    $errors['form_freebox_ip'] = "[Freebox] Indiquez une adresse IP valide.";
+                }
+                if (!empty($_POST['freebox']['apptoken'])) {
+                    $preconfiguration['freebox']['version'] = 2;
+
+                    // APP TOKEN
+                    $preconfiguration['freebox']['apptoken'] = trim($_POST['freebox']['apptoken']);
+                    if (empty($preconfiguration['freebox']['apptoken'])) {
+                        $errors['form_freebox_apptoken'] = "[Freebox] Indiquez l'app token";
+                    }
+                } else {
+                    $preconfiguration['freebox']['version'] = 1;
+
+                    // USER
+                    $preconfiguration['freebox']['user'] = trim($_POST['freebox']['user']);
+                    if (empty($preconfiguration['freebox']['user'])) {
+                        $errors['form_freebox_user'] = "[Freebox] Indiquez votre nom d'utilisateur";
+                    }
+
+                    // PASSWORD
+                    $preconfiguration['freebox']['password'] = trim($_POST['freebox']['password']);
+                    if (empty($preconfiguration['freebox']['password'])) {
+                        $errors['form_freebox_password'] = "[Freebox] Indiquez votre mot de passe";
+                    }
+                    else {
+                        $preconfiguration['freebox']['password'] = base64_encode($preconfiguration['freebox']['password']);
+                    }
                 }
 
-                // USER
-                $preconfiguration['freebox']['user'] = trim($_POST['freebox']['user']);
-                if (empty($preconfiguration['freebox']['user'])) {
-                    $errors['form_freebox_user'] = "Indiquez votre nom d'utilisateur";
-                }
-
-                // PASSWORD
-                $preconfiguration['freebox']['password'] = trim($_POST['freebox']['password']);
-                if (empty($preconfiguration['freebox']['password'])) {
-                    $errors['form_freebox_password'] = "Indiquez votre mot de passe";
-                }
-                else {
-                    $preconfiguration['freebox']['password'] = base64_encode($preconfiguration['freebox']['password']);
-                }
 
             // Put.io
             $preconfiguration['putio'] = array();
@@ -126,6 +138,7 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/fbx.css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <body class="setup">
     <div class="container">
@@ -167,31 +180,89 @@
                             </div>
                         </div>
 
-                        <!-- freebox:USER -->
-                        <div class="control-group<?php _setupIsInError('form_freebox_user'); ?>">
-                            <label class="control-label" for="form_freebox_user">
-                                Utilisateur
-                            </label>
-                            <div class="controls">
-                                <input id="form_freebox_user" class="input-with-feedback" type="text" name="freebox[user]" value="<?php echo (isset($_POST['freebox']['user'])) ? $_POST['freebox']['user'] : 'freebox'; ?>" autocapitalize="off" />
-                                <p class="help-block">
-                                    <small class="text-muted">Normalement inchangeable, mais au cas où</small>
-                                </p>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#fbxv2" data-toggle="tab">Freebox OS - v2</a></li>
+                            <li><a href="#fbxv1" data-toggle="tab">Freebox 1.x</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="fbxv2">
+                                <br/>
+                                <p>Si votre Freebox est sur Freebox OS (firmware 2.x), remplissez ces champs. Vous devez avoir au préalable récupéré un token d'application sur votre réseau local avec ces informations.</p>
+                                <div class="control-group">
+                                    <label class="control-label" for="form_fbxv2_appid">
+                                        App ID
+                                    </label>
+                                    <div class="controls">
+                                        <input id="form_fbxv2_appid" type="text" readonly="readonly" value="<?php echo APP_APP_ID; ?>" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="form_fbxv2_appname">
+                                        App Name
+                                    </label>
+                                    <div class="controls">
+                                        <input id="form_fbxv2_appname" type="text" readonly="readonly" value="<?php echo APP_APP_NAME; ?>" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="form_fbxv2_appversion">
+                                        App Version
+                                    </label>
+                                    <div class="controls">
+                                        <input id="form_fbxv2_appversion" type="text" readonly="readonly" value="<?php echo APP_APP_VERSION; ?>" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="form_fbxv2_appversion">
+                                        Device Name
+                                    </label>
+                                    <div class="controls">
+                                        <input id="form_fbxv2_appversion" type="text" readonly="readonly" value="<?php echo APP_DEVICE_NAME; ?>" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <p class="help-block">Remplissez ensuite ce champ:</p>
+                                <div class="control-group">
+                                    <label class="control-label" for="form_freebox_apptoken">
+                                        App Token
+                                    </label>
+                                    <div class="controls">
+                                        <input id="form_freebox_apptoken" class="input-with-feedback" type="text" name="freebox[apptoken]" value="<?php echo (isset($_POST['freebox']['apptoken'])) ? $_POST['freebox']['apptoken'] : ''; ?>" autocapitalize="off" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="fbxv1">
+                                <br/>
+                                <p>Si votre Freebox est sur un firmware avant Freebox OS, remplissez ces champs.</p>
+                                <!-- freebox:USER -->
+                                <div class="control-group<?php _setupIsInError('form_freebox_user'); ?>">
+                                    <label class="control-label" for="form_freebox_user">
+                                        Utilisateur
+                                    </label>
+                                    <div class="controls">
+                                        <input id="form_freebox_user" class="input-with-feedback" type="text" name="freebox[user]" value="<?php echo (isset($_POST['freebox']['user'])) ? $_POST['freebox']['user'] : 'freebox'; ?>" autocapitalize="off" />
+                                        <p class="help-block">
+                                            <small class="text-muted">Normalement inchangeable, mais au cas où</small>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- freebox:PASSWORD -->
+                                <div class="control-group<?php _setupIsInError('form_freebox_password'); ?>">
+                                    <label class="control-label" for="form_freebox_password">
+                                        Mot de passe
+                                    </label>
+                                    <div class="controls">
+                                        <input id="form_freebox_password" class="input-with-feedback" type="password" name="freebox[password]" value="<?php echo (isset($_POST['freebox']['password'])) ? $_POST['freebox']['password'] : ''; ?>" autocorrect="off" autocapitalize="off" />
+                                        <p class="help-block">
+                                            <small class="text-muted">Celui que vous avez défini pour accéder à la console <a href="http://mafreebox.freebox.fr/" target="_blank">http://mafreebox.freebox.fr</a></small>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- freebox:PASSWORD -->
-                        <div class="control-group<?php _setupIsInError('form_freebox_password'); ?>">
-                            <label class="control-label" for="form_freebox_password">
-                                Mot de passe
-                            </label>
-                            <div class="controls">
-                                <input id="form_freebox_password" class="input-with-feedback" type="password" name="freebox[password]" value="<?php echo (isset($_POST['freebox']['password'])) ? $_POST['freebox']['password'] : ''; ?>" autocorrect="off" autocapitalize="off" />
-                                <p class="help-block">
-                                    <small class="text-muted">Celui que vous avez défini pour accéder à la console <a href="http://mafreebox.freebox.fr/" target="_blank">http://mafreebox.freebox.fr</a></small>
-                                </p>
-                            </div>
-                        </div>
 
                         <hr />
 

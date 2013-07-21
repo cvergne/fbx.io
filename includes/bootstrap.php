@@ -22,6 +22,12 @@
     // Required libs
     require_once(APP_ROOT . 'includes/functions.php');
 
+    // APP
+    define('APP_APP_ID', 'io.fbx.app');
+    define('APP_APP_NAME', 'fbx.io');
+    define('APP_APP_VERSION', '1.0');
+    define('APP_DEVICE_NAME', APP_ROOT_URI);
+
     // Define CONF from .ini file
     if (!defined('INSTALL_MODE')) {
         if (!file_exists(CONFIG_FILE_PATH)) {
@@ -44,9 +50,15 @@
 
     // FREEBOX
     /* const:
+        FREEBOX_VERSION: version de la Freebox
         FREEBOX_IP: adresse ip de la freebox
+
+        FREEBOX_VERSION == 1
         FREEBOX_USER: utilisateur freebox
         FREEBOX_PASSWORD: mot de passe freebox
+
+        FREEBOX_VERSION == 2
+        FREEBOX_APPTOKEN: App Token Freebox OS
     */
     $_config_freebox_subtitles_extensions = array('srt', 'ass', 'ssa');
 
@@ -86,6 +98,26 @@
         $bs = new BetaSeries_Client(BETASERIES_URL, BETASERIES_APIKEY, BetaSeries_Client::JSON, BetaSeries_Client::LANGUAGE_VF);
     }
     // Freebox init
-    $fbx = new Mafreebox('http://' . FREEBOX_IP . '/', FREEBOX_USER, FREEBOX_PASSWORD);
+    if (FREEBOX_VERSION == 2) {
+        $fbx = new FreeboxOS(array(
+            'app_id' => APP_APP_ID,
+            'app_name' => APP_APP_NAME,
+            'app_version' => APP_APP_VERSION,
+            'device_name' => APP_DEVICE_NAME
+        ),
+        array(
+            'app_token' => FREEBOX_APPTOKEN,
+            'freebox_ip' =>  'http://' . FREEBOX_IP
+        ));
+
+        if (!isset($_SESSION['fbxio_files_to_rename'])) {
+            $_SESSION['fbxio_files_to_rename'] = array();
+        }
+        if (!isset($_SESSION['fbxio_files_renamed'])) {
+            $_SESSION['fbxio_files_renamed'] = array();
+        }
+    } else {
+        $fbx = new Mafreebox('http://' . FREEBOX_IP . '/', FREEBOX_USER, FREEBOX_PASSWORD);
+    }
 }
 

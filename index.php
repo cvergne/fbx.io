@@ -141,6 +141,9 @@
                 <?php } ?>
             </div>
             <div class="col-span-6">
+                <?php
+                    if (FREEBOX_VERSION == 1) {
+                ?>
                 <div class="page-header">
                     <h2><i class="titleico glyphicon glyphicon-hdd"></i> Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
                 </div>
@@ -187,8 +190,17 @@
                     </div>
                 </div>
                 <?php
-                    $dl_folder = $fbx->download->config_get();
-                    $dl_folder = utf8_decode($dl_folder['download_dir']);
+                    }
+                    if (FREEBOX_VERSION == 2) {
+                        $fbx_dl_folder = $fbx->downloads_getConfiguration();
+                        $dl_folder = '';
+                        if ($fbx_dl_folder->success) {
+                            $dl_folder = base64_decode($fbx_dl_folder->result->download_dir);
+                        }
+                    } else {
+                        $dl_folder = $fbx->download->config_get();
+                        $dl_folder = utf8_decode($dl_folder['download_dir']);
+                    }
                 ?>
                 <div class="page-header">
                     <h2><i class="titleico glyphicon glyphicon-download-alt"></i> Freebox NAS <small>— <?php echo $dl_folder; ?></small></h2>
