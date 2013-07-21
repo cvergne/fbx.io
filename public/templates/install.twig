@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>fbx.io</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+
+    <!-- Mobile part -->
+    <meta name="viewport" content="initial-scale=1.0" />
+
+    <!-- iOS Part -->
+    <meta name="apple-mobile-web-app-title" content="fbx.io" />
+    <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link href="/assets/img/apple-touch-start-640x1096.png" media="(device-height: 568px)" rel="apple-touch-startup-image" />
+    <link href="/assets/img/apple-touch-start-640x920.png" sizes="640x920" media="(device-height: 480px)" rel="apple-touch-startup-image" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/fbx.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body class="setup">
+    <div class="container">
+        <div class="row">
+            <div class="col-span-6 col-offset-3">
+                <form method="post" action="./install" class="form-horizontal">
+                    <fieldset>
+                        <legend><h1>Configuration initiale</h1></legend>
+
+                        {% if errors|length > 0 %}
+                            <div class="alert alert-error alert-noclose">
+                                <ul>
+                                    {% for error_key, single_error in errors %}
+                                        <li><a href="#{{ error_key }}">{{ single_error }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        {% if restart %}
+                            <div class="alert alert-info"><strong>Pas d'inquiétude, tant que vous n'avez pas correctement rempli le formulaire, votre configuration actuelle ne sera pas supprimée !</strong></div>
+                        {% endif %}
+
+                        <h2>Freebox</h2>
+
+                        <!-- #freebox:IP -->
+                        <div class="control-group{{ errors_class.freebox.ip }}">
+                            <label class="control-label" for="form_freebox_ip">
+                                Adresse IP
+                            </label>
+                            <div class="controls">
+                                <input id="form_freebox_ip" class="input-with-feedback" type="text" name="freebox[ip]" value="{{ postdata.freebox.ip }}" placeholder="Adresse IP distante de votre Freebox" autocorrect="off" autocapitalize="off" />
+                                {% if ip != '127.0.0.1' %}
+                                <p class="help-block">
+                                    <small><i class="glyphicon glyphicon-question-sign"></i> Cliquez sur <a class="remote_addr">{{ ip }}</a> si vous êtes actuellement sur votre Freebox.</small>
+                                </p>
+                                <script type="text/javascript">
+                                    $('.remote_addr').on('click', function(ev) {  ev.preventDefault(); $('#form_freebox_ip').val(this.innerText); })
+                                </script>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- freebox:USER -->
+                        <div class="control-group{{ errors_class.freebox.user }}">
+                            <label class="control-label" for="form_freebox_user">
+                                Utilisateur
+                            </label>
+                            <div class="controls">
+                                <input id="form_freebox_user" class="input-with-feedback" type="text" name="freebox[user]" value="{{ postdata.freebox.user }}" autocapitalize="off" />
+                                <p class="help-block">
+                                    <small class="text-muted">Normalement inchangeable, mais au cas où</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- freebox:PASSWORD -->
+                        <div class="control-group{{ errors_class.freebox.password }}">
+                            <label class="control-label" for="form_freebox_password">
+                                Mot de passe
+                            </label>
+                            <div class="controls">
+                                <input id="form_freebox_password" class="input-with-feedback" type="text" name="freebox[password]" value="{{ postdata.freebox.password }}" autocorrect="off" autocapitalize="off" />
+                                <p class="help-block">
+                                    <small class="text-muted">Celui que vous avez défini pour accéder à la console <a href="http://mafreebox.freebox.fr/" target="_blank">http://mafreebox.freebox.fr</a></small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <h2>Put.io</h2>
+
+                        <!-- putio:USER -->
+                        <div class="control-group{{ errors_class.putio.user }}">
+                            <label class="control-label" for="form_putio_user">
+                                Utilisateur
+                            </label>
+                            <div class="controls">
+                                <input id="form_putio_user" class="input-with-feedback" type="text" name="putio[user]" value="{{ postdata.putio.user }}" autocapitalize="off" />
+                            </div>
+                        </div>
+
+                        <!-- putio:PASSWORD -->
+                        <div class="control-group{{ errors_class.putio.password }}">
+                            <label class="control-label" for="form_putio_password">
+                                Mot de passe
+                            </label>
+                            <div class="controls">
+                                <input id="form_putio_password" class="input-with-feedback" type="text" name="putio[password]" value="{{ postdata.putio.password }}" />
+                                <p class="help-block">
+                                    <small class="text-muted">Le nom d'utilisateur et le mot de passe sont utilisés pour que la Freebox puisse accéder aux téléchargements, celle-ci ne gérant pas pour le moment les téléchargements en https.</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- putio:CALLBACK -->
+                        <div class="control-group">
+                            <div class="controls">
+                                <hr />
+                                <p class="help-block"><small>Avant de remplir ces champs, vous devez <a href="https://put.io/v2/oauth2/register" target="_blank">créer un accès API</a> sur <strong>Put.io</strong>.<br />Vous devrez lui fournir l'url de Callback suivante :</small></p>
+                                <input id="form_putio_callback" type="text" readonly="readonly" value="{{ putio_callback }}" />
+                                <p class="help-block help-exclam"><small><i class="glyphicon glyphicon-exclamation-sign"></i> Attention, toute nouvelle configuration nécessite un nouvel accès API</small></p>
+                            </div>
+                        </div>
+
+                        <!-- putio:CLIENT_ID -->
+                        <div class="control-group{{ errors_class.putio.appclientid }}">
+                            <label class="control-label" for="form_putio_clientid">
+                                Client ID
+                            </label>
+                            <div class="controls">
+                                <input id="form_putio_appclientid" class="input-with-feedback" type="text" name="putio[appclientid]" value="{{ postdata.putio.appclientid }}" autocorrect="off" autocapitalize="off" />
+                            </div>
+                        </div>
+
+                        <!-- putio:APP_SECRET -->
+                        <div class="control-group{{ errors_class.putio.appsecret }}">
+                            <label class="control-label" for="form_putio_appsecret">
+                                Application Secret
+                            </label>
+                            <div class="controls">
+                                <input id="form_putio_appsecret" class="input-with-feedback" type="text" name="putio[appsecret]" value="{{ postdata.putio.appsecret }}" autocorrect="off" autocapitalize="off" />
+                            </div>
+                        </div>
+
+                        <!-- putio:OAUTH_TOKEN -->
+                        <div class="control-group{{ errors_class.putio.oauthtoken }}">
+                            <label class="control-label" for="form_putio_oauthtoken">
+                                Oauth Token
+                            </label>
+                            <div class="controls">
+                                <input id="form_putio_oauthtoken" class="input-with-feedback" type="text" name="putio[oauthtoken]" value="{{ postdata.putio.oauthtoken }}" placeholder="Facultatif" autocorrect="off" autocapitalize="off" />
+                                <p class="help-block">
+                                    <small class="text-muted">Vous évite de devoir vous reconnecter à chaque fois.</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <h2>Betaseries</h2>
+                        <p class="intro">Ces champs sont à remplir uniquement si vous souhaitez utiliser la recherche de sous-titres et le nommage automatique des vidéos.</p>
+
+                        <!-- betaseries:APIKEY -->
+                        <div class="control-group{{ errors_class.betaseries.apikey }}">
+                            <div class="controls">
+                                <p class="help-block"><small>Avant de remplir ces champs, vous devez <a href="http://www.betaseries.com/api" target="_blank">demander une clé API</a> sur <strong>Betaseries</strong>.</small></p>
+                            </div>
+                            <label class="control-label" for="form_betaseries_apikey">
+                                API Key
+                            </label>
+                            <div class="controls">
+                                <input id="form_betaseries_apikey" class="input-with-feedback" type="text" name="betaseries[apikey]" value="{{ postdata.betaseries.apikey }}" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
+                            </div>
+                        </div>
+
+                        <!-- betaseries:USER -->
+                        <div class="control-group{{ errors_class.betaseries.user }}">
+                            <div class="controls">
+                                <hr/>
+                                <p class="help-block"><small class="text-muted">Les fonctions liées à votre compte ne sont pour le moment pas actives, ces informations sont donc pour le moment facultatives mais peuvent servir dans le futur</small></p>
+                            </div>
+                            <label class="control-label" for="form_betaseries_user">
+                                Utilisateur
+                            </label>
+                            <div class="controls">
+                                <input id="form_betaseries_user" class="input-with-feedback" type="text" name="betaseries[user]" value="{{ postdata.betaseries.user }}" placeholder="facultatif" autocapitalize="off" />
+                            </div>
+                        </div>
+
+                        <!-- betaseries:PASSWORD -->
+                        <div class="control-group{{ errors_class.betaseries.password }}">
+                            <label class="control-label" for="form_betaseries_password">
+                                Mot de passe
+                            </label>
+                            <div class="controls">
+                                <input id="form_betaseries_password" class="input-with-feedback" type="password" name="betaseries[password]" value="{{ postdata.betaseries.password }}" placeholder="facultatif" autocorrect="off" autocapitalize="off" />
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <h2>Options</h2>
+
+                        <div class="control-group">
+                            <label class="control-label">Put.io</label>
+                            <div class="controls">
+                                <label class="checkbox">
+                                    <input type="checkbox" value="1" name="settings[putio_hidespace]" {{ postdata.settings.putio_hidespace }} />
+                                    Désactiver l'affichage de l'espace utilisé/restant sur Put.io
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Sous-titres</label>
+                            <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" value="1" name="settings[subtitles_autosearch]" {{ postdata.settings.subtitles_autosearch }} />
+                                Activer la recherche automatique de sous-titres
+                                <p class="help-block">
+                                    <small class="text-muted">Vous devez remplir les paramètres concernant Betaseries pour utiliser cette option</small>
+                                </p>
+                            </label>
+                        </div>
+
+                        <hr />
+
+                        <div class="form-actions">
+                            <button type="submit" name="createconf" class="btn btn-primary">
+                                Créer la configuration
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

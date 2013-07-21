@@ -1,0 +1,58 @@
+<div class="page-header">
+    <h2><i class="titleico glyphicon glyphicon-tasks"></i> Téléchargements <small>— Freebox</small> <a id="remove_all_downloads" href="#" class="remove finished pull-right"><i class="glyphicon glyphicon-ok"></i></a></h2>
+</div>
+<div class="page-content">
+    <div id="downloads">
+        <p class="text-muted text-center"><small><em>Chargement en cours</em></small></p>
+        <!-- Current downloads goes here -->
+        <!-- <div class="dl">
+            <p><span class="label">Glee.mkv</span></p>
+            <div class="progress progress-striped active">
+                <div class="progress-bar" style="width: 40%">40%</div>
+            </div>
+        </div> -->
+    </div>
+    <div class="alert alert-info" id="log" style="display:none"></div>
+    <hr />
+    <form id="form_freebox_adddownload" class="form-horizontal">
+        <input type="hidden" name="real_url" />
+        <fieldset>
+            <div class="accordion" id="addDownloadSection">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle text-danger" data-toggle="collapse" data-parent="#addDownloadSection" href="#addDownloadForm"><i class="glyphicon glyphicon-plus"></i> Ajouter un téléchargement</a>
+                    </div>
+                    <div id="addDownloadForm" class="accordion-body collapse">
+                        <div class="control-group">
+                            <label class="control-label">
+                                URL
+                            </label>
+                            <div class="controls">
+                                <input type="text" name="url" placeholder="Url de téléchargement" autocorrect="off" autocapitalize="off" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">
+                                Nom du fichier
+                            </label>
+                            <div class="controls">
+                                <input type="text" name="file" placeholder="exemple: Movie.mkv" autocorrect="off" autocapitalize="off" />
+                                <p class="help-block guess<?php echo (defined('SETTINGS_FILENAME_GUESSOPTION')) ? '' : ' hidden'; ?>">
+                                    <a href="#" class="api_guess_filename"><small>Deviner le nom de fichier</small></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="reset" class="btn">
+                                Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary pull-right">
+                                Envoyer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

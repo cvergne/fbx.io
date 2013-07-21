@@ -1,0 +1,405 @@
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,400italic|Source+Code+Pro') (min-width: 768px);
+
+body {
+    padding: 0 10px;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+}
+
+@media (min-width: 767px) {
+    code { font-family: 'Source Code Pro', sans-serif; }
+    .label {
+        font-weight: bold;
+    }
+    .progress-bar {
+        font-weight: bold;
+        font-size: 13px;
+    }
+}
+
+
+.glyphicon::before {
+    vertical-align: -10%;
+}
+
+.label-finished {
+    color: #666;
+    font-size: 75%;
+    font-weight: 600;
+    line-height: 2;
+}
+
+/*==========  Navbar  ==========*/
+.navbar-brand {
+    cursor: default;
+}
+.navbar-brand,
+.navbar .nav > li > a {
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+    .settings, .settings:focus {
+        cursor: pointer;
+        outline: 0;
+        box-shadow: none;
+    }
+
+/*==========  Modal  ==========*/
+.modal-header {
+    padding: 4px 12px;
+
+    border-radius: 6px 6px 0 0;
+    background-color: #F9F9F9;
+}
+.modal-body {
+    padding: 15px 20px 0;
+}
+    .modal-body h6 {
+        display: inline-block;
+        margin: 5px 0 3px;
+        padding: 0px 5px;
+        background-color: #EEE;
+    }
+    .modal-body label {
+        color: #777;
+        font-weight: normal;
+        font-size: 80%;
+        margin: 0 7px;
+        cursor: pointer;
+    }
+        .modal-body label input {
+
+        }
+.modal-footer {
+    padding: 8px;
+}
+
+label .help-block {
+    line-height: 1.2;
+}
+
+
+/*==========  Misc  ==========*/
+
+body > .container {
+}
+
+.label {
+    white-space: normal;
+}
+
+div.page-header {
+    padding: 0 5px;
+    margin-bottom: 10px;
+    background-color: #F0F0F0;
+    border-color: #CCC;
+    margin-top: 20px;
+}
+
+div.page-header + .page-content {
+    padding: 0 10px;
+}
+
+h2, h3, h4 {
+    margin: 0;
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+}
+    h2 small {
+        font-size: 65%;
+    }
+
+.opacified {
+    opacity: 0.5;
+}
+
+.opacified + small {
+    font-size: 70%;
+}
+
+.manual_sub_search {
+    margin: 0.6rem 0.3rem 0;
+    text-align: center;
+    color: #DDD;
+    display: none;
+    visibility: hidden;
+}
+.manual_sub_search.off { display: block; visibility: visible; }
+
+.titleico {
+    color: #CCC;
+    font-size: 80%;
+    margin: 0 3px 0 7px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.alert-noclose {
+    padding-right: 14px;
+}
+.alert-info .nav > li > a:hover,
+.alert-info .nav > li > a:focus {
+    background-color: #F4FBFF;
+}
+
+.nav-header {
+    padding: 3px 5px;
+}
+.nav > li > a {
+    padding: 5px 10px;
+}
+
+
+/*==========  DOWNLOADS  ==========*/
+.dl .remove {
+    color: #b94a48;
+    margin: -2px 0 0 5px;
+    padding: 3px 5px 0 4px;
+    border-radius: 2px;
+}
+.dl .remove:hover,
+.dl .remove:active,
+.dl .remove:focus {
+    background-color: #b94a48;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.dl .remove.finished,
+h2 .remove.finished {
+    color: #5cb85c;
+    text-decoration: none;
+    border-radius: 2px;
+}
+h2 .remove.finished {
+    display: none;
+    visibility: hidden;
+    margin: 0.7rem 5px 0 0;
+    font-size: 14px;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+h2 .remove.finished.active {
+    display: block;
+    visibility: visible;
+}
+.dl .remove.finished:hover,
+.dl .remove.finished:active,
+.dl .remove.finished:focus,
+h2 .remove.finished:hover,
+h2 .remove.finished:active,
+h2 .remove.finished:focus {
+    background-color: #5cb85c;
+    color: #FFF;
+}
+
+#addDownloadSection .accordion-toggle {
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #f9f2f4;
+}
+#addDownloadForm .control-group:first-child {
+    margin-top: 10px;
+}
+#addDownloadForm .control-group {
+    padding: 0 10px;
+}
+    #addDownloadForm .form-actions {
+        margin-bottom: 0;
+    }
+
+.guess {
+    font-size: 90%;
+    padding: 5px 5px 0 0;
+    text-align: right;
+    margin-bottom: 0;
+}
+    .guess.inactive {
+        visibility: hidden;
+    }
+
+/*==========  FILES  ==========*/
+    .putio.alert .nav > li > a:hover,
+    .putio.alert .nav > li > a:focus {
+        background-color: #fbeed5;
+    }
+.putio .putio_space {
+    margin-top: 5px;
+    border-top: 2px solid #EEE;
+}
+.putio .putio_space.off {
+    display: none;
+    visibility: hidden;
+}
+.putio .progress {
+    margin: 15px 0 0 0;
+}
+.table-fs thead{
+    font-size: 90%
+}
+.table-fs tbody{
+    font-size: 85%;
+}
+    .table-fs tbody td {
+        padding: 6px 2px;
+    }
+    .table-fs .unfinished {
+    text-decoration: line-through;
+
+}
+    .table-fs .table-fs-filename code {
+        white-space: normal;
+    }
+        .table-fs .table-fs-filename code.alt {
+            padding: 1px 3px;
+            border-radius: 2px;
+            background-color: #F7F7F7;
+            color: #6B6869;
+            font-size: 80%;
+        }
+    .table-fs .table-fs-mimetype{
+        color: #BBB;
+        font-size: 80%;
+    }
+    .table-fs .table-fs-size {
+        font-size: 90%;
+        font-weight: bold;
+        color: #888;
+    }
+    .table-fs .table-fs-remove {
+        padding-left: 0;
+        padding-right: 0;
+    }
+        .table-fs .table-fs-remove a {
+            cursor: pointer;
+            display: block;
+            font-weight: normal;
+            font-size: 12px;
+            vertical-align: top;
+            color: #D9534F;
+            width: 22px;
+            height: 22px;
+            text-align: center;
+            line-height: 23px;
+
+            border-radius: 2px;
+}
+        .table-fs .table-fs-remove a:hover,
+        .table-fs .table-fs-remove a:focus,
+        .table-fs .table-fs-remove a:active {
+            text-decoration: none;
+            background-color: #D9534F;
+            color: #FFF;
+        }
+
+
+/*==========  SETUP  ==========*/
+body.setup {
+    color: #666;
+    font-size: 13px;
+}
+
+.setup h1 {
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.setup .alert-error a {
+    color: inherit;
+    font-weight: bold;
+}
+
+.setup h2 {
+    padding: 5px;
+    margin: 10px 0;
+    background-color: #EEE;
+    color: #777;
+    font-size: inherit;
+    line-height: inherit;
+    border-bottom: 1px solid #777;
+}
+
+.setup .intro {
+    font-size: 85%;
+    font-style: italic;
+    line-height: 150%;
+    padding: 0 10px;
+}
+
+.setup .form-horizontal .control-label {
+    font-size: 13px;
+}
+    .setup .controls .help-block {
+        margin: 3px 0;
+        line-height: 110%;
+    }
+    .setup label.checkbox {
+        font-weight: normal;
+    }
+    .setup label .help-block {
+        font-weight: normal;
+        font-style: italic;
+    }
+    .setup .controls .help-exclam {
+        color: #b94a48;
+    }
+
+    .setup .controls hr {
+        margin: -8px 0 10px 0;
+    }
+
+    .setup .remote_addr {
+        cursor: pointer;
+    }
+
+/*==========  Subtitles  ==========*/
+.well:not(.infolder) #subs_folder { display: none; visibility: hidden; }
+.well.infolder #subs_list { display: none; visibility: hidden; }
+
+
+/*==========  Max width 767px  ==========*/
+@media (max-width: 767px) {
+    body {
+        padding: 0;
+    }
+
+    .navbar-brand {
+        display: inline-block;
+    }
+    .navbar .nav {
+        margin: 0;
+    }
+        .navbar .nav > li {
+            display: inline-block;
+        }
+    h2 small {
+        display: block;
+        margin: -3px 0 5px;
+        line-height: 120%;
+        display: none;
+        visibility: hidden;
+    }
+    .control-group:first-of-type {
+        margin-bottom: 15px;
+    }
+
+    #files_list span {
+   -moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline;
+        word-wrap: normal;
+        max-width: 85%;
+        vertical-align: middle;
+        margin-left: 3%;
+    }
+
+    [class*="col-span-"], [class*="col-small-"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
