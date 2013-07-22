@@ -110,9 +110,20 @@
                 }
                 if ($conf_file = fopen(CONFIG_FILE_PATH, 'w+')) {
                     if (fwrite($conf_file, $ini_content)) {
+                        if ($preconfiguration['freebox']['version'] == 2) {
+                            if ($db = sqlite_open(DB_FILE_PATH, 0666, $sqliteerror)) {
+                                sqlite_query($db,'CREATE TABLE downloads (
+                                    id           INTEGER     PRIMARY KEY,
+                                    fbx_id       INT                                    NOT NULL,
+                                    orig_path    TEXT                                   NOT NULL,
+                                    new_name     TEXT                                   NOT NULL
+                                )');
+                            }
+                        }
                         header('Location: ' . $root_uri);
                     }
                     fclose($conf_file);
+
                 }
             }
         }

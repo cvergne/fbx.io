@@ -53,14 +53,6 @@ if (FREEBOX_VERSION == 2) {
                         </div>';
             }
             else {
-                if (isset($_SESSION['fbxio_files_to_rename'][$dl->id])) {
-                    $base_path = base64_encode($_SESSION['fbxio_files_to_rename'][$dl->id]['dirname'] . $_SESSION['fbxio_files_to_rename'][$dl->id]['name']);
-                    $fbx_rename = $fbx->fs_renameItem($base_path, $_SESSION['fbxio_files_to_rename'][$dl->id]['final_name']);
-                    if ($fbx->response && $fbx_rename->response->result) {
-                        $_SESSION['fbxio_files_renamed'][$dl->id] = $final_name;
-                        unset($_SESSION['fbxio_files_to_rename'][$dl->id], $base_path, $fbx_rename);
-                    }
-                }
                 $name = $dl->name;
                 if (isset($_SESSION['fbxio_files_renamed'][$dl->id])) {
                     $name = $_SESSION['fbxio_files_renamed'][$dl->id];
@@ -116,20 +108,25 @@ if (FREEBOX_VERSION == 2) {
             $file = 'file-' . date('H_i_Y_m_d') . '.fileext';
         }
 
-        $fbx_resp = $fbx->downloads_addURL($file, $url);
-        if ($fbx_resp->response->success == true) {
-            $fbx_dl_info = $fbx->downloads_Item($fbx_resp->response->result->id);
+        $fbx_resp = $fbx->downloads_addURL(array('download_url' => $url));
+        if ($fbx_resp->success) {
+            $fbx_dl_info = $fbx->downloads_Item($fbx_resp->result->id);
             if ($fbx_dl_info->success) {
+                if ($db = sqlite_open(DB_FILE_PATH, 0666, $sqliteerror)) {
+                    $db = sqlite_query($db,"INSERT INTO downloads (fbx_id,orig_path,new_name) VALUES ('" . sqlite_escape_string($fbx_resp->result->id) . "', '" . sqlite_escape_string(base64_encode($fbx_dl_info->result->download_dir_name . $fbx_dl_info->result->name)) . "', '" . sqlite_escape_string($file) . "')");
+                }
+                /*
                 $_SESSION['fbxio_files_to_rename'][$fbx_dl_info->result->id] = array(
                     'dir' => $fbx_dl_info->result->download_dir,
                     'dirname' => $fbx_dl_info->result->download_dir_name,
                     'name' => $fbx_dl_info->result->name,
                     'final_name' => $file
                 );
+                */
             }
 
         }
-        print_r($fbx_resp->response->result);
+        print_r($fbx_resp->result);
     }
 } else {
     if (isset($_POST['downloads'])) {

@@ -1,5 +1,6 @@
-# Ignore configuration files
+# Ignore configuration/db files
 *.ini
+*.db
 
 # Ignore CURL Cookie file
 cookie.txt

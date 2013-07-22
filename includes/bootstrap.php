@@ -18,6 +18,7 @@
     define('APP_ROOT', $_sf['dirname'] . '/');
     define('CONFIG_FILE_NAME', md5(APP_ROOT_URI));
     define('CONFIG_FILE_PATH', APP_ROOT.'includes/configs/'.CONFIG_FILE_NAME.'.ini');
+    define('DB_FILE_PATH', APP_ROOT.'includes/db/'.CONFIG_FILE_NAME.'.db');
 
     // Required libs
     require_once(APP_ROOT . 'includes/functions.php');
