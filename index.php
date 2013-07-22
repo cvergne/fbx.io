@@ -141,56 +141,94 @@
                 <?php } ?>
             </div>
             <div class="col-span-6">
-                <?php
-                    if (FREEBOX_VERSION == 1) {
-                ?>
                 <div class="page-header">
                     <h2><i class="titleico glyphicon glyphicon-hdd"></i> Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
                 </div>
                 <div class="page-content">
                     <div id="disks">
                         <?php
-                            $fb_disks = $fbx->storage->_list();
-                            foreach ($fb_disks as $fb_disk) {
-                                $diskLabel = '';
-                                if ($fb_disk['type'] == 'internal') {
-                                    $diskLabel = ' label-info';
-                                }
-                                foreach ($fb_disk['partitions'] as $fb_disk_part) {
-                                        $total_hdd = $fb_disk_part['free_bytes'] + $fb_disk_part['used_bytes'];
-                                        $size_calc = round(($fb_disk_part['used_bytes'] / $total_hdd) * 100, 2);
-                                        $free_hdd = round(100 - round($size_calc));
-                                        $total_hdd_display = convertFileSize($total_hdd, 'go');
-                                        $used_hdd_display = convertFileSize($fb_disk_part['used_bytes'], 'go');
-                                        $total_display = $used_hdd_display . ' Go <span class="opacified">/</span> ' . $total_hdd_display . ' Go';
-                                        $current_display = convertFileSize($fb_disk_part['free_bytes'], 'go') . ' <small>Go libres</small>';
-
-                                        $hdd_progress_class = '';
-                                        if ($free_hdd >= 30) {
-                                            $hdd_progress_class = ' progress-bar-success';
+                            if (FREEBOX_VERSION == 2) {
+                                $fb_disks = $fbx->storage_diskList();
+                                if ($fb_disks->success) {
+                                    foreach ($fb_disks->result as $fb_disk) {
+                                        $diskLabel = '';
+                                        if ($fb_disk->type == 'internal') {
+                                            $diskLabel = ' label-info';
                                         }
-                                        else if ($free_hdd >= 15) {
-                                            $hdd_progress_class = ' progress-bar-warning';
-                                        }
-                                        else if ($free_hdd >= 5) {
-                                            $hdd_progress_class = ' progress-bar-danger';
-                                        }
+                                        foreach ($fb_disk->partitions as $fb_disk_part) {
+                                                $total_hdd = $fb_disk_part->free_bytes + $fb_disk_part->used_bytes;
+                                                $size_calc = round(($fb_disk_part->used_bytes / $total_hdd) * 100, 2);
+                                                $free_hdd = round(100 - round($size_calc));
+                                                $total_hdd_display = convertFileSize($total_hdd, 'go');
+                                                $used_hdd_display = convertFileSize($fb_disk_part->used_bytes, 'go');
+                                                $total_display = $used_hdd_display . ' Go <span class="opacified">/</span> ' . $total_hdd_display . ' Go';
+                                                $current_display = convertFileSize($fb_disk_part->free_bytes, 'go') . ' <small>Go libres</small>';
+
+                                                $hdd_progress_class = '';
+                                                if ($free_hdd >= 30) {
+                                                    $hdd_progress_class = ' progress-bar-success';
+                                                }
+                                                else if ($free_hdd >= 15) {
+                                                    $hdd_progress_class = ' progress-bar-warning';
+                                                }
+                                                else if ($free_hdd >= 5) {
+                                                    $hdd_progress_class = ' progress-bar-danger';
+                                                }
 
 
-                                    if ($used_hdd_display > 0) {
-                                        echo '<div class="disk">';
-                                            echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part['label'] . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
-                                            echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
-                                        echo '</div>';
+                                            if ($used_hdd_display > 0) {
+                                                echo '<div class="disk">';
+                                                    echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part->label . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
+                                                    echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
+                                                echo '</div>';
+                                            }
+                                        }
+                                        echo '<hr />';
                                     }
+
                                 }
-                                echo '<hr />';
+                            } else {
+                                $fb_disks = $fbx->storage->_list();
+                                foreach ($fb_disks as $fb_disk) {
+                                    $diskLabel = '';
+                                    if ($fb_disk['type'] == 'internal') {
+                                        $diskLabel = ' label-info';
+                                    }
+                                    foreach ($fb_disk['partitions'] as $fb_disk_part) {
+                                            $total_hdd = $fb_disk_part['free_bytes'] + $fb_disk_part['used_bytes'];
+                                            $size_calc = round(($fb_disk_part['used_bytes'] / $total_hdd) * 100, 2);
+                                            $free_hdd = round(100 - round($size_calc));
+                                            $total_hdd_display = convertFileSize($total_hdd, 'go');
+                                            $used_hdd_display = convertFileSize($fb_disk_part['used_bytes'], 'go');
+                                            $total_display = $used_hdd_display . ' Go <span class="opacified">/</span> ' . $total_hdd_display . ' Go';
+                                            $current_display = convertFileSize($fb_disk_part['free_bytes'], 'go') . ' <small>Go libres</small>';
+
+                                            $hdd_progress_class = '';
+                                            if ($free_hdd >= 30) {
+                                                $hdd_progress_class = ' progress-bar-success';
+                                            }
+                                            else if ($free_hdd >= 15) {
+                                                $hdd_progress_class = ' progress-bar-warning';
+                                            }
+                                            else if ($free_hdd >= 5) {
+                                                $hdd_progress_class = ' progress-bar-danger';
+                                            }
+
+
+                                        if ($used_hdd_display > 0) {
+                                            echo '<div class="disk">';
+                                                echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part['label'] . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
+                                                echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
+                                            echo '</div>';
+                                        }
+                                    }
+                                    echo '<hr />';
+                                }
                             }
                         ?>
                     </div>
                 </div>
                 <?php
-                    }
                     if (FREEBOX_VERSION == 2) {
                         $fbx_dl_folder = $fbx->downloads_getConfiguration();
                         $dl_folder = '';
