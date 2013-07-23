@@ -1,5 +1,15 @@
 <?php
     if (FREEBOX_VERSION == 2) {
+        if (isset($_POST['rm'], $_POST['path'])) {
+            $rm_path = $_POST['path'];
+            try {
+                $rm = $fbx->fs_removeFile(array($rm_path));
+            } catch (Exception $e) {
+                echo '<div class="alert alert-error">' . $e->getMessage() . '</div>';
+                $rm = false;
+            }
+        }
+
         $dl_folder = $fbx->downloads_getConfiguration();
         if ($dl_folder->success) {
             $dl_folder = $dl_folder->result->download_dir;
@@ -39,7 +49,7 @@
                         $final_files[utf8_decode($file['file']->name)] = '<tr>
                                 <td class="table-fs-filename"><code' . $file_state_class . '>' . utf8_decode($file['file']->name) . '</code><br /><span class="text-muted">+</span>&nbsp;<code class="alt' . $sub_state_class . '">' . utf8_decode($file['sub']->name) . '</code></td>
                                 <td class="table-fs-size"><span' . $file_state_class . '>' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</span><br/><small class="text-muted' . $sub_state_class . '">' . $subsize['size'] . '&nbsp;' . ucfirst($subsize['unit']) . '</small></td>
-                                <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['file']->name) . '"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                <td class="table-fs-remove"><a data-path="' . $file['file']->path . '"><i class="glyphicon glyphicon-trash"></i></a></td>
                             </tr>';
                     }
                     else if (isset($file['sub'])) {
@@ -50,7 +60,7 @@
                         $final_files[utf8_decode($file['sub']['name'])] = '<tr>
                                 <td class="table-fs-filename"><code class="alt' . $sub_state_class . '">' . utf8_decode($file['sub']->name) . '</code></td>
                                 <td class="table-fs-size"><small class="text-muted' . $sub_state_class . '">' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</small></td>
-                                <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['sub']->name) . '"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                <td class="table-fs-remove"><a data-path="' . $file['file']->path . '"><i class="glyphicon glyphicon-trash"></i></a></td>
                             </tr>';
                     }
                     else if (isset($file['file'])) {
@@ -61,7 +71,7 @@
                         $final_files[utf8_decode($file['file']->name)] = '<tr>
                                 <td class="table-fs-filename"><code' . $file_state_class . '>' . utf8_decode($file['file']->name) . '</code></td>
                                 <td class="table-fs-size"><span' . $file_state_class . '>' . $size['size'] . '&nbsp;' . ucfirst($size['unit']) . '</span></td>
-                                <td class="table-fs-remove"><a data-path="' . $dl_folder . '/' . utf8_decode($file['file']->name) . '"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                <td class="table-fs-remove"><a data-path="' . $file['file']->path . '"><i class="glyphicon glyphicon-trash"></i></a></td>
                             </tr>';
                     }
                 }
