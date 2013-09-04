@@ -2,7 +2,12 @@
 if (FREEBOX_VERSION == 2) {
     if (isset($_POST['downloads'])) {
         $fbx_resp = $fbx->downloads_List();
-        $fbx_resp = $fbx_resp->result;
+        if (isset($fbx_resp->result)) {
+            $fbx_resp = $fbx_resp->result;
+        }
+        else {
+            $fbx_resp = array();
+        }
 
         $totalCount = count($fbx_resp);
         $runningCount = 0;
