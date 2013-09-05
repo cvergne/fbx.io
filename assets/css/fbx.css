@@ -2,8 +2,8 @@
 
 body {
     padding: 0 10px;
-    -webkit-font-smoothing: antialiased;
     font-family: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 @media (min-width: 767px) {
@@ -24,8 +24,8 @@ body {
 
 .label-finished {
     color: #666;
-    font-size: 75%;
     font-weight: 600;
+    font-size: 75%;
     line-height: 2;
 }
 
@@ -36,12 +36,12 @@ body {
 .navbar-brand,
 .navbar .nav > li > a {
     padding-top: 5px;
-    padding-bottom: 5px
+    padding-bottom: 5px;
 }
     .settings, .settings:focus {
-        cursor: pointer;
         outline: 0;
         box-shadow: none;
+        cursor: pointer;
     }
 
 /*==========  Modal  ==========*/
@@ -61,10 +61,10 @@ body {
         background-color: #EEE;
     }
     .modal-body label {
+        margin: 0 7px;
         color: #777;
         font-weight: normal;
         font-size: 80%;
-        margin: 0 7px;
         cursor: pointer;
     }
         .modal-body label input {
@@ -82,6 +82,7 @@ label .help-block {
 /*==========  Misc  ==========*/
 
 body > .container {
+    max-width: 640px;
 }
 
 .label {
@@ -89,11 +90,11 @@ body > .container {
 }
 
 div.page-header {
-    padding: 0 5px;
-    margin-bottom: 10px;
-    background-color: #F0F0F0;
-    border-color: #CCC;
     margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 0 5px;
+    border-color: #CCC;
+    background-color: #F0F0F0;
 }
 
 div.page-header + .page-content {
@@ -108,6 +109,9 @@ h2, h3, h4 {
     h2 small {
         font-size: 65%;
     }
+    .panel-heading h2 small {
+        color: rgba(0,0,0,0.4);
+    }
 
 .opacified {
     opacity: 0.5;
@@ -118,18 +122,18 @@ h2, h3, h4 {
 }
 
 .manual_sub_search {
-    margin: 0.6rem 0.3rem 0;
-    text-align: center;
-    color: #DDD;
     display: none;
     visibility: hidden;
+    margin: 0.6rem 0.3rem 0;
+    color: #DDD;
+    text-align: center;
 }
 .manual_sub_search.off { display: block; visibility: visible; }
 
 .titleico {
-    color: #CCC;
-    font-size: 80%;
     margin: 0 3px 0 7px;
+    font-size: 80%;
+    opacity: 0.35;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -151,10 +155,10 @@ h2, h3, h4 {
 
 /*==========  DOWNLOADS  ==========*/
 .dl .remove {
-    color: #b94a48;
     margin: -2px 0 0 5px;
     padding: 3px 5px 0 4px;
     border-radius: 2px;
+    color: #b94a48;
 }
 .dl .remove:hover,
 .dl .remove:active,
@@ -166,20 +170,20 @@ h2, h3, h4 {
 
 .dl .remove.finished,
 h2 .remove.finished {
+    border-radius: 2px;
     color: #5cb85c;
     text-decoration: none;
-    border-radius: 2px;
 }
 h2 .remove.finished {
     display: none;
     visibility: hidden;
     margin: 0.7rem 5px 0 0;
-    font-size: 14px;
-    height: 24px;
     width: 24px;
-    line-height: 24px;
-    text-align: center;
+    height: 24px;
     vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
 }
 h2 .remove.finished.active {
     display: block;
@@ -195,10 +199,17 @@ h2 .remove.finished:focus {
     color: #FFF;
 }
 
+.accordion-toggle {
+    cursor: pointer;
+}
+
+#addDownloadSection .panel-title {
+    line-height: 2rem;
+    font-size: 13px;
+}
 #addDownloadSection .accordion-toggle {
-    font-weight: bold;
     text-decoration: none;
-    background-color: #f9f2f4;
+    font-weight: bold;
 }
 #addDownloadForm .control-group:first-child {
     margin-top: 10px;
@@ -211,10 +222,10 @@ h2 .remove.finished:focus {
     }
 
 .guess {
-    font-size: 90%;
+    margin-bottom: 0;
     padding: 5px 5px 0 0;
     text-align: right;
-    margin-bottom: 0;
+    font-size: 90%;
 }
     .guess.inactive {
         visibility: hidden;
@@ -237,7 +248,7 @@ h2 .remove.finished:focus {
     margin: 15px 0 0 0;
 }
 .table-fs thead{
-    font-size: 90%
+    font-size: 90%;
 }
 .table-fs tbody{
     font-size: 85%;
@@ -264,34 +275,34 @@ h2 .remove.finished:focus {
         font-size: 80%;
     }
     .table-fs .table-fs-size {
-        font-size: 90%;
-        font-weight: bold;
         color: #888;
+        font-weight: bold;
+        font-size: 90%;
     }
     .table-fs .table-fs-remove {
-        padding-left: 0;
         padding-right: 0;
+        padding-left: 0;
     }
         .table-fs .table-fs-remove a {
-            cursor: pointer;
             display: block;
-            font-weight: normal;
-            font-size: 12px;
-            vertical-align: top;
-            color: #D9534F;
             width: 22px;
             height: 22px;
-            text-align: center;
-            line-height: 23px;
 
             border-radius: 2px;
+            color: #D9534F;
+            vertical-align: top;
+            text-align: center;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 23px;
+            cursor: pointer;
 }
         .table-fs .table-fs-remove a:hover,
         .table-fs .table-fs-remove a:focus,
         .table-fs .table-fs-remove a:active {
-            text-decoration: none;
             background-color: #D9534F;
             color: #FFF;
+            text-decoration: none;
         }
 
 
@@ -302,9 +313,9 @@ body.setup {
 }
 
 .setup h1 {
-    font-size: inherit;
     margin: 0;
     padding: 0;
+    font-size: inherit;
 }
 
 .setup .alert-error a {
@@ -313,20 +324,20 @@ body.setup {
 }
 
 .setup h2 {
-    padding: 5px;
     margin: 10px 0;
+    padding: 5px;
+    border-bottom: 1px solid #777;
     background-color: #EEE;
     color: #777;
     font-size: inherit;
     line-height: inherit;
-    border-bottom: 1px solid #777;
 }
 
 .setup .intro {
-    font-size: 85%;
-    font-style: italic;
-    line-height: 150%;
     padding: 0 10px;
+    font-style: italic;
+    font-size: 85%;
+    line-height: 150%;
 }
 
 .setup .form-horizontal .control-label {
@@ -398,8 +409,8 @@ body.setup {
     }
 
     [class*="col-span-"], [class*="col-small-"] {
-        padding-left: 0;
         padding-right: 0;
+        padding-left: 0;
     }
 }
 

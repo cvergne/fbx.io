@@ -35,7 +35,7 @@
 <body>
     <div class="container">
         <div class="navbar">
-            <ul class="nav pull-right">
+            <ul class="nav navbar-nav pull-right">
                 <li>
                     <a href="./install.php?restart" class="hasTooltip" data-placement="bottom" title="Recommencer l'installation"><i class="glyphicon glyphicon-repeat"></i></a>
                 </li>
@@ -43,207 +43,252 @@
                     <a class="settings hasTooltip" title="Options" data-placement="bottom" href="#modal_settings" role="button" data-toggle="modal"><i class="glyphicon glyphicon-cog"></i></a>
                 </li>
             </ul>
-            <a class="navbar-brand"><img src="./assets/img/icon.png" width="16" height="16" /> fbx.io</a>
+            <div class="navbar-header">
+                <a class="navbar-brand"><img src="./assets/img/icon.png" width="16" height="16" /> fbx.io</a>
+            </div>
         </div>
         <div class="row">
-            <div class="col-span-6">
-                <div class="page-header">
-                    <h2><i class="titleico glyphicon glyphicon-tasks"></i> Téléchargements <small>— Freebox</small> <a id="remove_all_downloads" href="#" class="remove finished pull-right"><i class="glyphicon glyphicon-ok"></i></a></h2>
-                </div>
-                <div class="page-content">
-                    <div id="downloads">
-                        <p class="text-muted text-center"><small><em>Chargement en cours</em></small></p>
-                        <!-- Current downloads goes here -->
-                        <!-- <div class="dl">
-                            <p><span class="label">Glee.mkv</span></p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar" style="width: 40%">40%</div>
-                            </div>
-                        </div> -->
-                    </div>
-                    <div class="alert alert-info" id="log" style="display:none"></div>
-                    <hr />
-                    <form id="form_freebox_adddownload" class="form-horizontal">
-                        <input type="hidden" name="real_url" />
-                        <fieldset>
-                            <div class="accordion" id="addDownloadSection">
-                                <div class="accordion-group">
-                                    <div class="accordion-heading">
-                                        <a class="accordion-toggle text-danger" data-toggle="collapse" data-parent="#addDownloadSection" href="#addDownloadForm"><i class="glyphicon glyphicon-plus"></i> Ajouter un téléchargement</a>
-                                    </div>
-                                    <div id="addDownloadForm" class="accordion-body collapse">
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                URL
-                                            </label>
-                                            <div class="controls">
-                                                <input type="text" name="url" placeholder="Url de téléchargement" autocorrect="off" autocapitalize="off" />
+            <div class="col-lg-12">
+                <div class="panel-group" id="mainView">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h2 class="accordion-toggle" data-toggle="collapse" data-parent="#mainView" href="#mainView_dl">
+                                <i class="titleico glyphicon glyphicon-tasks"></i> Téléchargements <small>— Freebox</small> <a id="remove_all_downloads" href="#" class="remove finished pull-right"><i class="glyphicon glyphicon-ok"></i></a>
+                            </h2>
+                        </div>
+                        <div id="mainView_dl" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="page-content">
+                                    <div id="downloads">
+                                        <p class="text-muted text-center"><small><em>Chargement en cours</em></small></p>
+                                        <!-- Current downloads goes here -->
+                                        <!-- <div class="dl">
+                                            <p><span class="label">Glee.mkv</span></p>
+                                            <div class="progress progress-striped active">
+                                                <div class="progress-bar" style="width: 40%">40%</div>
                                             </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Nom du fichier
-                                            </label>
-                                            <div class="controls">
-                                                <input type="text" name="file" placeholder="exemple: Movie.mkv" autocorrect="off" autocapitalize="off" />
-                                                <p class="help-block guess<?php echo (defined('SETTINGS_FILENAME_GUESSOPTION')) ? '' : ' hidden'; ?>">
-                                                    <a href="#" class="api_guess_filename"><small>Deviner le nom de fichier</small></a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="form-actions">
-                                            <button type="reset" class="btn">
-                                                Reset
-                                            </button>
-                                            <button type="submit" class="btn btn-primary pull-right">
-                                                Envoyer
-                                            </button>
-                                        </div>
+                                        </div> -->
                                     </div>
+                                    <div class="alert alert-info" id="log" style="display:none"></div>
+                                    <hr />
+                                    <form id="form_freebox_adddownload" class="form-horizontal">
+                                        <input type="hidden" name="real_url" />
+                                        <fieldset>
+                                            <div class="panel-group" id="addDownloadSection">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#addDownloadSection" href="#addDownloadForm"><i class="glyphicon glyphicon-plus"></i> Ajouter un téléchargement</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="addDownloadForm" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <label class="col-lg-2 control-label">
+                                                                    URL
+                                                                </label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="text" class="form-control" name="url" placeholder="Url de téléchargement" autocorrect="off" autocapitalize="off" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-lg-2 control-label">
+                                                                    Nom du fichier
+                                                                </label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="text" class="form-control" name="file" placeholder="exemple: Movie.mkv" autocorrect="off" autocapitalize="off" />
+                                                                    <p class="help-block guess<?php echo (defined('SETTINGS_FILENAME_GUESSOPTION')) ? '' : ' hidden'; ?>">
+                                                                        <a href="#" class="api_guess_filename"><small>Deviner le nom de fichier</small></a>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-actions">
+                                                                <button type="reset" class="btn">
+                                                                    Reset
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary pull-right">
+                                                                    Envoyer
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
                                 </div>
                             </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="page-header">
-                    <h2><i class="titleico glyphicon glyphicon-file"></i> Fichiers <small>— Put.io</small></h2>
-                </div>
-                <div class="putio well">
-                    <?php
-                        $settings_putio_hidespace = _settingBool('SETTINGS_PUTIO_HIDESPACE', 'off', 'on', '');
-                        if ($putio_latency) {
-                            echo '<ul id="files_list" class="nav nav-list">';
-                                $_apifolder_html = true;
-                                require_once(APP_ROOT.'api/folder.php');
-                            echo '</ul>';
-                            echo '<div class="putio_space' . $settings_putio_hidespace['class'] . '">';
-                                if ($settings_putio_hidespace['state'] !== true) {
-                                    require_once(APP_ROOT.'api/putio_storage.php');
-                                }
-                            echo '</div>';
-                        }
-                        else {
-                            echo '<ul id="files_list" class="nav nav-list"></ul><div class="alert alert-warning">Put.io n\'est pas accessible pour le moment.</div>';
-                        }
-                    ?>
-                </div>
-
-                <?php if (isset($bs)) {
-                        $manual_sub_search = _settingBool('SETTINGS_SUBTITLES_AUTOSEARCH');
-                    ?>
-                    <div class="page-header">
-                        <div class="pull-right manual_sub_search<?php echo $manual_sub_search['class']; ?>">
-                            <button type="button" class="btn btn-mini btn-danger" disabled="disabled">Recherche les sous-titres</button><br />
                         </div>
-                        <h2><i class="titleico glyphicon glyphicon-align-center"></i> Sous-titres <small>— Betaseries</small></h2>
                     </div>
-                    <div class="well"><ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul><ul class="nav nav-list" id="subs_folder"></ul></div>
-                <?php } ?>
-            </div>
-            <div class="col-span-6">
-                <div class="page-header">
-                    <h2><i class="titleico glyphicon glyphicon-hdd"></i> Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small></h2>
-                </div>
-                <div class="page-content">
-                    <div id="disks">
-                        <?php
-                            if (FREEBOX_VERSION == 2) {
-                                $fb_disks = $fbx->storage_diskList();
-                                if ($fb_disks->success) {
-                                    foreach ($fb_disks->result as $fb_disk) {
-                                        $diskLabel = '';
-                                        if ($fb_disk->type == 'internal') {
-                                            $diskLabel = ' label-info';
-                                        }
-                                        foreach ($fb_disk->partitions as $fb_disk_part) {
-                                                $total_hdd = $fb_disk_part->free_bytes + $fb_disk_part->used_bytes;
-                                                $size_calc = round(($fb_disk_part->used_bytes / $total_hdd) * 100, 2);
-                                                $free_hdd = round(100 - round($size_calc));
-                                                $total_hdd_display = convertFileSize($total_hdd, 'go');
-                                                $used_hdd_display = convertFileSize($fb_disk_part->used_bytes, 'go');
-                                                $total_display = $used_hdd_display . ' Go <span class="opacified">/</span> ' . $total_hdd_display . ' Go';
-                                                $current_display = convertFileSize($fb_disk_part->free_bytes, 'go') . ' <small>Go libres</small>';
-
-                                                $hdd_progress_class = '';
-                                                if ($free_hdd >= 30) {
-                                                    $hdd_progress_class = ' progress-bar-success';
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h2 class="accordion-toggle" data-toggle="collapse" data-parent="#mainView" href="#mainView_putio">
+                                <i class="titleico glyphicon glyphicon-file"></i> Fichiers <small>— Put.io</small>
+                            </h2>
+                        </div>
+                        <div id="mainView_putio" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="putio">
+                                    <?php
+                                        $settings_putio_hidespace = _settingBool('SETTINGS_PUTIO_HIDESPACE', 'off', 'on', '');
+                                        if ($putio_latency) {
+                                            echo '<ul id="files_list" class="nav nav-list">';
+                                                $_apifolder_html = true;
+                                                require_once(APP_ROOT.'api/folder.php');
+                                            echo '</ul>';
+                                            echo '<div class="putio_space' . $settings_putio_hidespace['class'] . '">';
+                                                if ($settings_putio_hidespace['state'] !== true) {
+                                                    require_once(APP_ROOT.'api/putio_storage.php');
                                                 }
-                                                else if ($free_hdd >= 15) {
-                                                    $hdd_progress_class = ' progress-bar-warning';
-                                                }
-                                                else if ($free_hdd >= 5) {
-                                                    $hdd_progress_class = ' progress-bar-danger';
-                                                }
-
-
-                                            if ($used_hdd_display > 0) {
-                                                echo '<div class="disk">';
-                                                    echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part->label . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
-                                                    echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
-                                                echo '</div>';
-                                            }
-                                        }
-                                        echo '<hr />';
-                                    }
-
-                                }
-                            } else {
-                                $fb_disks = $fbx->storage->_list();
-                                foreach ($fb_disks as $fb_disk) {
-                                    $diskLabel = '';
-                                    if ($fb_disk['type'] == 'internal') {
-                                        $diskLabel = ' label-info';
-                                    }
-                                    foreach ($fb_disk['partitions'] as $fb_disk_part) {
-                                            $total_hdd = $fb_disk_part['free_bytes'] + $fb_disk_part['used_bytes'];
-                                            $size_calc = round(($fb_disk_part['used_bytes'] / $total_hdd) * 100, 2);
-                                            $free_hdd = round(100 - round($size_calc));
-                                            $total_hdd_display = convertFileSize($total_hdd, 'go');
-                                            $used_hdd_display = convertFileSize($fb_disk_part['used_bytes'], 'go');
-                                            $total_display = $used_hdd_display . ' Go <span class="opacified">/</span> ' . $total_hdd_display . ' Go';
-                                            $current_display = convertFileSize($fb_disk_part['free_bytes'], 'go') . ' <small>Go libres</small>';
-
-                                            $hdd_progress_class = '';
-                                            if ($free_hdd >= 30) {
-                                                $hdd_progress_class = ' progress-bar-success';
-                                            }
-                                            else if ($free_hdd >= 15) {
-                                                $hdd_progress_class = ' progress-bar-warning';
-                                            }
-                                            else if ($free_hdd >= 5) {
-                                                $hdd_progress_class = ' progress-bar-danger';
-                                            }
-
-
-                                        if ($used_hdd_display > 0) {
-                                            echo '<div class="disk">';
-                                                echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part['label'] . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
-                                                echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
                                             echo '</div>';
                                         }
+                                        else {
+                                            echo '<ul id="files_list" class="nav nav-list"></ul><div class="alert alert-warning">Put.io n\'est pas accessible pour le moment.</div>';
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php if (isset($bs)) {
+                        $manual_sub_search = _settingBool('SETTINGS_SUBTITLES_AUTOSEARCH');
+                    ?>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="pull-right manual_sub_search<?php echo $manual_sub_search['class']; ?>">
+                                <button type="button" class="btn btn-xs btn-danger" disabled="disabled">Recherche les sous-titres</button><br />
+                            </div>
+                            <h2 class="accordion-toggle" data-toggle="collapse" data-parent="#mainView" href="#mainView_subtitles">
+                                <i class="titleico glyphicon glyphicon-align-center"></i> Sous-titres <small>— Betaseries</small>
+                            </h2>
+                        </div>
+                        <div id="mainView_subtitles" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="nav nav-list" id="subs_list"><li class="nav-header">Aucun sous-titre</li></ul><ul class="nav nav-list" id="subs_folder"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h2 class="accordion-toggle" data-toggle="collapse" data-parent="#mainView" href="#mainView_storage">
+                                <i class="titleico glyphicon glyphicon-hdd"></i> Stockage <small>— Seuls les disques branchés à la Freebox Server sont affichés</small>
+                            </h2>
+                        </div>
+                        <div id="mainView_storage" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="page-content">
+                                    <div id="disks">
+                                        <?php
+                                            if (FREEBOX_VERSION == 2) {
+                                                $fb_disks = $fbx->storage_diskList();
+                                                if ($fb_disks->success) {
+                                                    foreach ($fb_disks->result as $fb_disk) {
+                                                        $diskLabel = '';
+                                                        if ($fb_disk->type == 'internal') {
+                                                            $diskLabel = ' label-info';
+                                                        }
+                                                        foreach ($fb_disk->partitions as $fb_disk_part) {
+                                                                $total_hdd = $fb_disk_part->free_bytes + $fb_disk_part->used_bytes;
+                                                                $size_calc = round(($fb_disk_part->used_bytes / $total_hdd) * 100, 2);
+                                                                $free_hdd = round(100 - round($size_calc));
+                                                                $total_hdd_display = convertFileSize($total_hdd, 'go');
+                                                                $used_hdd_display = convertFileSize($fb_disk_part->used_bytes, 'go');
+                                                                $total_display = $used_hdd_display . ' Go <span class="opacified">/</span> ' . $total_hdd_display . ' Go';
+                                                                $current_display = convertFileSize($fb_disk_part->free_bytes, 'go') . ' <small>Go libres</small>';
+
+                                                                $hdd_progress_class = '';
+                                                                if ($free_hdd >= 30) {
+                                                                    $hdd_progress_class = ' progress-bar-success';
+                                                                }
+                                                                else if ($free_hdd >= 15) {
+                                                                    $hdd_progress_class = ' progress-bar-warning';
+                                                                }
+                                                                else if ($free_hdd >= 5) {
+                                                                    $hdd_progress_class = ' progress-bar-danger';
+                                                                }
+
+
+                                                            if ($used_hdd_display > 0) {
+                                                                echo '<div class="disk">';
+                                                                    echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part->label . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
+                                                                    echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
+                                                                echo '</div>';
+                                                            }
+                                                        }
+                                                        echo '<hr />';
+                                                    }
+
+                                                }
+                                            } else {
+                                                $fb_disks = $fbx->storage->_list();
+                                                foreach ($fb_disks as $fb_disk) {
+                                                    $diskLabel = '';
+                                                    if ($fb_disk['type'] == 'internal') {
+                                                        $diskLabel = ' label-info';
+                                                    }
+                                                    foreach ($fb_disk['partitions'] as $fb_disk_part) {
+                                                            $total_hdd = $fb_disk_part['free_bytes'] + $fb_disk_part['used_bytes'];
+                                                            $size_calc = round(($fb_disk_part['used_bytes'] / $total_hdd) * 100, 2);
+                                                            $free_hdd = round(100 - round($size_calc));
+                                                            $total_hdd_display = convertFileSize($total_hdd, 'go');
+                                                            $used_hdd_display = convertFileSize($fb_disk_part['used_bytes'], 'go');
+                                                            $total_display = $used_hdd_display . ' Go <span class="opacified">/</span> ' . $total_hdd_display . ' Go';
+                                                            $current_display = convertFileSize($fb_disk_part['free_bytes'], 'go') . ' <small>Go libres</small>';
+
+                                                            $hdd_progress_class = '';
+                                                            if ($free_hdd >= 30) {
+                                                                $hdd_progress_class = ' progress-bar-success';
+                                                            }
+                                                            else if ($free_hdd >= 15) {
+                                                                $hdd_progress_class = ' progress-bar-warning';
+                                                            }
+                                                            else if ($free_hdd >= 5) {
+                                                                $hdd_progress_class = ' progress-bar-danger';
+                                                            }
+
+
+                                                        if ($used_hdd_display > 0) {
+                                                            echo '<div class="disk">';
+                                                                echo '<p><span class="label' . $diskLabel . '">' . $fb_disk_part['label'] . '</span><small class="pull-right text-muted"><i class="glyphicon glyphicon-hdd"></i>  ' . $total_display . '</small></p>';
+                                                                echo '<div class="progress progress-striped"><div class="progress-bar' . $hdd_progress_class . '" style="width:' . $size_calc . '%">' . $current_display . '</div></div>';
+                                                            echo '</div>';
+                                                        }
+                                                    }
+                                                    echo '<hr />';
+                                                }
+                                            }
+                                        ?>
+                                    </div>
+                                </div>
+                                <?php
+                                    if (FREEBOX_VERSION == 2) {
+                                        $fbx_dl_folder = $fbx->downloads_getConfiguration();
+                                        $dl_folder = '';
+                                        if ($fbx_dl_folder->success) {
+                                            $dl_folder = base64_decode($fbx_dl_folder->result->download_dir);
+                                        }
+                                    } else {
+                                        $dl_folder = $fbx->download->config_get();
+                                        $dl_folder = utf8_decode($dl_folder['download_dir']);
                                     }
-                                    echo '<hr />';
-                                }
-                            }
-                        ?>
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h2 class="accordion-toggle" data-toggle="collapse" data-parent="#mainView" href="#mainView_dlfolder">
+                                <i class="titleico glyphicon glyphicon-download-alt"></i> Freebox NAS <small>— <?php echo $dl_folder; ?></small>
+                            </h2>
+                        </div>
+                        <div id="mainView_dlfolder" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div id="target-freebox-fs"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <?php
-                    if (FREEBOX_VERSION == 2) {
-                        $fbx_dl_folder = $fbx->downloads_getConfiguration();
-                        $dl_folder = '';
-                        if ($fbx_dl_folder->success) {
-                            $dl_folder = base64_decode($fbx_dl_folder->result->download_dir);
-                        }
-                    } else {
-                        $dl_folder = $fbx->download->config_get();
-                        $dl_folder = utf8_decode($dl_folder['download_dir']);
-                    }
-                ?>
-                <div class="page-header">
-                    <h2><i class="titleico glyphicon glyphicon-download-alt"></i> Freebox NAS <small>— <?php echo $dl_folder; ?></small></h2>
-                </div>
-                <div id="target-freebox-fs"></div>
             </div>
         </div>
     </div>
