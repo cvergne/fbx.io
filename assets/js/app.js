@@ -107,6 +107,7 @@ var app = {
                 return false;
             }
             app.getSubs(app._putioCurrentFolder.betaseries_id, app._putioCurrentFolder.files, app._putioCurrentFolder.cleanfiles);
+            $('#mainView_subtitles').collapse('show');
         });
 
         $('a.hasTooltip').tooltip();
@@ -205,7 +206,7 @@ var app = {
         }
 
         $(window).scrollTop($('form legend').scrollTop());
-        $('#addDownloadForm').collapse('show');
+        $('#addDownloadForm, #mainView_dl').collapse('show');
         $('.guess').addClass('inactive');
     },
     addDownload: function(postData) {
